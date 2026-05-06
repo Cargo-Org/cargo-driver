@@ -51,7 +51,7 @@ android {
     compileSdk = 37
 
     defaultConfig {
-        applicationId = "com.example.carog_driver"
+        applicationId = "com.carog.driver"
         minSdk = 24
         targetSdk = 36
         versionCode = 1

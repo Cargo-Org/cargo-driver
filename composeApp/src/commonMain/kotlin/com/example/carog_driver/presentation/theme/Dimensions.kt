@@ -6,7 +6,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 @Immutable
-data class AppDimens(
+data class AppDimensions(
     val base: Dp,
     val xs: Dp,
     val sm: Dp,
@@ -21,7 +21,7 @@ data class AppDimens(
     val stackLg: Dp,
 )
 
-val AppDimensDefault = AppDimens(
+val AppDimensionsDefault = AppDimensions(
     base = 8.dp,
     xs = 4.dp,
     sm = 12.dp,
@@ -36,5 +36,5 @@ val AppDimensDefault = AppDimens(
     stackLg = 40.dp,
 )
 
-val LocalAppDimens = staticCompositionLocalOf { AppDimensDefault }
+val LocalAppDimensions = staticCompositionLocalOf { AppDimensionsDefault }
 

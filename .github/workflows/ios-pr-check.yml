@@ -51,9 +51,6 @@ jobs:
           echo "Listing project schemes and targets..."
           xcodebuild -project iosApp/iosApp.xcodeproj -list
 
-      - name: Build KMP Shared Framework
-        run: ./gradlew :shared:assembleXCFramework
-
       - name: Resolve Swift Package Dependencies
         run: |
           xcodebuild \

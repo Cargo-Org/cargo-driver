@@ -5,8 +5,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.compositionLocalOf
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.foundation.isSystemInDarkTheme
 
 private val LocalIsDarkTheme = compositionLocalOf { false }
@@ -25,7 +23,7 @@ object AppTheme {
         @Composable @ReadOnlyComposable get() = if (LocalIsDarkTheme.current) DarkAppShapes else LightAppShapes
 
     val dimens
-        @Composable @ReadOnlyComposable get() = LocalAppDimens.current
+        @Composable @ReadOnlyComposable get() = LocalAppDimensions.current
 }
 
 @Composable
@@ -45,7 +43,7 @@ fun CargoTheme(
         LocalThemeExtraColors provides extraColors,
         LocalAppTypography provides typography,
         LocalAppShapes provides shapes,
-        LocalAppDimens provides AppDimensDefault,
+        LocalAppDimensions provides AppDimensionsDefault,
     ) {
         MaterialTheme(
             colorScheme = colorScheme,

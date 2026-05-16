@@ -29,6 +29,9 @@ kotlin {
         androidMain.dependencies {
             implementation(libs.compose.uiToolingPreview)
             implementation(libs.androidx.activity.compose)
+
+            // Android-specific Koin features (Context, ViewModel)
+            implementation(libs.koin.android)
         }
         commonMain.dependencies {
             implementation(libs.compose.runtime)
@@ -40,6 +43,11 @@ kotlin {
             implementation(libs.androidx.lifecycle.viewmodelCompose)
             implementation(project(":shared"))
             implementation(libs.androidx.lifecycle.runtimeCompose)
+
+            // Koin Core
+            implementation(libs.koin.core)
+            // Koin Compose Multiplatform
+            implementation(libs.koin.compose)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

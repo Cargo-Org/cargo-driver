@@ -1,4 +1,4 @@
-package com.example.carog_driver.presentation.auth.login.view
+package com.example.carog_driver.presentation.login.view
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -29,8 +29,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Devices
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import carog_driver.composeapp.generated.resources.*
 import com.example.carog_driver.presentation.shared.InputField
@@ -38,7 +36,6 @@ import com.example.carog_driver.presentation.shared.PrimaryButton
 import com.example.carog_driver.presentation.shared.SocialButton
 import com.example.carog_driver.presentation.shared.TextLink
 import com.example.carog_driver.presentation.theme.AppTheme
-import com.example.carog_driver.presentation.theme.CargoTheme
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 

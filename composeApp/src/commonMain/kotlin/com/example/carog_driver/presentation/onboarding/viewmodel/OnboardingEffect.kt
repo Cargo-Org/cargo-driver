@@ -1,6 +1,6 @@
 package com.example.carog_driver.presentation.onboarding.viewmodel
 
-sealed interface OnboardingEffect {
+sealed class OnboardingEffect {
 
-    data object NavigateNext : OnboardingEffect
+    data object NavigateNext : OnboardingEffect()
 }

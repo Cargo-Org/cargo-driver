@@ -42,6 +42,11 @@ kotlin {
             implementation(libs.androidx.lifecycle.runtimeCompose)
             implementation(libs.androidx.datastore)
             implementation(libs.androidx.datastore.preferences)
+
+            // Koin Core
+            implementation(libs.koin.core)
+            // Koin Compose Multiplatform
+            implementation(libs.koin.compose)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

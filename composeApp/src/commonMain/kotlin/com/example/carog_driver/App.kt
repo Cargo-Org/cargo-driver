@@ -1,51 +1,47 @@
 package com.example.carog_driver
 
 import androidx.compose.material3.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import com.cargo.driver.shared.domain.usecase.onboarding.ObserveOnboardingCompletedUseCase
+import com.example.carog_driver.presentation.login.view.LoginScreen
 import com.example.carog_driver.presentation.onboarding.view.OnboardingScreen
-import com.example.carog_driver.presentation.onboarding.viewmodel.OnboardingViewModel
-import com.cargo.driver.shared.di.SharedDependencies
-
+import org.koin.compose.koinInject
 
 @Composable
-fun App(
-    sharedDependencies: SharedDependencies
-) {
+fun App() {
+
+    val observeOnboardingCompleted: ObserveOnboardingCompletedUseCase =
+        koinInject()
 
     var isOnboardingCompleted by remember {
         mutableStateOf<Boolean?>(null)
     }
 
-    LaunchedEffect(sharedDependencies) {
-        sharedDependencies
-            .observeOnboardingCompleted()
+    LaunchedEffect(observeOnboardingCompleted) {
+        observeOnboardingCompleted()
             .collect { isCompleted ->
                 isOnboardingCompleted = isCompleted
             }
     }
 
     when (isOnboardingCompleted) {
-
-
         false -> {
-            val onboardingViewModel = remember(sharedDependencies) {
-                OnboardingViewModel(
-                    sharedDependencies.observeOnboardingCompleted,
-                    sharedDependencies.completeOnboarding
-                )
-            }
-
             OnboardingScreen(
-                viewModel = onboardingViewModel,
                 navigateNext = {
-
+                    isOnboardingCompleted = true
                 }
             )
         }
 
         true -> {
-            Text(text = "Login or Home Screen")
+            LoginScreen()
         }
+
         null -> {
             Text(text = "Loading...")
         }

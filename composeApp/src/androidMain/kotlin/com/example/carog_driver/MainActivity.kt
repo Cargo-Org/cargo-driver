@@ -4,10 +4,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
-import com.cargo.driver.shared.di.createSharedDependencies
-
 
 class MainActivity : ComponentActivity() {
 
@@ -15,14 +11,8 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
 
-        val sharedDependencies = createSharedDependencies(
-            context = this
-        )
-
         setContent {
-            App(
-                sharedDependencies = sharedDependencies
-            )
+            App()
         }
     }
 }

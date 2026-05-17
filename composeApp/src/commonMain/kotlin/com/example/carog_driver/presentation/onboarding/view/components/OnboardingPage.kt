@@ -79,13 +79,13 @@ fun OnboardingPage(
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(440.dp),
+                .height(340.dp),
             contentAlignment = Alignment.Center
         ) {
             Image(
                 painter = painterResource(item.image),
                 contentDescription = null,
-                modifier = Modifier.size(410.dp)
+                modifier = Modifier.size(320.dp)
             )
         }
 

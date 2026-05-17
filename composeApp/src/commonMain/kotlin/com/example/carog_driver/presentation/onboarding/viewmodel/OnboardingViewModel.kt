@@ -3,20 +3,21 @@ package com.example.carog_driver.presentation.onboarding.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cargo.driver.shared.domain.usecase.onboarding.CompleteOnboardingUseCase
-import com.cargo.driver.shared.domain.usecase.onboarding.ObserveOnboardingCompletedUseCase
-import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 
 class OnboardingViewModel(
-    private val observeOnboardingCompleted: ObserveOnboardingCompletedUseCase,
     private val completeOnboarding: CompleteOnboardingUseCase
 ) : ViewModel(), OnboardingInteraction {
 
-    private val _effect = Channel<OnboardingEffect>(
-        capacity = Channel.Factory.BUFFERED
+    private val _effect = MutableSharedFlow<OnboardingEffect>(
+        replay = 0,
+        extraBufferCapacity = 1
     )
-    val effect = _effect.receiveAsFlow()
+
+    val effect: SharedFlow<OnboardingEffect> = _effect.asSharedFlow()
 
     override fun onSkipClick() {
         completeOnboardingAndNavigate()
@@ -29,7 +30,7 @@ class OnboardingViewModel(
     private fun completeOnboardingAndNavigate() {
         viewModelScope.launch {
             completeOnboarding()
-            _effect.send(OnboardingEffect.NavigateNext)
+            _effect.emit(OnboardingEffect.NavigateNext)
         }
     }
 }

@@ -1,5 +1,19 @@
 <resources>
-    <string name="app_name">Carog_driver</string>
+    <string name="app_name">Cargo Driver</string>
+    <string name="welcome_back">Welcome Back</string>
+    <string name="login_subtitle">Log in to manage your routes and\nearnings</string>
+    <string name="email_address">Email Address</string>
+    <string name="email_placeholder">driver@cargo.com</string>
+    <string name="password">Password</string>
+    <string name="password_placeholder">••••••••</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="sign_in">Sign In  →</string>
+    <string name="or_continue_with">OR CONTINUE WITH</string>
+    <string name="continue_with_google">Continue with Google</string>
+    <string name="continue_with_apple">Continue with Apple</string>
+    <string name="dont_have_account">Don't have an account?</string>
+    <string name="apply_to_drive">Apply to Drive</string>
+
     <string name="onboarding_title_1">Get Delivery Requests</string>
     <string name="onboarding_subtitle_1">Receive nearby trips, check package details, and start your delivery journey with ease.</string>
 

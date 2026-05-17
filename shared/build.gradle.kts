@@ -64,6 +64,8 @@ kotlin {
         commonMain {
             dependencies {
                 implementation(libs.kotlin.stdlib)
+                implementation(libs.androidx.datastore)
+                implementation(libs.androidx.datastore.preferences)
                 // Add KMP dependencies here
             }
         }

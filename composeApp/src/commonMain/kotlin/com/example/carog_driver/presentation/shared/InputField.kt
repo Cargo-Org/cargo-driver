@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -17,6 +18,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -37,22 +39,25 @@ fun InputField(
     isPassword: Boolean = false,
     keyboardType: KeyboardType = KeyboardType.Text,
     visibilityOnPainter: Painter? = null,
-    visibilityOffPainter: Painter? = null
+    visibilityOffPainter: Painter? = null,
+    iconTint: Color? = null
 ) {
     var passwordVisible by remember { mutableStateOf(false) }
 
     val colors = AppTheme.colors
     val typography = AppTheme.typography
-    val shapes = AppTheme.shapes
     val dimens = AppTheme.dimens
+    val finalIconTint = iconTint ?: colors.onSurfaceVariant
 
     Column(modifier = modifier.fillMaxWidth()) {
-        Text(
-            text = label,
-            style = typography.labelMuted,
-            color = colors.onSurfaceVariant,
-            modifier = Modifier.padding(bottom = dimens.xs),
-        )
+        if (label.isNotEmpty()) {
+            Text(
+                text = label,
+                style = typography.labelMuted,
+                color = colors.onSurfaceVariant,
+                modifier = Modifier.padding(bottom = dimens.xs),
+            )
+        }
 
         OutlinedTextField(
             value = value,
@@ -69,7 +74,7 @@ fun InputField(
                     Icon(
                         painter = leadingIcon,
                         contentDescription = null,
-                        tint = colors.onSurfaceVariant.copy(alpha = 0.5f),
+                        tint = finalIconTint,
                         modifier = Modifier.size(18.dp),
                     )
                 }
@@ -82,7 +87,7 @@ fun InputField(
                         Icon(
                             painter = painter,
                             contentDescription = null,
-                            tint = colors.onSurfaceVariant.copy(alpha = 0.5f),
+                            tint = finalIconTint,
                             modifier = Modifier.size(18.dp),
                         )
                     }
@@ -95,7 +100,7 @@ fun InputField(
             },
             keyboardOptions = KeyboardOptions(keyboardType = keyboardType),
             singleLine = true,
-            shape = shapes.medium,
+            shape = RoundedCornerShape(12.dp),
             colors = OutlinedTextFieldDefaults.colors(
                 unfocusedContainerColor = colors.surfaceVariant.copy(alpha = 0.3f),
                 focusedContainerColor = colors.surfaceVariant.copy(alpha = 0.3f),

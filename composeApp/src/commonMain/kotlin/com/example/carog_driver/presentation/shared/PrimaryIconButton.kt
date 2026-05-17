@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.carog_driver.presentation.theme.AppTheme
 
@@ -27,6 +28,7 @@ fun PrimaryIconButton(
     onClick: () -> Unit,
     enabled: Boolean = true,
     icon: Painter? = null,
+    iconSize: Dp = 20.dp,
     iconColor: Color? = null,
     isIconLeading: Boolean = false,
     shape: Shape = AppTheme.shapes.medium,
@@ -55,12 +57,13 @@ fun PrimaryIconButton(
 
             if (isIconLeading && icon != null) {
                 Icon(
+                    modifier = Modifier.size(iconSize),
                     painter = icon,
                     contentDescription = null,
-                    tint = iconColor ?: AppTheme.colors.onPrimary,
-                    modifier = Modifier.size(18.dp)
+                    tint = iconColor ?: AppTheme.colors.onPrimary
                 )
-                Spacer(Modifier.width(8.dp))
+
+                Spacer(Modifier.width(AppTheme.dimens.sm))
             }
 
             Text(
@@ -69,12 +72,13 @@ fun PrimaryIconButton(
             )
 
             if (!isIconLeading && icon != null) {
-                Spacer(Modifier.width(8.dp))
+                Spacer(Modifier.width(AppTheme.dimens.sm))
+
                 Icon(
+                    modifier = Modifier.size(iconSize),
                     painter = icon,
                     contentDescription = null,
-                    tint = iconColor ?: AppTheme.colors.onPrimary,
-                    modifier = Modifier.size(18.dp)
+                    tint = iconColor ?: AppTheme.colors.onPrimary
                 )
             }
         }

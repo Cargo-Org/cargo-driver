@@ -14,4 +14,14 @@
     <string name="continue_with_apple">Continue with Apple</string>
     <string name="dont_have_account">Don't have an account?</string>
     <string name="apply_to_drive">Apply to Drive</string>
+    <string name="create_account">Create Account</string>
+    <string name="fill_your_details_title">Fill in your details to start driving with Logistics Pro.</string>
+    <string name="full_name">Full Name</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="or">OR</string>
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="login">Log In</string>
+    <string name="sample_phone">+(20) 111 111 1111</string>
+    <string name="sample_name">Ahmed Mohamed</string>
 </resources>

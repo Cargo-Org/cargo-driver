@@ -1,4 +1,4 @@
-package com.example.carog_driver.presentation.onboarding
+package com.example.carog_driver.presentation.onboarding.view
 
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.tween
@@ -13,6 +13,7 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -20,16 +21,41 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.carog_driver.presentation.onboarding.components.OnboardingBottomSection
-import com.example.carog_driver.presentation.onboarding.components.OnboardingPager
+import com.example.carog_driver.presentation.onboarding.view.components.OnboardingBottomSection
+import com.example.carog_driver.presentation.onboarding.view.components.OnboardingPager
+import com.example.carog_driver.presentation.onboarding.model.getOnboardingPages
+import com.example.carog_driver.presentation.onboarding.viewmodel.OnboardingEffect
+import com.example.carog_driver.presentation.onboarding.viewmodel.OnboardingInteraction
+import com.example.carog_driver.presentation.onboarding.viewmodel.OnboardingViewModel
 import com.example.carog_driver.presentation.theme.AppTheme
+import com.example.carog_driver.presentation.theme.CargoTheme
 import kotlinx.coroutines.launch
 
 @Composable
 fun OnboardingScreen(
-    onFinish: () -> Unit = {}
+    viewModel: OnboardingViewModel,
+    navigateNext: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
+    LaunchedEffect(viewModel) {
+        viewModel.effect.collect { effect ->
+            when (effect) {
+                OnboardingEffect.NavigateNext -> navigateNext()
+            }
+        }
+    }
 
+    OnboardingContent(
+        interaction = viewModel,
+        modifier = modifier
+    )
+}
+
+@Composable
+private fun OnboardingContent(
+    interaction: OnboardingInteraction,
+    modifier: Modifier = Modifier
+) {
     val pages = remember {
         getOnboardingPages()
     }
@@ -53,13 +79,13 @@ fun OnboardingScreen(
     }
 
     Box(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .background(AppTheme.colors.background)
             .safeContentPadding()
     ) {
         TextButton(
-            onClick = onFinish,
+            onClick = interaction::onSkipClick,
             modifier = Modifier
                 .align(Alignment.TopEnd)
                 .padding(
@@ -69,7 +95,7 @@ fun OnboardingScreen(
         ) {
             Text(
                 text = "Skip",
-                style =  AppTheme.typography.labelMd,
+                style = AppTheme.typography.labelMd,
                 color = AppTheme.colors.primary
             )
         }
@@ -97,10 +123,10 @@ fun OnboardingScreen(
                 currentPage = pagerState.currentPage,
                 buttonLabel = buttonLabel,
                 onButtonClick = {
-                    scope.launch {
-                        if (isLastPage) {
-                            onFinish()
-                        } else {
+                    if (isLastPage) {
+                        interaction.onFinishClick()
+                    } else {
+                        scope.launch {
                             pagerState.animateScrollToPage(
                                 page = pagerState.currentPage + 1,
                                 animationSpec = tween(
@@ -111,16 +137,24 @@ fun OnboardingScreen(
                         }
                     }
                 },
-                modifier = Modifier.padding(bottom = AppTheme.dimens.md)
+                modifier = Modifier.padding(
+                    bottom = AppTheme.dimens.md
+                )
             )
         }
     }
 }
 
-@Preview
+@Preview(showBackground = true, backgroundColor = 0xFF101419, name = "InputField — Dark")
 @Composable
-fun AppAndroidPreview() {
-    OnboardingScreen(
-        onFinish = {println("finish")}
-    )
+private fun InputFieldDarkPreview() {
+    CargoTheme(darkTheme = true) {
+        OnboardingContent(
+            interaction = object : OnboardingInteraction {
+                override fun onSkipClick() {}
+
+                override fun onFinishClick() {}
+            }
+        )
+    }
 }

@@ -1,4 +1,4 @@
-package com.example.carog_driver.presentation.onboarding.components
+package com.example.carog_driver.presentation.onboarding.view.components
 
 import androidx.compose.animation.core.EaseOutCubic
 import androidx.compose.animation.core.animateFloatAsState
@@ -24,14 +24,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.example.carog_driver.presentation.onboarding.OnboardingItem
+import com.example.carog_driver.presentation.onboarding.model.OnboardingPageUiState
 import com.example.carog_driver.presentation.theme.AppTheme
 import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun OnboardingPage(
-    item: OnboardingItem,
+    item: OnboardingPageUiState,
     currentPage: Int,
     pageIndex: Int,
     modifier: Modifier = Modifier
@@ -92,7 +93,7 @@ fun OnboardingPage(
         Spacer(modifier = Modifier.height(AppTheme.dimens.stackLg))
 
         Text(
-            text = item.title,
+            text = stringResource(item.title),
             color = AppTheme.colors.onBackground,
             style = AppTheme.typography.displayHero,
             textAlign = TextAlign.Center
@@ -101,7 +102,7 @@ fun OnboardingPage(
         Spacer(modifier = Modifier.height(AppTheme.dimens.stackSm))
 
         Text(
-            text = item.subtitle,
+            text = stringResource(item.subtitle),
             color = AppTheme.colors.onSurfaceVariant,
             style = AppTheme.typography.bodyMd,
             textAlign = TextAlign.Center

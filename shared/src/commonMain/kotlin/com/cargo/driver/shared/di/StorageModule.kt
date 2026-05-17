@@ -8,7 +8,7 @@ import org.koin.dsl.module
 // but Shared DAOs (interfaces) can be placed here
 val storageModule = module {
 
-    single< UserPreferencesLocalDataSource> {
+    single<UserPreferencesLocalDataSource> {
         UserPreferencesLocalDataSourceImpl(
             dataStore = get()
         )

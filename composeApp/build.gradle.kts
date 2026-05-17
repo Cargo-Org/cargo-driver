@@ -46,9 +46,11 @@ kotlin {
             implementation(project(":shared"))
             implementation(libs.androidx.lifecycle.runtimeCompose)
 
-            //datastore
-            implementation(libs.androidx.datastore)
-            implementation(libs.androidx.datastore.preferences)
+            // Koin
+            implementation(libs.koin.compose.viewModel)
+            implementation(libs.koin.core.viewmodel)
+
+
 
         }
         commonTest.dependencies {

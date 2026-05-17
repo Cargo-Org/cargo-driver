@@ -24,7 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.example.carog_driver.presentation.onboarding.model.OnboardingPageUiState
+import com.example.carog_driver.presentation.onboarding.viewmodel.OnboardingPageUiState
 import com.example.carog_driver.presentation.theme.AppTheme
 import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.painterResource

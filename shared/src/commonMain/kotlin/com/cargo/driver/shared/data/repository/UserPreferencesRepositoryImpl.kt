@@ -5,15 +5,12 @@ import com.cargo.driver.shared.domain.repository.UserPreferencesRepository
 import kotlinx.coroutines.flow.Flow
 
 class UserPreferencesRepositoryImpl(
-    private val userPreferencesLocalDataSource: UserPreferencesLocalDataSource
+    private val dataStore: UserPreferencesLocalDataSource
 ): UserPreferencesRepository {
-    override fun observeOnboardingCompleted(): Flow<Boolean> {
-        return userPreferencesLocalDataSource.observeOnboardingCompleted()
-    }
 
-    override suspend fun completeOnboarding() {
-        userPreferencesLocalDataSource.setOnboardingCompleted(
-            isCompleted = true
-        )
-    }
+    override suspend fun getOnboardingCompleted(): Boolean = dataStore.getOnboardingCompleted()
+
+
+    override suspend fun completeOnboarding() = dataStore.setOnboardingCompleted()
+
 }

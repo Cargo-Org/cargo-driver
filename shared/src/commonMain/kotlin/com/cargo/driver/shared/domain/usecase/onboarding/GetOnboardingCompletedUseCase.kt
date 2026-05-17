@@ -2,8 +2,8 @@ package com.cargo.driver.shared.domain.usecase.onboarding
 
 import com.cargo.driver.shared.domain.repository.UserPreferencesRepository
 
-class ObserveOnboardingCompletedUseCase(
+class GetOnboardingCompletedUseCase(
     private val repository: UserPreferencesRepository
 ) {
-    operator fun invoke() = repository.observeOnboardingCompleted()
+    suspend operator fun invoke() = repository.getOnboardingCompleted()
 }

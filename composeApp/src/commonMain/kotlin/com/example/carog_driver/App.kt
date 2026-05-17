@@ -7,7 +7,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import com.cargo.driver.shared.domain.usecase.onboarding.ObserveOnboardingCompletedUseCase
+import com.cargo.driver.shared.domain.usecase.onboarding.GetOnboardingCompletedUseCase
 import com.example.carog_driver.presentation.login.view.LoginScreen
 import com.example.carog_driver.presentation.onboarding.view.OnboardingScreen
 import org.koin.compose.koinInject
@@ -15,18 +15,15 @@ import org.koin.compose.koinInject
 @Composable
 fun App() {
 
-    val observeOnboardingCompleted: ObserveOnboardingCompletedUseCase =
+    val getOnboardingCompleted: GetOnboardingCompletedUseCase =
         koinInject()
 
     var isOnboardingCompleted by remember {
         mutableStateOf<Boolean?>(null)
     }
 
-    LaunchedEffect(observeOnboardingCompleted) {
-        observeOnboardingCompleted()
-            .collect { isCompleted ->
-                isOnboardingCompleted = isCompleted
-            }
+    LaunchedEffect(Unit) {
+        isOnboardingCompleted = getOnboardingCompleted()
     }
 
     when (isOnboardingCompleted) {

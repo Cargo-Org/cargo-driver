@@ -1,6 +1,12 @@
-package com.example.carog_driver.presentation.onboarding.model
+package com.example.carog_driver.presentation.onboarding.viewmodel
 
 import carog_driver.composeapp.generated.resources.*
+import org.jetbrains.compose.resources.*
+data class OnboardingPageUiState(
+    val image: DrawableResource,
+    val title: StringResource,
+    val subtitle: StringResource
+)
 
 fun getOnboardingPages(): List<OnboardingPageUiState>{
 
@@ -22,3 +28,4 @@ fun getOnboardingPages(): List<OnboardingPageUiState>{
         )
     )
 }
+

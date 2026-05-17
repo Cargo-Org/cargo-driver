@@ -27,8 +27,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import carog_driver.composeapp.generated.resources.*
+import com.cargo.driver.shared.domain.usecase.onboarding.CompleteOnboardingUseCase
 import com.example.carog_driver.presentation.onboarding.view.components.*
-import com.example.carog_driver.presentation.onboarding.model.getOnboardingPages
 import com.example.carog_driver.presentation.onboarding.viewmodel.*
 import com.example.carog_driver.presentation.theme.AppTheme
 import com.example.carog_driver.presentation.theme.CargoTheme

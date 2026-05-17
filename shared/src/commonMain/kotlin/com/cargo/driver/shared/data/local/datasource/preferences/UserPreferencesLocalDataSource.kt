@@ -4,9 +4,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface UserPreferencesLocalDataSource {
 
-    fun observeOnboardingCompleted(): Flow<Boolean>
+    suspend fun getOnboardingCompleted(): Boolean
 
-    suspend fun setOnboardingCompleted(
-        isCompleted: Boolean
-    )
+    suspend fun setOnboardingCompleted()
 }

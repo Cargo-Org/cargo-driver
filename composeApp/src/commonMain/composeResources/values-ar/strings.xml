@@ -24,4 +24,6 @@
     <string name="login">تسجيل الدخول</string>
     <string name="sample_phone">+(٢٠) ١١١ ١١١ ١١١١</string>
     <string name="sample_name">أحمد محمد</string>
+    <string name="send_otp">إرسال رمز التحقق</string>
+    <string name="complete_your_profile">أكمل ملفك الشخصي</string>
 </resources>

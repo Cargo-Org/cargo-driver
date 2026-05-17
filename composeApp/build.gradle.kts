@@ -29,6 +29,11 @@ kotlin {
         androidMain.dependencies {
             implementation(libs.compose.uiToolingPreview)
             implementation(libs.androidx.activity.compose)
+
+            // Koin
+            implementation(libs.koin.android)
+            implementation(libs.koin.androidx.compose)
+            implementation(libs.koin.compose.viewModel)
         }
         commonMain.dependencies {
             implementation(libs.compose.runtime)

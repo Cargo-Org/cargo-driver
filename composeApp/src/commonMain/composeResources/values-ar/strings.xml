@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">سائق كارجو</string>
+    <string name="welcome_back">مرحباً بعودتك</string>
+    <string name="login_subtitle">قم بتسجيل الدخول لإدارة مساراتك وأرباحك</string>
+    <string name="email_address">البريد الإلكتروني</string>
+    <string name="email_placeholder">driver@cargo.com</string>
+    <string name="password">كلمة المرور</string>
+    <string name="password_placeholder">••••••••</string>
+    <string name="forgot_password">هل نسيت كلمة المرور؟</string>
+    <string name="sign_in">تسجيل الدخول</string>
+    <string name="or_continue_with">أو المتابعة باستخدام</string>
+    <string name="continue_with_google">المتابعة باستخدام Google</string>
+    <string name="continue_with_apple">المتابعة باستخدام Apple</string>
+    <string name="dont_have_account">ليس لديك حساب؟ </string>
+    <string name="apply_to_drive">قدم طلبك للقيادة</string>
+</resources>

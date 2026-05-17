@@ -186,6 +186,8 @@ data class ThemeExtraColors(
     val cardShadow: Color,
     val glassOverlay: Color,
     val divider: Color,
+    val canvasBackground: Color,
+    val canvasDot: Color
 )
 
 val LightExtraColors = ThemeExtraColors(
@@ -193,6 +195,9 @@ val LightExtraColors = ThemeExtraColors(
     cardShadow = Color(0x0F000000),
     glassOverlay = Color(0x80FFFFFF),
     divider = LightOutlineVariant,
+    canvasBackground = Color(0xff191A2B),
+    canvasDot = Color(0xff2E2F41)
+
 )
 
 val DarkExtraColors = ThemeExtraColors(
@@ -200,6 +205,8 @@ val DarkExtraColors = ThemeExtraColors(
     cardShadow = Color(0x33000000),
     glassOverlay = Color(0x1AFFFFFF),
     divider = DarkOutlineVariant,
+    canvasBackground = Color(0xFF191A2B),
+    canvasDot = Color(0xFF2E2F41)
 )
 
 val LocalThemeExtraColors = staticCompositionLocalOf { LightExtraColors }

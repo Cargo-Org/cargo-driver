@@ -1,5 +1,9 @@
 package com.cargo.driver.shared.domain.exception
 
 sealed class CargoException(message: String = ""): Exception(message)
-// Write here all needed exception like this :
-class NoInternetException(message: String = ""): CargoException(message)
+
+class NoInternetException : CargoException("No internet connection")
+class UnauthorizedException : CargoException("Unauthorized")
+class NotFoundException : CargoException("Not found")
+class ServerException : CargoException("Server error")
+class UnknownException : CargoException("Unknown error")

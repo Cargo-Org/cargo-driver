@@ -49,7 +49,6 @@ fun TextLink(
     }
 }
 
-
 @Preview(showBackground = true, backgroundColor = 0xFF101419, name = "TextLink — Dark")
 @Composable
 private fun TextLinkDarkPreview() {

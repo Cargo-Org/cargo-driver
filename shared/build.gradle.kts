@@ -72,6 +72,10 @@ kotlin {
                 implementation(libs.ktor.serialization.kotlinx.json)
                 // IO
                 implementation(libs.kotlinx.io.core)
+                // Add KMP dependencies here
+
+                // Koin Core
+                implementation(libs.koin.core)
             }
         }
 

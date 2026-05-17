@@ -4,6 +4,8 @@ import com.cargo.driver.shared.data.local.datasource.preferences.UserPreferences
 import org.koin.dsl.module
 
 
+// Shared storage: Room is NOT here (Android only)
+// but Shared DAOs (interfaces) can be placed here
 val storageModule = module {
 
     single< UserPreferencesLocalDataSource> {
@@ -11,5 +13,5 @@ val storageModule = module {
             dataStore = get()
         )
     }
-    // Room creation
+    // provide shared storage abstractions if any
 }

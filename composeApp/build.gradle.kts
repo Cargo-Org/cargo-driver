@@ -29,7 +29,11 @@ kotlin {
         androidMain.dependencies {
             implementation(libs.compose.uiToolingPreview)
             implementation(libs.androidx.activity.compose)
+
+            // Koin
             implementation(libs.koin.android)
+            implementation(libs.koin.androidx.compose)
+            implementation(libs.koin.compose.viewModel)
         }
         commonMain.dependencies {
             implementation(libs.compose.runtime)
@@ -41,15 +45,11 @@ kotlin {
             implementation(libs.androidx.lifecycle.viewmodelCompose)
             implementation(project(":shared"))
             implementation(libs.androidx.lifecycle.runtimeCompose)
+
+            //datastore
             implementation(libs.androidx.datastore)
             implementation(libs.androidx.datastore.preferences)
 
-            // Koin Core
-            implementation(libs.koin.core)
-            // Koin Compose Multiplatform
-            implementation(libs.koin.compose)
-            implementation(libs.koin.compose.viewmodel)
-            implementation(libs.koin.core.viewmodel)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

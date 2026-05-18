@@ -38,21 +38,10 @@ import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun OnboardingScreen(
-    navigateNext: () -> Unit,
-    modifier: Modifier = Modifier,
     viewModel: OnboardingViewModel = koinViewModel()
 ) {
-    LaunchedEffect(viewModel) {
-        viewModel.effect.collect { effect ->
-            when (effect) {
-                OnboardingEffect.NavigateNext -> navigateNext()
-            }
-        }
-    }
-
     OnboardingContent(
         interaction = viewModel,
-        modifier = modifier
     )
 }
 @Composable

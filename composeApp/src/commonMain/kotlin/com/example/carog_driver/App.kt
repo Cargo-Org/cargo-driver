@@ -10,37 +10,55 @@ import androidx.compose.runtime.setValue
 import com.cargo.driver.shared.domain.usecase.onboarding.GetOnboardingCompletedUseCase
 import com.example.carog_driver.presentation.login.view.LoginScreen
 import com.example.carog_driver.presentation.onboarding.view.OnboardingScreen
+import com.example.carog_driver.presentation.onboarding.viewmodel.OnboardingEffect
+import com.example.carog_driver.presentation.onboarding.viewmodel.OnboardingViewModel
+import com.example.carog_driver.presentation.theme.CargoTheme
 import org.koin.compose.koinInject
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun App() {
 
-    val getOnboardingCompleted: GetOnboardingCompletedUseCase =
-        koinInject()
+    CargoTheme{
 
-    var isOnboardingCompleted by remember {
-        mutableStateOf<Boolean?>(null)
-    }
+        val getOnboardingCompleted: GetOnboardingCompletedUseCase = koinInject()
 
-    LaunchedEffect(Unit) {
-        isOnboardingCompleted = getOnboardingCompleted()
-    }
+        var isOnboardingCompleted by remember {
+            mutableStateOf<Boolean?>(null)
+        }
 
-    when (isOnboardingCompleted) {
-        false -> {
-            OnboardingScreen(
-                navigateNext = {
-                    isOnboardingCompleted = true
+        LaunchedEffect(Unit) {
+            isOnboardingCompleted = getOnboardingCompleted()
+        }
+
+        when (isOnboardingCompleted) {
+
+            false -> {
+                val onboardingViewModel: OnboardingViewModel = koinViewModel()
+
+                LaunchedEffect(onboardingViewModel) {
+                    onboardingViewModel.effect.collect { effect ->
+                        when (effect) {
+                            OnboardingEffect.NavigateNext -> {
+                                isOnboardingCompleted = true
+                            }
+                        }
+                    }
                 }
-            )
+
+                OnboardingScreen(
+                    viewModel = onboardingViewModel
+                )
+            }
+
+            true -> {
+                LoginScreen()
+            }
+
+            null -> {
+                Text(text = "Loading...")
+            }
         }
 
-        true -> {
-            LoginScreen()
-        }
-
-        null -> {
-            Text(text = "Loading...")
-        }
     }
 }

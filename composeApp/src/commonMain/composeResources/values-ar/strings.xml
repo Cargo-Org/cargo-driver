@@ -24,4 +24,10 @@
     <string name="login">تسجيل الدخول</string>
     <string name="sample_phone">+(٢٠) ١١١ ١١١ ١١١١</string>
     <string name="sample_name">أحمد محمد</string>
+    <string name="verify_your_id">تحقق من هويتك</string>
+    <string name="otp_sent_message">لقد أرسلنا رمز مكون من 4 أرقام إلى رقم هاتفك المسجل لتوثيق سائق كارجو.</string>
+    <string name="verify_otp">تحقق من الرمز</string>
+    <string name="didnt_receive_code">لم يصلك الرمز؟</string>
+    <string name="resend_code">إعادة إرسال الرمز</string>
+    <string name="resend_available_in">إعادة الإرسال متاحة خلال %1$s</string>
 </resources>

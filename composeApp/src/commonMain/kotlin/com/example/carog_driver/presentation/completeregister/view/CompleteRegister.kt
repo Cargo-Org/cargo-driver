@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -55,61 +56,54 @@ fun CompleteRegister(
 
         Column(
             modifier = Modifier.matchParentSize(),
-            verticalArrangement = Arrangement.spacedBy(AppTheme.dimens.md),
+            verticalArrangement = Arrangement.spacedBy(AppTheme.dimens.sm),
             horizontalAlignment = Alignment.Start
         ) {
 
-            Column(
-                verticalArrangement = Arrangement.spacedBy(AppTheme.dimens.sm)
-            ) {
-                Text(
-                    stringResource(Res.string.complete_your_profile),
-                    style = AppTheme.typography.headlineLg.copy(
-                        color = AppTheme.colors.onBackground
-                    )
+            Text(
+                stringResource(Res.string.complete_your_profile),
+                style = AppTheme.typography.headlineLg.copy(
+                    color = AppTheme.colors.onBackground
                 )
+            )
 
-                Text(
-                    stringResource(Res.string.fill_your_details_title),
-                    style = AppTheme.typography.bodyMd.copy(
-                        fontWeight = FontWeight.Normal,
-                        color = AppTheme.colors.onBackground
-                    )
+            Text(
+                stringResource(Res.string.fill_your_details_title),
+                style = AppTheme.typography.bodyMd.copy(
+                    fontWeight = FontWeight.Normal,
+                    color = AppTheme.colors.onBackground
                 )
-            }
+            )
 
-            Column(
-                verticalArrangement = Arrangement.spacedBy(AppTheme.dimens.sm)
-            ) {
+            Box(modifier = Modifier.width(AppTheme.dimens.sm))
 
-                InputField(
-                    label = stringResource(Res.string.full_name),
-                    value = fullNameValue,
-                    onValueChange = { newValue -> fullNameValue = newValue },
-                    placeholder = stringResource(Res.string.sample_name),
-                    isPassword = false,
-                    keyboardType = KeyboardType.Text,
-                    leadingIcon = painterResource(Res.drawable.ic_person),
-                )
+            InputField(
+                label = stringResource(Res.string.full_name),
+                value = fullNameValue,
+                onValueChange = { newValue -> fullNameValue = newValue },
+                placeholder = stringResource(Res.string.sample_name),
+                isPassword = false,
+                keyboardType = KeyboardType.Text,
+                leadingIcon = painterResource(Res.drawable.ic_person),
+            )
 
-                InputField(
-                    label = stringResource(Res.string.phone_number),
-                    value = phoneNumberValue,
-                    onValueChange = { newValue -> phoneNumberValue = newValue },
-                    placeholder = stringResource(Res.string.sample_phone),
-                    isPassword = false,
-                    keyboardType = KeyboardType.Phone,
-                    leadingIcon = painterResource(Res.drawable.ic_phone),
-                )
+            InputField(
+                label = stringResource(Res.string.phone_number),
+                value = phoneNumberValue,
+                onValueChange = { newValue -> phoneNumberValue = newValue },
+                placeholder = stringResource(Res.string.sample_phone),
+                isPassword = false,
+                keyboardType = KeyboardType.Phone,
+                leadingIcon = painterResource(Res.drawable.ic_phone),
+            )
 
-                DisabledInputField(
-                    label = stringResource(Res.string.email_address),
-                    value = emailValue,
-                    isPassword = false,
-                    keyboardType = KeyboardType.Email,
-                    leadingIcon = painterResource(Res.drawable.ic_email),
-                )
-            }
+            DisabledInputField(
+                label = stringResource(Res.string.email_address),
+                value = emailValue,
+                isPassword = false,
+                keyboardType = KeyboardType.Email,
+                leadingIcon = painterResource(Res.drawable.ic_email),
+            )
 
             Box(modifier = Modifier.height(AppTheme.dimens.sm))
 

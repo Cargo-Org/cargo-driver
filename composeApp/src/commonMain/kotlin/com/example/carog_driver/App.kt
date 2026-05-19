@@ -5,9 +5,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.carog_driver.presentation.navigation.NavGraph
 import com.example.carog_driver.presentation.navigation.Route
 import com.example.carog_driver.presentation.theme.CargoTheme
+import org.koin.compose.koinInject
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
-@Preview
 fun App() {
     CargoTheme {
         NavGraph(

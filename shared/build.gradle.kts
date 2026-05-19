@@ -72,6 +72,11 @@ kotlin {
                 implementation(libs.ktor.serialization.kotlinx.json)
                 // IO
                 implementation(libs.kotlinx.io.core)
+
+                // datastore
+                implementation(libs.androidx.datastore)
+                implementation(libs.androidx.datastore.preferences)
+
                 // Add KMP dependencies here
 
                 // Koin Core

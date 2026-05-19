@@ -12,6 +12,7 @@ koin = "4.2.1"
 kotlin = "2.3.21"
 material3 = "1.10.0-alpha05"
 kotlinStdlib = "2.3.21"
+navigationCompose = "2.9.2"
 runner = "1.5.2"
 core = "1.5.0"
 kermit = "2.1.0"
@@ -57,6 +58,7 @@ ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx
 kermit = { module = "co.touchlab:kermit", version.ref = "kermit" }
 ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktorClientCoreVersion" }
 kotlinx-io-core = { module = "org.jetbrains.kotlinx:kotlinx-io-core", version.ref = "kotlinxIoCore" }
+navigation-compose = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
 
 # datastore
 androidx-datastore = { module = "androidx.datastore:datastore", version.ref = "androidx-datastore" }

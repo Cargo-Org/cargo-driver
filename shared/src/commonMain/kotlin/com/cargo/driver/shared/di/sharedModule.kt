@@ -1,5 +1,9 @@
 package com.cargo.driver.shared.di
+import com.cargo.driver.shared.data.remote.datasource.AuthRemoteDataSource
+import com.cargo.driver.shared.data.remote.datasource.AuthRemoteDataSourceImp
+import com.cargo.driver.shared.data.repository.AuthRepositoryImp
 import com.cargo.driver.shared.data.repository.UserPreferencesRepositoryImpl
+import com.cargo.driver.shared.domain.repository.AuthRepository
 import com.cargo.driver.shared.domain.repository.UserPreferencesRepository
 import com.cargo.driver.shared.domain.usecase.onboarding.CompleteOnboardingUseCase
 import com.cargo.driver.shared.domain.usecase.onboarding.GetOnboardingCompletedUseCase
@@ -16,6 +20,12 @@ val sharedModule = module {
         )
     }
 
+    single <AuthRepository> {
+        AuthRepositoryImp(
+            remote = get()
+        )
+    }
+
     // provide use cases
     factory {
         CompleteOnboardingUseCase(
@@ -29,5 +39,11 @@ val sharedModule = module {
         )
     }
 
-    // provide shared ViewModels
+
+    //datasource
+    single<AuthRemoteDataSource> {
+        AuthRemoteDataSourceImp()
+    }
+
+
 }

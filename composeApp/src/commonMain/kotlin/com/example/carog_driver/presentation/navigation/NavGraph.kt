@@ -14,6 +14,7 @@ import com.example.carog_driver.presentation.login.view.LoginScreen
 @Composable
 fun NavGraph(
     modifier: Modifier = Modifier,
+    startDestinationRoute : Route
 ){
     val navController = rememberNavController()
 
@@ -22,7 +23,7 @@ fun NavGraph(
     ) {
         NavHost(
             navController = navController,
-            startDestination = Route.LoginRoute, // this will change to splash screen
+            startDestination = startDestinationRoute,
             modifier = modifier
         ) {
             composable<Route.LoginRoute> {

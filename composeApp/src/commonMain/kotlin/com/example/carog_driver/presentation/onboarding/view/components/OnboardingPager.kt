@@ -5,12 +5,12 @@ import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.example.carog_driver.presentation.onboarding.viewmodel.OnboardingPageUiState
+import com.example.carog_driver.presentation.onboarding.viewmodel.OnboardingPageModel
 
 @Composable
 fun OnboardingPager(
     pagerState: PagerState,
-    pages: List<OnboardingPageUiState>,
+    pages: List<OnboardingPageModel>,
     currentPage: Int,
     modifier: Modifier = Modifier
 ) {

@@ -11,9 +11,40 @@
     <string name="or_continue_with">OR CONTINUE WITH</string>
     <string name="continue_with_google">Continue with Google</string>
     <string name="continue_with_apple">Continue with Apple</string>
-    <string name="dont_have_account">Don't have an account?</string>
+    <string name="dont_have_account">Don\'t have an account?</string>
     <string name="apply_to_drive">Apply to Drive</string>
 
+    <string name="vehicle_registration_title">Vehicle Registration</string>
+    <string name="vehicle_registration_subtitle">Complete your fleet profile to begin receiving\nhigh-priority cargo assignments.</string>
+
+    <string name="section_vehicle_type">Vehicle Type</string>
+    <string name="section_general_info">General Information</string>
+    <string name="section_documentation">Documentation</string>
+
+    <string name="vehicle_type_motorcycle">Motorcycle</string>
+    <string name="vehicle_type_car">Car</string>
+    <string name="vehicle_type_van">Van</string>
+    <string name="vehicle_type_box_truck">Box Truck</string>
+    <string name="vehicle_type_heavy_duty">Heavy Duty</string>
+
+    <string name="field_make_model">Vehicle Make &amp; Model</string>
+    <string name="field_make_model_placeholder">e.g. Freightliner Cascadia</string>
+    <string name="field_color">Color</string>
+    <string name="field_color_placeholder">e.g. White</string>
+    <string name="field_year">Year</string>
+    <string name="field_year_placeholder">2024</string>
+    <string name="field_license_plate">License Plate</string>
+    <string name="field_license_plate_placeholder">ABC-1234</string>
+    <string name="field_vin">VIN Number</string>
+    <string name="field_vin_placeholder">17-digit alphanumeric code</string>
+
+    <string name="doc_label">Registration Certificate &amp; Insurance</string>
+    <string name="doc_hint">PDF, JPG or PNG up to 10MB</string>
+
+    <string name="action_pick_file">Pick file</string>
+    <string name="action_remove_file">Remove %1$s</string>
+
+    <string name="btn_complete_registration">Complete Registration</string>
     <string name="onboarding_title_1">Get Delivery Requests</string>
     <string name="onboarding_subtitle_1">Receive nearby trips, check package details, and start your delivery journey with ease.</string>
 

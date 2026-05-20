@@ -42,8 +42,19 @@ import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
+
 @Composable
-fun SendOtp(
+fun SendOtpScreen(
+    modifier: Modifier = Modifier
+){
+    SendOtpContent(
+        modifier = modifier
+    )
+}
+
+
+@Composable
+fun SendOtpContent(
     modifier: Modifier = Modifier
 ) {
 

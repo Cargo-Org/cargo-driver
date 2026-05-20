@@ -27,7 +27,7 @@ import com.example.carog_driver.presentation.theme.AppTheme
 
 
 @Composable
-fun OtpVerificationInput(
+fun OTPVerificationInput(
     modifier: Modifier = Modifier,
     numberOfDigits: Int = 4,
     onConfirm: (String) -> Unit
@@ -49,13 +49,13 @@ fun OtpVerificationInput(
 
     Row(
         modifier = modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy(12.dp)
+        horizontalArrangement = Arrangement.spacedBy(AppTheme.dimens.sm)
     ) {
         repeat(numberOfDigits) { index ->
             OutlinedTextField(
                 modifier = Modifier.weight(1f)
                     .focusRequester(focusRequesters[index]),
-                textStyle = AppTheme.typography.bodyStandard.copy(
+                textStyle = AppTheme.typography.bodyLg.copy(
                     textAlign = TextAlign.Center,
                     fontWeight = FontWeight.Bold
                 ),
@@ -63,7 +63,7 @@ fun OtpVerificationInput(
                     Text(
                         modifier = Modifier.fillMaxWidth(),
                         text = "•",
-                        style = AppTheme.typography.bodyStandard.copy(
+                        style = AppTheme.typography.bodyLg.copy(
                             textAlign = TextAlign.Center,
                             color = AppTheme.colors.outline,
                             fontWeight = FontWeight.Bold
@@ -98,7 +98,7 @@ fun OtpVerificationInput(
                 },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.NumberPassword),
                 singleLine = true,
-                shape = RoundedCornerShape(12.dp),
+                shape = RoundedCornerShape(AppTheme.dimens.sm),
                 colors = OutlinedTextFieldDefaults.colors(
                     unfocusedContainerColor = colors.surfaceVariant.copy(alpha = 0.3f),
                     focusedContainerColor = colors.surfaceVariant.copy(alpha = 0.3f),

@@ -35,7 +35,7 @@ import carog_driver.composeapp.generated.resources.resend_available_in
 import carog_driver.composeapp.generated.resources.resend_code
 import carog_driver.composeapp.generated.resources.verify_otp
 import carog_driver.composeapp.generated.resources.verify_your_id
-import com.example.carog_driver.presentation.shared.OtpVerificationInput
+import com.example.carog_driver.presentation.shared.OTPVerificationInput
 import com.example.carog_driver.presentation.shared.PrimaryButton
 import com.example.carog_driver.presentation.theme.AppTheme
 import kotlinx.coroutines.delay
@@ -44,17 +44,17 @@ import org.jetbrains.compose.resources.stringResource
 
 
 @Composable
-fun SendOtpScreen(
+fun SendOTPScreen(
     modifier: Modifier = Modifier
 ){
-    SendOtpContent(
+    SendOTPContent(
         modifier = modifier
     )
 }
 
 
 @Composable
-fun SendOtpContent(
+fun SendOTPContent(
     modifier: Modifier = Modifier
 ) {
 
@@ -172,7 +172,7 @@ fun SendOtpContent(
                     }
                 }
 
-                OtpVerificationInput(
+                OTPVerificationInput(
                     onConfirm = { otp ->
 
                     }

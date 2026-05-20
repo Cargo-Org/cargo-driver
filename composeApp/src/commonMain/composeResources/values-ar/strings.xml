@@ -30,4 +30,36 @@
     <string name="didnt_receive_code">لم يصلك الرمز؟</string>
     <string name="resend_code">إعادة إرسال الرمز</string>
     <string name="resend_available_in">إعادة الإرسال متاحة خلال %1$s</string>
+
+    <string name="vehicle_registration_title">تسجيل المركبة</string>
+    <string name="vehicle_registration_subtitle">أكمل ملف أسطولك للبدء في استقبال\nمهام الشحن ذات الأولوية العالية.</string>
+
+    <string name="section_vehicle_type">نوع المركبة</string>
+    <string name="section_general_info">المعلومات العامة</string>
+    <string name="section_documentation">المستندات</string>
+
+    <string name="vehicle_type_motorcycle">دراجة نارية</string>
+    <string name="vehicle_type_car">سيارة</string>
+    <string name="vehicle_type_van">فان</string>
+    <string name="vehicle_type_box_truck">شاحنة مغلقة</string>
+    <string name="vehicle_type_heavy_duty">شاحنة ثقيلة</string>
+
+    <string name="field_make_model">الماركة والموديل</string>
+    <string name="field_make_model_placeholder">مثال: Freightliner Cascadia</string>
+    <string name="field_color">اللون</string>
+    <string name="field_color_placeholder">مثال: أبيض</string>
+    <string name="field_year">سنة الصنع</string>
+    <string name="field_year_placeholder">2024</string>
+    <string name="field_license_plate">لوحة الترقيم</string>
+    <string name="field_license_plate_placeholder">أ ب ج - 1234</string>
+    <string name="field_vin">رقم الهيكل (VIN)</string>
+    <string name="field_vin_placeholder">رمز مكوّن من 17 حرفاً ورقماً</string>
+
+    <string name="doc_label">شهادة التسجيل والتأمين</string>
+    <string name="doc_hint">PDF أو JPG أو PNG بحجم أقصاه 10 ميجابايت</string>
+
+    <string name="action_pick_file">اختر ملفاً</string>
+    <string name="action_remove_file">إزالة %1$s</string>
+
+    <string name="btn_complete_registration">إتمام التسجيل</string>
 </resources>

@@ -41,7 +41,18 @@ import org.jetbrains.compose.resources.stringResource
 
 
 @Composable
-fun CompleteRegister(
+fun CompleteRegisterScreen(
+    modifier: Modifier = Modifier
+){
+    CompleteRegisterContent(
+        modifier = modifier
+    )
+}
+
+
+
+@Composable
+fun CompleteRegisterContent(
     modifier: Modifier = Modifier
 ){
     var fullNameValue by remember { mutableStateOf("") }

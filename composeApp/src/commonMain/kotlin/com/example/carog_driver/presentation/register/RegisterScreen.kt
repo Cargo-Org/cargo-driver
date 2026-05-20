@@ -57,6 +57,16 @@ import org.jetbrains.compose.resources.stringResource
 @Composable
 fun RegisterScreen(
     modifier: Modifier = Modifier
+){
+    RegisterScreenContent(
+        modifier = modifier
+    )
+}
+
+
+@Composable
+fun RegisterScreenContent(
+    modifier: Modifier = Modifier
 ) {
     val scrollState = rememberScrollState()
 

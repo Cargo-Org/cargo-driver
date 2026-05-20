@@ -16,6 +16,7 @@ import kotlinx.serialization.json.Json
 
 class NetworkClient(
     private val engine: HttpClientEngine,
+    private val cargoInterceptor: CargoInterceptor
 ) {
 
     fun create(): HttpClient {
@@ -48,11 +49,13 @@ class NetworkClient(
             }
         }
 
+        cargoInterceptor.install(client)
+
         return client
     }
 
     private companion object {
-        const val BASE_URL_KEY = "https://cargo.northeurope.cloudapp.azure.com/driver/"
+        const val BASE_URL_KEY = "https://cargo.northeurope.cloudapp.azure.com/api/driver/"
         const val REQUEST_TIMEOUT_KEY = 60_000L
     }
 }

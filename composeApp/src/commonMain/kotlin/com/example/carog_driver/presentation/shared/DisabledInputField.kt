@@ -64,7 +64,7 @@ fun DisabledInputField(
                         modifier = Modifier.size(18.dp),
                     )
                 }
-            } else null,
+            } else leadingIcon,
             trailingIcon = if (isPassword && visibilityOnPainter != null && visibilityOffPainter != null) {
                 {
                     val painter = if (passwordVisible) visibilityOnPainter else visibilityOffPainter

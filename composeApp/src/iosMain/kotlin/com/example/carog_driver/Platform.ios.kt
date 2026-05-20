@@ -2,6 +2,7 @@ package com.example.carog_driver
 
 import com.cargo.driver.shared.di.iosModules
 import com.cargo.driver.shared.di.sharedModule
+import com.example.carog_driver.di.presentationModule
 import org.koin.core.context.startKoin
 import org.koin.dsl.KoinAppDeclaration
 import platform.UIKit.UIDevice
@@ -15,6 +16,6 @@ actual fun getPlatform(): Platform = IOSPlatform()
 actual fun initKoin(koinAppDeclaration: KoinAppDeclaration?){
     startKoin {
         koinAppDeclaration?.invoke(this)
-        modules(iosModules)
+        modules(iosModules + presentationModule)
     }
 }

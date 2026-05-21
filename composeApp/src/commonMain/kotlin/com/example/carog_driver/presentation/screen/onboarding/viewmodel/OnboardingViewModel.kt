@@ -1,4 +1,4 @@
-package com.example.carog_driver.presentation.onboarding.viewmodel
+package com.example.carog_driver.presentation.screen.onboarding.viewmodel
 
 import com.cargo.driver.shared.domain.usecase.onboarding.CompleteOnboardingUseCase
 import com.example.carog_driver.presentation.base.BaseViewModel

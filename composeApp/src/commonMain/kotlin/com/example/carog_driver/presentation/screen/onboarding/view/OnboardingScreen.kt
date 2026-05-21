@@ -1,4 +1,4 @@
-package com.example.carog_driver.presentation.onboarding.view
+package com.example.carog_driver.presentation.screen.onboarding.view
 
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.tween
@@ -17,7 +17,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -27,9 +26,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import carog_driver.composeapp.generated.resources.*
-import com.cargo.driver.shared.domain.usecase.onboarding.CompleteOnboardingUseCase
-import com.example.carog_driver.presentation.onboarding.view.components.*
-import com.example.carog_driver.presentation.onboarding.viewmodel.*
+import com.example.carog_driver.presentation.screen.onboarding.view.components.*
+import com.example.carog_driver.presentation.screen.onboarding.viewmodel.*
 import com.example.carog_driver.presentation.theme.AppTheme
 import com.example.carog_driver.presentation.theme.CargoTheme
 import kotlinx.coroutines.launch
@@ -143,7 +141,8 @@ private fun OnboardingContent(
 private fun InputFieldDarkPreview() {
     CargoTheme(darkTheme = true) {
         OnboardingContent(
-            interaction = object : OnboardingInteraction {
+            interaction = object :
+                OnboardingInteraction {
                 override fun onSkipClick() {}
 
                 override fun onFinishClick() {}

@@ -1,4 +1,4 @@
-package com.example.carog_driver.presentation.onboarding.viewmodel
+package com.example.carog_driver.presentation.screen.onboarding.viewmodel
 
 sealed class OnboardingEffect {
 

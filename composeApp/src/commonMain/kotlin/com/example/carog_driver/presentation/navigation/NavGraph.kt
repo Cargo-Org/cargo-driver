@@ -8,7 +8,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.carog_driver.presentation.login.view.LoginScreen
+import com.example.carog_driver.presentation.screen.login.view.LoginScreen
 
 
 @Composable

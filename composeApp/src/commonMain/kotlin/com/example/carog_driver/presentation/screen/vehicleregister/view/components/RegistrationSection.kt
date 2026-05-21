@@ -1,4 +1,4 @@
-package com.example.carog_driver.presentation.vehicleregister.view.components
+package com.example.carog_driver.presentation.screen.vehicleregister.view.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

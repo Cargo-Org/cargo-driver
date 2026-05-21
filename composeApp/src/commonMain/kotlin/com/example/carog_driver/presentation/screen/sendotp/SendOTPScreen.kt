@@ -1,4 +1,4 @@
-package com.example.carog_driver.presentation.sendotp
+package com.example.carog_driver.presentation.screen.sendotp
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border

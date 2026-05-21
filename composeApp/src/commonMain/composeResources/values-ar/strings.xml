@@ -30,6 +30,8 @@
     <string name="didnt_receive_code">لم يصلك الرمز؟</string>
     <string name="resend_code">إعادة إرسال الرمز</string>
     <string name="resend_available_in">إعادة الإرسال متاحة خلال %1$s</string>
+    <string name="send_otp">إرسال رمز التحقق</string>
+    <string name="complete_your_profile">أكمل ملفك الشخصي</string>
 
     <string name="vehicle_registration_title">تسجيل المركبة</string>
     <string name="vehicle_registration_subtitle">أكمل ملف أسطولك للبدء في استقبال\nمهام الشحن ذات الأولوية العالية.</string>

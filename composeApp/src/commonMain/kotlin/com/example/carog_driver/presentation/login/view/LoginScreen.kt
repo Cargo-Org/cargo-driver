@@ -4,7 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -12,7 +11,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
@@ -93,16 +91,8 @@ private fun LoginScreenContent(
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
 
-                Spacer(modifier = Modifier.height(dimens.md))
 
-                Text(
-                    text = stringResource(Res.string.app_name),
-                    style = typography.sectionTitle,
-                    color = colors.primary,
-                    textAlign = TextAlign.Center,
-                )
-
-                Spacer(modifier = Modifier.height(dimens.sm))
+                Spacer(modifier = Modifier.height(dimens.xl))
 
                 Column(
                     modifier = Modifier
@@ -195,18 +185,18 @@ private fun LoginScreenContent(
                         onClick = onForgotPassword,
                         modifier = Modifier
                             .align(Alignment.End)
-                            .padding(top = dimens.xs)
-                            .height(dimens.md),
-                        contentPadding = PaddingValues(dimens.sm)
+                            .padding(top = dimens.sm),
+
                     ) {
                         Text(
                             text = stringResource(Res.string.forgot_password),
                             style = typography.labelMd,
                             color = colors.secondary,
+                            textAlign = TextAlign.End,
                         )
                     }
 
-                    Spacer(modifier = Modifier.height(dimens.stackMd))
+                    Spacer(modifier = Modifier.height(dimens.md))
 
                     PrimaryButton(
                         text = stringResource(Res.string.sign_in),

@@ -3,6 +3,7 @@ package com.example.carog_driver
 import android.os.Build
 import com.cargo.driver.shared.di.androidModule
 import com.cargo.driver.shared.di.sharedModule
+import com.example.carog_driver.di.presentationModule
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 import org.koin.dsl.KoinAppDeclaration
@@ -17,6 +18,6 @@ actual fun initKoin(koinAppDeclaration: KoinAppDeclaration?){
     startKoin {
         androidLogger()
         koinAppDeclaration?.invoke(this)
-        modules(androidModule)
+        modules(androidModule + presentationModule)
     }
 }

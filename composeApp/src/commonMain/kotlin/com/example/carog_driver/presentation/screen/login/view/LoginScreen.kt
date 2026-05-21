@@ -1,4 +1,4 @@
-package com.example.carog_driver.presentation.login.view
+package com.example.carog_driver.presentation.screen.login.view
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement

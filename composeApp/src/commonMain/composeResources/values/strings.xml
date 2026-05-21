@@ -68,4 +68,6 @@
     <string name="login">Log In</string>
     <string name="sample_phone">+(20) 111 111 1111</string>
     <string name="sample_name">Ahmed Mohamed</string>
+    <string name="send_otp">Send OTP</string>
+    <string name="complete_your_profile">Complete your profile</string>
 </resources>

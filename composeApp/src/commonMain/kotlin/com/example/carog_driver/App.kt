@@ -26,9 +26,9 @@ import org.koin.compose.koinInject
 fun App() {
     CargoTheme {
 
-        /*NavGraph(
+        NavGraph(
             startDestinationRoute = Route.LoginRoute //this will change according to start screen
-        )*/
+        )
 
         val authenticationRemoteDataSource: AuthenticationRemoteDataSource = koinInject()
 

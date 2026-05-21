@@ -28,11 +28,7 @@ fun NavGraph(
         ) {
             composable<Route.LoginRoute> {
                 LoginScreen(
-                    onSignIn = { email, password -> },
-                    onForgotPassword = {},
-                    onGoogleSignIn = {},
-                    onAppleSignIn = {},
-                    onApplyToDrive = {},
+
                 )
             }
         }

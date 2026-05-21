@@ -7,7 +7,7 @@ import org.koin.dsl.module
 val presentationModule = module {
 
     viewModel {
-        com.example.carog_driver.presentation.screen.onboarding.viewmodel.OnboardingViewModel(
+        OnboardingViewModel(
             completeOnboarding = get()
         )
     }

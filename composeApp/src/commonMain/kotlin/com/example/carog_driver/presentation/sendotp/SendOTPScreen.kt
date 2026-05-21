@@ -54,7 +54,7 @@ fun SendOTPScreen(
 
 
 @Composable
-fun SendOTPContent(
+private fun SendOTPContent(
     modifier: Modifier = Modifier
 ) {
 

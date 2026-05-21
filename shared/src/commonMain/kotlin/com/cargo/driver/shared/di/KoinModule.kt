@@ -4,5 +4,5 @@ val koinModule = listOf(
     sharedModule,
     networkModule,
     storageModule,
-    platformModule(),
+    platformModule,
 )

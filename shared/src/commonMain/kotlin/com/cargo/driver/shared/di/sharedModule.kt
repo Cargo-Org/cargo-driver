@@ -13,6 +13,14 @@ import org.koin.dsl.module
 // Shared: repositories, use cases, shared ViewModels
 val sharedModule = module {
 
+    //repository
+    single<AuthenticationRepository> {
+        AuthenticationRepositoryImpl(
+            tokenStorage = get(),
+            remote = get()
+        )
+    }
+
     single<UserPreferencesRepository> {
         UserPreferencesRepositoryImpl(
             dataStore = get()
@@ -36,13 +44,5 @@ val sharedModule = module {
     //datasource
     single<AuthenticationRemoteDataSource> {
         AuthenticationRemoteDataSourceImp(get())
-    }
-
-    //repo
-    single<AuthenticationRepository> {
-        AuthenticationRepositoryImpl(
-            tokenStorage = get(),
-            remote = get()
-        )
     }
 }

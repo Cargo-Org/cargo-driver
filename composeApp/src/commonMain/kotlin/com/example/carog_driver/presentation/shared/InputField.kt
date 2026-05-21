@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -20,6 +21,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
@@ -38,6 +40,8 @@ fun InputField(
     leadingIcon: Painter? = null,
     isPassword: Boolean = false,
     keyboardType: KeyboardType = KeyboardType.Text,
+    imeAction: ImeAction = ImeAction.Default,
+    keyboardActions: KeyboardActions = KeyboardActions.Default,
     visibilityOnPainter: Painter? = null,
     visibilityOffPainter: Painter? = null,
     iconTint: Color? = null
@@ -69,19 +73,19 @@ fun InputField(
                     color = colors.onSurfaceVariant.copy(alpha = 0.5f),
                 )
             },
-            leadingIcon = if (leadingIcon != null) {
+            leadingIcon = leadingIcon?.let { icon ->
                 {
                     Icon(
-                        painter = leadingIcon,
+                        painter = icon,
                         contentDescription = null,
                         tint = finalIconTint,
                         modifier = Modifier.size(18.dp),
                     )
                 }
-            } else null,
-            trailingIcon = if (isPassword && visibilityOnPainter != null && visibilityOffPainter != null) {
+            },
+            trailingIcon = takeIf { isPassword && visibilityOnPainter != null && visibilityOffPainter != null }?.let {
                 {
-                    val painter = if (passwordVisible) visibilityOnPainter else visibilityOffPainter
+                    val painter = if (passwordVisible) visibilityOnPainter!! else visibilityOffPainter!!
 
                     IconButton(onClick = { passwordVisible = !passwordVisible }) {
                         Icon(
@@ -92,13 +96,17 @@ fun InputField(
                         )
                     }
                 }
-            } else null,
+            },
             visualTransformation = if (isPassword && !passwordVisible) {
                 PasswordVisualTransformation()
             } else {
                 VisualTransformation.None
             },
-            keyboardOptions = KeyboardOptions(keyboardType = keyboardType),
+            keyboardOptions = KeyboardOptions(
+                keyboardType = keyboardType,
+                imeAction = imeAction
+            ),
+            keyboardActions = keyboardActions,
             singleLine = true,
             shape = RoundedCornerShape(12.dp),
             colors = OutlinedTextFieldDefaults.colors(
@@ -125,6 +133,12 @@ private fun InputFieldDarkPreview() {
                 value = "",
                 onValueChange = {},
                 placeholder = "driver@cargo.com",
+                imeAction = ImeAction.Next,
+                keyboardActions = KeyboardActions(
+                    onNext = {
+                        // Handle next action
+                    }
+                )
             )
         }
     }

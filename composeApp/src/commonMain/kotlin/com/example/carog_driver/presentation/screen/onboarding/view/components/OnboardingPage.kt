@@ -1,4 +1,4 @@
-package com.example.carog_driver.presentation.onboarding.view.components
+package com.example.carog_driver.presentation.screen.onboarding.view.components
 
 import androidx.compose.animation.core.EaseOutCubic
 import androidx.compose.animation.core.animateFloatAsState
@@ -24,7 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.example.carog_driver.presentation.onboarding.viewmodel.OnboardingPageModel
+import com.example.carog_driver.presentation.screen.onboarding.viewmodel.OnboardingPageModel
 import com.example.carog_driver.presentation.theme.AppTheme
 import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.painterResource

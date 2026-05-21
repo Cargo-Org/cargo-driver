@@ -1,4 +1,4 @@
-package com.example.carog_driver.presentation.vehicleregister.view
+package com.example.carog_driver.presentation.screen.vehicleregister.view
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -21,11 +21,11 @@ import carog_driver.composeapp.generated.resources.*
 import com.example.carog_driver.presentation.shared.FileUploadField
 import com.example.carog_driver.presentation.shared.PrimaryButton
 import com.example.carog_driver.presentation.theme.AppTheme
-import com.example.carog_driver.presentation.vehicleregister.view.components.GeneralInfoSection
-import com.example.carog_driver.presentation.vehicleregister.view.components.PageHeader
-import com.example.carog_driver.presentation.vehicleregister.view.components.RegistrationSection
-import com.example.carog_driver.presentation.vehicleregister.view.components.VehicleTypeOption
-import com.example.carog_driver.presentation.vehicleregister.view.components.VehicleTypeSelector
+import com.example.carog_driver.presentation.screen.vehicleregister.view.components.GeneralInfoSection
+import com.example.carog_driver.presentation.screen.vehicleregister.view.components.PageHeader
+import com.example.carog_driver.presentation.screen.vehicleregister.view.components.RegistrationSection
+import com.example.carog_driver.presentation.screen.vehicleregister.view.components.VehicleTypeOption
+import com.example.carog_driver.presentation.screen.vehicleregister.view.components.VehicleTypeSelector
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 

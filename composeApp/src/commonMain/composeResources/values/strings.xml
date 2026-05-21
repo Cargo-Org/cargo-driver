@@ -68,6 +68,12 @@
     <string name="login">Log In</string>
     <string name="sample_phone">+(20) 111 111 1111</string>
     <string name="sample_name">Ahmed Mohamed</string>
+    <string name="verify_your_id">Verify Your ID</string>
+    <string name="otp_sent_message">We've sent a 4-digit code to your registered mobile number for Cargo Driver authentication.</string>
+    <string name="verify_otp">Verify OTP</string>
+    <string name="didnt_receive_code">Didn't receive the code?</string>
+    <string name="resend_code">Resend Code</string>
+    <string name="resend_available_in">Resend available in %1$s</string>
     <string name="send_otp">Send OTP</string>
     <string name="complete_your_profile">Complete your profile</string>
 </resources>

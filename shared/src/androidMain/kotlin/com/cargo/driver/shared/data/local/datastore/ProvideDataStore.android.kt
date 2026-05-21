@@ -7,7 +7,7 @@ import androidx.datastore.preferences.core.Preferences
 import okio.Path.Companion.toPath
 import org.koin.java.KoinJavaComponent.getKoin
 
-actual fun createDataStore(): DataStore<Preferences> {
+actual fun provideDataStore(): DataStore<Preferences> {
     val context: Context = getKoin().get()
     return PreferenceDataStoreFactory.createWithPath(
         produceFile = {

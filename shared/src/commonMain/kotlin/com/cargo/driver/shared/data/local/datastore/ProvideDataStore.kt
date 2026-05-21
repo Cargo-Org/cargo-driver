@@ -5,4 +5,4 @@ import androidx.datastore.preferences.core.Preferences
 
 internal const val DATA_STORE_FILE_NAME = "carog_driver.preferences_pb"
 
-expect fun createDataStore(): DataStore<Preferences>
+expect fun provideDataStore(): DataStore<Preferences>

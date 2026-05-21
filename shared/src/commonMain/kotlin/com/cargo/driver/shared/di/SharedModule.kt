@@ -1,8 +1,9 @@
 package com.cargo.driver.shared.di
-import com.cargo.driver.shared.data.remote.datasource.AuthRemoteDataSource
-import com.cargo.driver.shared.data.remote.datasource.AuthRemoteDataSourceImp
-import com.cargo.driver.shared.data.repository.AuthRepositoryImp
-import com.cargo.driver.shared.domain.repository.AuthRepository
+
+import com.cargo.driver.shared.data.remote.datasource.auth.AuthenticationRemoteDataSource
+import com.cargo.driver.shared.data.remote.datasource.auth.AuthenticationRemoteDataSourceImp
+import com.cargo.driver.shared.data.repository.auth.AuthenticationRepositoryImpl
+import com.cargo.driver.shared.domain.repository.auth.AuthenticationRepository
 import org.koin.dsl.module
 
 
@@ -13,13 +14,14 @@ val sharedModule = module {
     // provide shared ViewModels
 
     //datasource
-    single<AuthRemoteDataSource> {
-        AuthRemoteDataSourceImp()
+    single<AuthenticationRemoteDataSource> {
+        AuthenticationRemoteDataSourceImp(get())
     }
 
     //repo
-    single <AuthRepository> {
-        AuthRepositoryImp(
+    single<AuthenticationRepository> {
+        AuthenticationRepositoryImpl(
+            tokenStorage = get(),
             remote = get()
         )
     }

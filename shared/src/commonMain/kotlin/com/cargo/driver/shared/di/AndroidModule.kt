@@ -4,5 +4,5 @@ val androidModule = listOf(
     networkModule,
     storageModule,
     sharedModule,
-    platformModule()
+    platformModule
 )

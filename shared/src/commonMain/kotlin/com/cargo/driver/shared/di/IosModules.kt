@@ -4,5 +4,5 @@ val iosModules = listOf(
     networkModule,
     storageModule,
     sharedModule,
-    platformModule()
+    platformModule
 )

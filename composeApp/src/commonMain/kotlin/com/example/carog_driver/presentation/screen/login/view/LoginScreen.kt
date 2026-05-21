@@ -4,7 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -15,7 +14,6 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -37,6 +35,7 @@ import com.example.carog_driver.presentation.shared.InputField
 import com.example.carog_driver.presentation.shared.PrimaryButton
 import com.example.carog_driver.presentation.shared.SocialButton
 import com.example.carog_driver.presentation.shared.TextLink
+import com.example.carog_driver.presentation.shared.OrDivider
 import com.example.carog_driver.presentation.theme.AppTheme
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
@@ -235,30 +234,3 @@ private fun LoginScreenContent(
     }
 }
 
-@Composable
-private fun OrDivider(
-    label: String,
-    modifier: Modifier = Modifier,
-) {
-    val colors = AppTheme.colors
-
-    Row(
-        modifier = modifier.fillMaxWidth(),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(AppTheme.dimens.gutter),
-    ) {
-        HorizontalDivider(
-            modifier = Modifier.weight(1f),
-            color = colors.outlineVariant,
-        )
-        Text(
-            text = label,
-            style = AppTheme.typography.labelSm,
-            color = colors.outline,
-        )
-        HorizontalDivider(
-            modifier = Modifier.weight(1f),
-            color = colors.outlineVariant,
-        )
-    }
-}

@@ -1,22 +1,31 @@
 package com.example.carog_driver.presentation.shared
 
-import androidx.compose.animation.core.*
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.FastOutLinearInEasing
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.StartOffset
+import androidx.compose.animation.core.StartOffsetType
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.withTransform
 import androidx.compose.ui.graphics.vector.PathParser
+import com.example.carog_driver.presentation.theme.AppTheme
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-private val Orange = Color(0xFFFDB22E)
-private val White = Color(0xFFFFFFFF)
 
 private const val VP_W = 2396f
 private const val VP_H = 1792f
@@ -124,16 +133,17 @@ private fun parsePath(d: String): Path = PathParser().parsePathString(d).toPath(
 
 @Composable
 fun AnimatedCargoLogo(
-    modifier: Modifier = Modifier,
-    truckChassisColor: Color = White,
-    cargoSymbolColor: Color = Orange,
-    speedTrailsColor: Color = Orange,
-    truckWheelsColor: Color = White
+    modifier: Modifier = Modifier
 ) {
     val cargoY = remember { Animatable(0f) }
     val cargoX = remember { Animatable(0f) }
     val cargoLiftY = remember { Animatable(0f) }
     val cargoRotation = remember { Animatable(0f) }
+
+    val truckChassisColor: Color = AppTheme.extraColors.cargoLogoColors.truckChassisColor
+    val cargoSymbolColor: Color = AppTheme.extraColors.cargoLogoColors.cargoSymbolColor
+    val speedTrailsColor: Color = AppTheme.extraColors.cargoLogoColors.speedTrailsColor
+    val truckWheelsColor: Color = AppTheme.extraColors.cargoLogoColors.truckWheelsColor
 
     LaunchedEffect(Unit) {
         while (true) {

@@ -35,7 +35,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import carog_driver.composeapp.generated.resources.Res
 import carog_driver.composeapp.generated.resources.cargo
-import carog_driver.composeapp.generated.resources.splash_loading
 import carog_driver.composeapp.generated.resources.splash_slogan
 import com.example.carog_driver.presentation.shared.AnimatedCargoLogo
 import com.example.carog_driver.presentation.shared.AnimatedProgressBar
@@ -81,14 +80,14 @@ private fun SplashScreenContent() {
         delay(300)
 
         progressAlpha = 1f
-        dotsAlpha     = 1f
-        delay(400)
+        dotsAlpha = 1f
+        progress = 1f
 
-        repeat(5) {
-            progress += 0.2f
-            dots++
-            delay(500)
-        }
+        ++dots; delay(300)
+        ++dots; delay(300)
+        ++dots; delay(300)
+        ++dots; delay(300)
+        ++dots
     }
 
     val animatedLogoOffsetX by animateFloatAsState(
@@ -127,13 +126,13 @@ private fun SplashScreenContent() {
 
     val dotsAlphaAnim by animateFloatAsState(
         targetValue = dotsAlpha,
-        animationSpec = tween(400),
+        animationSpec = tween(300),
         label = "dots alpha"
     )
 
     val animatedProgress by animateFloatAsState(
         targetValue = progress,
-        animationSpec = tween(450),
+        animationSpec = tween(300 * 6),
         label = "progress fill"
     )
 

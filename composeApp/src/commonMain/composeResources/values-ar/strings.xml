@@ -64,4 +64,8 @@
     <string name="action_remove_file">إزالة %1$s</string>
 
     <string name="btn_complete_registration">إتمام التسجيل</string>
+
+    <string name="hourSymbol">س</string>
+    <string name="minuteSymbol">د</string>
+    <string name="secondSymbol">ث</string>
 </resources>

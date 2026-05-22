@@ -47,12 +47,13 @@ import org.jetbrains.compose.resources.stringResource
 
 @Composable
 @Preview(showSystemUi = true, showBackground = true, uiMode = UI_MODE_NIGHT_YES)
-fun SplashScreen(modifier: Modifier = Modifier) {
-    SplashScreenContent(modifier = modifier)
+fun SplashScreen() {
+    SplashScreenContent()
 }
 
+
 @Composable
-private fun SplashScreenContent(modifier: Modifier = Modifier) {
+private fun SplashScreenContent() {
 
     var logoOffsetX by remember { mutableStateOf(-150f) }
 
@@ -137,7 +138,7 @@ private fun SplashScreenContent(modifier: Modifier = Modifier) {
     )
 
     Box(
-        modifier = modifier
+        modifier = Modifier
             .fillMaxSize()
             .background(
                 brush = Brush.radialGradient(
@@ -146,8 +147,7 @@ private fun SplashScreenContent(modifier: Modifier = Modifier) {
                         AppTheme.colors.background,
                     )
                 )
-            )
-            .padding(vertical = AppTheme.dimens.lg)
+            ).padding(vertical = AppTheme.dimens.xl)
     ) {
         Column(
             modifier = Modifier.matchParentSize(),
@@ -176,10 +176,8 @@ private fun SplashScreenContent(modifier: Modifier = Modifier) {
                 ) {
                     AnimatedCargoLogo(
                         modifier = Modifier
-                            .size(80.dp)
+                            .size(AppTheme.dimens.xxl)
                             .offset(x = animatedLogoOffsetX.dp),
-                        truckChassisColor = AppTheme.colors.onBackground,
-                        truckWheelsColor  = AppTheme.colors.onBackground
                     )
                 }
 
@@ -188,10 +186,9 @@ private fun SplashScreenContent(modifier: Modifier = Modifier) {
                 Text(
                     stringResource(Res.string.cargo),
                     modifier = Modifier.offset(y = cargoTextOffset.dp).alpha(cargoTextAlpha),
-                    style = AppTheme.typography.displayHero.copy(
-                        color       = AppTheme.colors.onBackground,
-                        fontWeight  = FontWeight.SemiBold,
-                        fontSize    = 34.sp,
+                    style = AppTheme.typography.titleLg.copy(
+                        color = AppTheme.colors.onBackground,
+                        fontWeight = FontWeight.SemiBold,
                         letterSpacing = 3.sp
                     )
                 )
@@ -209,7 +206,7 @@ private fun SplashScreenContent(modifier: Modifier = Modifier) {
                 AnimatedProgressBar(
                     modifier = Modifier
                         .fillMaxWidth(0.7f)
-                        .height(6.dp)
+                        .height(AppTheme.dimens.xs + 2.dp)
                         .alpha(progressAlphaAnim),
                     progress = animatedProgress
                 )

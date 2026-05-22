@@ -4,19 +4,16 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -26,7 +23,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -35,24 +35,18 @@ import com.example.carog_driver.presentation.shared.InputField
 import com.example.carog_driver.presentation.shared.PrimaryButton
 import com.example.carog_driver.presentation.shared.SocialButton
 import com.example.carog_driver.presentation.shared.TextLink
+import com.example.carog_driver.presentation.shared.OrDivider
 import com.example.carog_driver.presentation.theme.AppTheme
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
-fun LoginScreen(
-    onForgotPassword: () -> Unit = {},
-    onSignIn: (email: String, password: String) -> Unit = { _, _ -> },
-    onGoogleSignIn: () -> Unit = {},
-    onAppleSignIn: () -> Unit = {},
-    onApplyToDrive: () -> Unit = {},
-) {
+fun LoginScreen() {
     LoginScreenContent(
-        onForgotPassword = onForgotPassword,
-        onSignIn = onSignIn,
-        onGoogleSignIn = onGoogleSignIn,
-        onAppleSignIn = onAppleSignIn,
-        onApplyToDrive = onApplyToDrive,
+        onForgotPassword = {},
+        onSignIn = { _, _ -> },
+        onGoogleSignIn = {},
+        onApplyToDrive = {},
     )
 }
 
@@ -62,7 +56,6 @@ private fun LoginScreenContent(
     onForgotPassword: () -> Unit = {},
     onSignIn: (email: String, password: String) -> Unit = { _, _ -> },
     onGoogleSignIn: () -> Unit = {},
-    onAppleSignIn: () -> Unit = {},
     onApplyToDrive: () -> Unit = {},
 ) {
     var email by remember { mutableStateOf("") }
@@ -71,11 +64,14 @@ private fun LoginScreenContent(
     val colors = AppTheme.colors
     val typography = AppTheme.typography
     val dimens = AppTheme.dimens
+    val focusManager = LocalFocusManager.current
 
     Box(
         modifier = modifier
             .fillMaxSize()
-            .background(colors.background),
+            .background(colors.background)
+            .padding(dimens.pageMargin)
+        ,
         contentAlignment = Alignment.BottomCenter,
     ) {
 
@@ -84,7 +80,7 @@ private fun LoginScreenContent(
             elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
             modifier = Modifier
                 .fillMaxSize()
-                .padding(top = 40.dp),
+                .padding(top = dimens.cardPadding),
         ) {
             Column(
                 modifier = Modifier
@@ -94,16 +90,8 @@ private fun LoginScreenContent(
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
 
-                Spacer(modifier = Modifier.height(dimens.md))
 
-                Text(
-                    text = stringResource(Res.string.app_name),
-                    style = typography.sectionTitle,
-                    color = colors.primary,
-                    textAlign = TextAlign.Center,
-                )
-
-                Spacer(modifier = Modifier.height(dimens.sm))
+                Spacer(modifier = Modifier.height(dimens.xl))
 
                 Column(
                     modifier = Modifier
@@ -112,7 +100,7 @@ private fun LoginScreenContent(
                 ) {
 
                     Card(
-                        shape = RoundedCornerShape(16.dp),
+                        shape = AppTheme.shapes.medium,
                         colors = CardDefaults.cardColors(
                             containerColor = colors.surfaceContainerLow
                         ),
@@ -157,6 +145,10 @@ private fun LoginScreenContent(
                         leadingIcon = painterResource(Res.drawable.ic_email),
                         iconTint = colors.onSurfaceVariant,
                         keyboardType = KeyboardType.Email,
+                        imeAction = ImeAction.Next,
+                        keyboardActions = KeyboardActions(
+                            onNext = { focusManager.moveFocus(FocusDirection.Down) }
+                        )
                     )
 
                     Spacer(modifier = Modifier.height(dimens.gutter))
@@ -179,28 +171,38 @@ private fun LoginScreenContent(
                         visibilityOffPainter = painterResource(Res.drawable.ic_visibility_off),
                         iconTint = colors.onSurfaceVariant,
                         keyboardType = KeyboardType.Password,
+                        imeAction = ImeAction.Done,
+                        keyboardActions = KeyboardActions(
+                            onDone = {
+                                focusManager.clearFocus()
+                                onSignIn(email, password)
+                            }
+                        )
                     )
 
                     TextButton(
                         onClick = onForgotPassword,
                         modifier = Modifier
                             .align(Alignment.End)
-                            .padding(top = dimens.xs)
-                            .height(24.dp),
-                        contentPadding = PaddingValues(0.dp)
+                            .padding(top = dimens.sm),
+
                     ) {
                         Text(
                             text = stringResource(Res.string.forgot_password),
                             style = typography.labelMd,
                             color = colors.secondary,
+                            textAlign = TextAlign.End,
                         )
                     }
 
-                    Spacer(modifier = Modifier.height(dimens.stackMd))
+                    Spacer(modifier = Modifier.height(dimens.md))
 
                     PrimaryButton(
                         text = stringResource(Res.string.sign_in),
-                        onClick = { onSignIn(email, password) },
+                        onClick = {
+                            focusManager.clearFocus()
+                            onSignIn(email, password)
+                        },
                     )
 
                     OrDivider(
@@ -217,13 +219,6 @@ private fun LoginScreenContent(
 
                     Spacer(modifier = Modifier.height(dimens.sm))
 
-                    SocialButton(
-                        text = stringResource(Res.string.continue_with_apple),
-                        icon = painterResource(Res.drawable.ic_apple),
-                        iconTint = colors.onSurface,
-                        onClick = onAppleSignIn,
-                    )
-
                     Spacer(modifier = Modifier.height(dimens.stackLg))
 
                     Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
@@ -236,34 +231,6 @@ private fun LoginScreenContent(
                 }
             }
         }
-    }
-}
-
-@Composable
-private fun OrDivider(
-    label: String,
-    modifier: Modifier = Modifier,
-) {
-    val colors = AppTheme.colors
-
-    Row(
-        modifier = modifier.fillMaxWidth(),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(AppTheme.dimens.gutter),
-    ) {
-        HorizontalDivider(
-            modifier = Modifier.weight(1f),
-            color = colors.outlineVariant,
-        )
-        Text(
-            text = label,
-            style = AppTheme.typography.labelSm,
-            color = colors.outline,
-        )
-        HorizontalDivider(
-            modifier = Modifier.weight(1f),
-            color = colors.outlineVariant,
-        )
     }
 }
 

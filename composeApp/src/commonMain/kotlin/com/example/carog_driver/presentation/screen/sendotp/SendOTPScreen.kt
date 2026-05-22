@@ -29,15 +29,19 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import carog_driver.composeapp.generated.resources.Res
 import carog_driver.composeapp.generated.resources.didnt_receive_code
+import carog_driver.composeapp.generated.resources.hourSymbol
 import carog_driver.composeapp.generated.resources.ic_privacy
+import carog_driver.composeapp.generated.resources.minuteSymbol
 import carog_driver.composeapp.generated.resources.otp_sent_message
 import carog_driver.composeapp.generated.resources.resend_available_in
 import carog_driver.composeapp.generated.resources.resend_code
+import carog_driver.composeapp.generated.resources.secondSymbol
 import carog_driver.composeapp.generated.resources.verify_otp
 import carog_driver.composeapp.generated.resources.verify_your_id
 import com.example.carog_driver.presentation.shared.OTPVerificationInput
 import com.example.carog_driver.presentation.shared.PrimaryButton
 import com.example.carog_driver.presentation.theme.AppTheme
+import com.example.carog_driver.presentation.util.toLocalizedDigits
 import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
@@ -88,16 +92,23 @@ private fun SendOTPContent(
         isResendEnabled = true
     }
 
+    @Composable
     fun formatTime(seconds: Long): String {
+        val hourSymbol = stringResource(Res.string.hourSymbol)
+        val minuteSymbol = stringResource(Res.string.minuteSymbol)
+        val secondSymbol = stringResource(Res.string.secondSymbol)
+
         val h = seconds / 3600
         val m = (seconds % 3600) / 60
         val s = seconds % 60
 
-        return when {
-            h > 0 -> "${h}h ${m}m ${s}s"
-            m > 0 -> "${m}m ${s}s"
-            else -> "${s}s"
+        val formatted = when {
+            h > 0 -> "${h}${hourSymbol} ${m}${minuteSymbol} ${s}${secondSymbol}"
+            m > 0 -> "${m}${minuteSymbol} ${s}${secondSymbol}"
+            else -> "${s}${secondSymbol}"
         }
+
+        return formatted.toLocalizedDigits()
     }
 
     Box(

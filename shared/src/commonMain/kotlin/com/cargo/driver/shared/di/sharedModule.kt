@@ -43,6 +43,6 @@ val sharedModule = module {
 
     //datasource
     single<AuthenticationRemoteDataSource> {
-        AuthenticationRemoteDataSourceImpl(get())
+        AuthenticationRemoteDataSourceImpl(get(), get())
     }
 }

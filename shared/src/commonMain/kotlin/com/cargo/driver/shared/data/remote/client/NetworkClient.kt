@@ -11,6 +11,7 @@ import io.ktor.client.plugins.logging.LogLevel
 import io.ktor.client.plugins.logging.Logger
 import io.ktor.client.plugins.logging.Logging
 import io.ktor.client.request.*
+import io.ktor.client.statement.HttpResponse
 import io.ktor.http.ContentType
 import io.ktor.http.contentType
 import io.ktor.serialization.kotlinx.json.json
@@ -24,31 +25,31 @@ class NetworkClient(
     internal val client: HttpClient by lazy { buildClient() }
 
     // public http methods
-
-    suspend inline fun <reified T> get(
+    
+    suspend fun get(
         path: String,
         block: HttpRequestBuilder.() -> Unit = {}
-    ): T = client.get(path, block).body()
+    ): HttpResponse = client.get(path, block)
 
-    suspend inline fun <reified T> post(
+    suspend fun post(
         path: String,
         block: HttpRequestBuilder.() -> Unit = {}
-    ): T = client.post(path, block).body()
+    ): HttpResponse = client.post(path, block)
 
-    suspend inline fun <reified T> put(
+    suspend fun put(
         path: String,
         block: HttpRequestBuilder.() -> Unit = {}
-    ): T = client.put(path, block).body()
+    ): HttpResponse = client.put(path, block)
 
-    suspend inline fun <reified T> patch(
+    suspend fun patch(
         path: String,
         block: HttpRequestBuilder.() -> Unit = {}
-    ): T = client.patch(path, block).body()
+    ): HttpResponse = client.patch(path, block)
 
-    suspend inline fun <reified T> delete(
+    suspend fun delete(
         path: String,
         block: HttpRequestBuilder.() -> Unit = {}
-    ): T = client.delete(path, block).body()
+    ): HttpResponse = client.delete(path, block)
 
     // client builder
 

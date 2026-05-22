@@ -16,6 +16,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.cargo.driver.shared.data.local.datastore.TokenStorage
 import com.cargo.driver.shared.data.remote.datasource.auth.AuthenticationRemoteDataSource
+import com.cargo.driver.shared.domain.exception.NoInternetException
+import com.cargo.driver.shared.domain.exception.ServerException
+import com.cargo.driver.shared.domain.exception.UnauthorizedException
+import com.cargo.driver.shared.domain.result.ApiResult
 import com.example.carog_driver.presentation.theme.CargoTheme
 import kotlinx.coroutines.launch
 import org.koin.compose.koinInject
@@ -25,13 +29,10 @@ import org.koin.compose.koinInject
 fun App() {
     CargoTheme {
 
-        val authenticationRemoteDataSource: AuthenticationRemoteDataSource = koinInject()
-        val tokenStorage: TokenStorage = koinInject()
+        val authDataSource: AuthenticationRemoteDataSource = koinInject()
 
         var loginResult by remember { mutableStateOf(" ") }
-
         var profileResult by remember { mutableStateOf(" ") }
-
         var isLoading by remember { mutableStateOf(false) }
 
         val scope = rememberCoroutineScope()
@@ -44,55 +45,59 @@ fun App() {
             Button(
                 onClick = {
                     scope.launch {
-                        try {
-                            isLoading = true
+                        isLoading = true
 
-                            val response = authenticationRemoteDataSource.login(
-                                email = "zazaoskar928@gmail.com",
-                                password = "zz123123"
-                            )
-                            tokenStorage.saveAccessToken(response.accessToken)
-                            tokenStorage.saveRefreshToken(response.refreshToken)
-                            loginResult = "Welcome ${response.fullName}"
-
-                        } catch (e: Exception) {
-                            loginResult = "Error: ${e.message}"
-                            println("======= ${e.message}")
-                        } finally {
-                            isLoading = false
+                        when (val result = authDataSource.login(
+                            email = "zazaoskar928@gmail.com",
+                            password = "zz123123"
+                        )) {
+                            is ApiResult.Success -> {
+                                loginResult = "Welcome ${result.data.fullName}"
+                            }
+                            is ApiResult.Error -> {
+                                loginResult = when (result.exception) {
+                                    is UnauthorizedException -> "Wrong email or password"
+                                    is NoInternetException -> "No internet connection"
+                                    is ServerException -> "Server error, try again later"
+                                    else -> "Something went wrong"
+                                }
+                            }
                         }
+
+                        isLoading = false
                     }
                 }
             ) {
-                Text("login")
+                Text("Login")
             }
 
             Button(
                 onClick = {
                     scope.launch {
-                        try {
-                            isLoading = true
+                        isLoading = true
 
-                            val response = authenticationRemoteDataSource.getUserProfile()
-
-                            profileResult = "Welcome ${response.fullName}"
-
-                        } catch (e: Exception) {
-                            profileResult = "Error: ${e.message}"
-                            println("======= ${e.message}")
-                        } finally {
-                            isLoading = false
+                        when (val result = authDataSource.getUserProfile()) {
+                            is ApiResult.Success -> {
+                                profileResult = "Welcome ${result.data.fullName}"
+                            }
+                            is ApiResult.Error -> {
+                                profileResult = when (result.exception) {
+                                    is UnauthorizedException -> "Session expired, please log in"
+                                    is NoInternetException -> "No internet connection"
+                                    is ServerException -> "Server error, try again later"
+                                    else -> "Something went wrong"
+                                }
+                            }
                         }
+
+                        isLoading = false
                     }
                 }
             ) {
-                Text("get profile")
+                Text("Get Profile")
             }
 
-            if (isLoading) {
-                Text("Loading...")
-            }
-
+            if (isLoading) Text("Loading...")
             Text(text = loginResult)
             Text(text = profileResult)
         }

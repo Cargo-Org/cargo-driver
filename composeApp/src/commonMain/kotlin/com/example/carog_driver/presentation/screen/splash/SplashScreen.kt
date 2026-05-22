@@ -210,14 +210,6 @@ private fun SplashScreenContent() {
                         .alpha(progressAlphaAnim),
                     progress = animatedProgress
                 )
-
-                Text(
-                    stringResource(Res.string.splash_loading),
-                    modifier = Modifier.alpha(progressAlphaAnim),
-                    style = AppTheme.typography.bodyLg.copy(
-                        color = AppTheme.colors.onBackground
-                    )
-                )
             }
 
             AnimatedThreeDotsBar(

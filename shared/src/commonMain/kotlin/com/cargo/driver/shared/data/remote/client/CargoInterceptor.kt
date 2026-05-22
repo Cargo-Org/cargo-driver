@@ -1,6 +1,7 @@
 package com.cargo.driver.shared.data.remote.client
 
 import com.cargo.driver.shared.data.local.datastore.TokenStorage
+import com.cargo.driver.shared.data.remote.util.ApiConstants
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.plugins.HttpSend
@@ -24,10 +25,10 @@ class CargoInterceptor(
     private val mutex = Mutex()
 
     private val publicPaths = setOf(
-        "login",
-        "register",
-        "refresh-token",
-        "verify-email"
+        ApiConstants.LOGIN,
+        ApiConstants.REGISTER,
+        ApiConstants.REFRESH_TOKEN,
+        ApiConstants.VERIFY_EMAIL
     )
 
     fun install(client: HttpClient) {
@@ -66,7 +67,7 @@ class CargoInterceptor(
                     }
 
                 val refreshResponse = client.post {
-                    url("refresh-token")
+                    url(ApiConstants.REFRESH_TOKEN)
                     contentType(ContentType.Application.Json)
                     setBody(RefreshTokenRequest(refreshToken))
                 }

@@ -80,4 +80,8 @@
 
     <string name="splash_slogan">Logistics &amp; Transit</string>
     <string name="splash_loading">Initializing...</string>
+
+    <string name="hourSymbol">h</string>
+    <string name="minuteSymbol">m</string>
+    <string name="secondSymbol">s</string>
 </resources>

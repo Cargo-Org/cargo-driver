@@ -68,4 +68,8 @@
 
     <string name="splash_slogan">لخدمات النقل</string>
     <string name="splash_loading">جاري التحميل...</string>
+
+    <string name="hourSymbol">س</string>
+    <string name="minuteSymbol">د</string>
+    <string name="secondSymbol">ث</string>
 </resources>

@@ -22,20 +22,22 @@ fun AnimatedThreeDotsBar(
     modifier: Modifier = Modifier,
     progress: Int
 ) {
+    val animationDuration = 300
+
     val dot1Alpha by animateFloatAsState(
-        targetValue = if (progress >= 1) 1f else 0f, animationSpec = tween(300), label = "dot1"
+        targetValue = if (progress >= 1) 1f else 0f, animationSpec = tween(animationDuration), label = "dot1"
     )
     val div1Alpha by animateFloatAsState(
-        targetValue = if (progress >= 2) 1f else 0f, animationSpec = tween(300), label = "div1"
+        targetValue = if (progress >= 2) 1f else 0f, animationSpec = tween(animationDuration), label = "div1"
     )
     val dot2Alpha by animateFloatAsState(
-        targetValue = if (progress >= 3) 1f else 0f, animationSpec = tween(300), label = "dot2"
+        targetValue = if (progress >= 3) 1f else 0f, animationSpec = tween(animationDuration), label = "dot2"
     )
     val div2Alpha by animateFloatAsState(
-        targetValue = if (progress >= 4) 1f else 0f, animationSpec = tween(300), label = "div2"
+        targetValue = if (progress >= 4) 1f else 0f, animationSpec = tween(animationDuration), label = "div2"
     )
     val dot3Alpha by animateFloatAsState(
-        targetValue = if (progress >= 5) 1f else 0f, animationSpec = tween(300), label = "dot3"
+        targetValue = if (progress >= 5) 1f else 0f, animationSpec = tween(animationDuration), label = "dot3"
     )
 
     Row(

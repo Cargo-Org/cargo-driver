@@ -33,11 +33,16 @@ import androidx.compose.ui.tooling.preview.AndroidUiModes.UI_MODE_NIGHT_YES
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import carog_driver.composeapp.generated.resources.Res
+import carog_driver.composeapp.generated.resources.cargo
+import carog_driver.composeapp.generated.resources.splash_loading
+import carog_driver.composeapp.generated.resources.splash_slogan
 import com.example.carog_driver.presentation.shared.AnimatedCargoLogo
 import com.example.carog_driver.presentation.shared.AnimatedProgressBar
 import com.example.carog_driver.presentation.shared.AnimatedThreeDotsBar
 import com.example.carog_driver.presentation.theme.AppTheme
 import kotlinx.coroutines.delay
+import org.jetbrains.compose.resources.stringResource
 
 
 @Composable
@@ -181,7 +186,7 @@ private fun SplashScreenContent(modifier: Modifier = Modifier) {
                 Spacer(modifier = Modifier.height(AppTheme.dimens.sm))
 
                 Text(
-                    "Cargo",
+                    stringResource(Res.string.cargo),
                     modifier = Modifier.offset(y = cargoTextOffset.dp).alpha(cargoTextAlpha),
                     style = AppTheme.typography.displayHero.copy(
                         color       = AppTheme.colors.onBackground,
@@ -192,7 +197,7 @@ private fun SplashScreenContent(modifier: Modifier = Modifier) {
                 )
 
                 Text(
-                    "Logistics & Transit",
+                    stringResource(Res.string.splash_slogan),
                     modifier = Modifier.offset(y = sloganTextOffset.dp).alpha(sloganTextAlpha),
                     style = AppTheme.typography.labelMuted.copy(
                         color = AppTheme.colors.outline
@@ -210,7 +215,7 @@ private fun SplashScreenContent(modifier: Modifier = Modifier) {
                 )
 
                 Text(
-                    "Initializing...",
+                    stringResource(Res.string.splash_loading),
                     modifier = Modifier.alpha(progressAlphaAnim),
                     style = AppTheme.typography.bodyLg.copy(
                         color = AppTheme.colors.onBackground

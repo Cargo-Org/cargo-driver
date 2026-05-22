@@ -2,7 +2,6 @@ package com.cargo.driver.shared.di
 
 import com.cargo.driver.shared.data.remote.client.CargoInterceptor
 import com.cargo.driver.shared.data.remote.client.NetworkClient
-import io.ktor.client.HttpClient
 import org.koin.dsl.module
 
 
@@ -17,12 +16,5 @@ val networkModule = module {
             engine = get(),
             cargoInterceptor = get()
         )
-    }
-
-    single<HttpClient> {
-        NetworkClient(
-            engine = get(),
-            cargoInterceptor = get()
-        ).create()
     }
 }

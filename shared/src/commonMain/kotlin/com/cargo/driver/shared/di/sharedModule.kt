@@ -1,7 +1,7 @@
 package com.cargo.driver.shared.di
 
 import com.cargo.driver.shared.data.remote.datasource.auth.AuthenticationRemoteDataSource
-import com.cargo.driver.shared.data.remote.datasource.auth.AuthenticationRemoteDataSourceImp
+import com.cargo.driver.shared.data.remote.datasource.auth.AuthenticationRemoteDataSourceImpl
 import com.cargo.driver.shared.data.repository.UserPreferencesRepositoryImpl
 import com.cargo.driver.shared.data.repository.auth.AuthenticationRepositoryImpl
 import com.cargo.driver.shared.domain.repository.UserPreferencesRepository
@@ -43,6 +43,6 @@ val sharedModule = module {
 
     //datasource
     single<AuthenticationRemoteDataSource> {
-        AuthenticationRemoteDataSourceImp(get())
+        AuthenticationRemoteDataSourceImpl(get())
     }
 }

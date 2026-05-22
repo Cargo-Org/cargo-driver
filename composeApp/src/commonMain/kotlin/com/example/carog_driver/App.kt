@@ -14,9 +14,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.cargo.driver.shared.data.local.datastore.TokenStorage
 import com.cargo.driver.shared.data.remote.datasource.auth.AuthenticationRemoteDataSource
-import com.example.carog_driver.presentation.navigation.NavGraph
-import com.example.carog_driver.presentation.navigation.Route
 import com.example.carog_driver.presentation.theme.CargoTheme
 import kotlinx.coroutines.launch
 import org.koin.compose.koinInject
@@ -26,13 +25,13 @@ import org.koin.compose.koinInject
 fun App() {
     CargoTheme {
 
-        NavGraph(
-            startDestinationRoute = Route.LoginRoute //this will change according to start screen
-        )
-
         val authenticationRemoteDataSource: AuthenticationRemoteDataSource = koinInject()
+        val tokenStorage: TokenStorage = koinInject()
 
-        var result by remember { mutableStateOf("Click to test API") }
+        var loginResult by remember { mutableStateOf(" ") }
+
+        var profileResult by remember { mutableStateOf(" ") }
+
         var isLoading by remember { mutableStateOf(false) }
 
         val scope = rememberCoroutineScope()
@@ -52,11 +51,12 @@ fun App() {
                                 email = "zazaoskar928@gmail.com",
                                 password = "zz123123"
                             )
-
-                            result = "Welcome ${response.fullName}"
+                            tokenStorage.saveAccessToken(response.accessToken)
+                            tokenStorage.saveRefreshToken(response.refreshToken)
+                            loginResult = "Welcome ${response.fullName}"
 
                         } catch (e: Exception) {
-                            result = "Error: ${e.message}"
+                            loginResult = "Error: ${e.message}"
                             println("======= ${e.message}")
                         } finally {
                             isLoading = false
@@ -64,14 +64,37 @@ fun App() {
                     }
                 }
             ) {
-                Text("Test API")
+                Text("login")
+            }
+
+            Button(
+                onClick = {
+                    scope.launch {
+                        try {
+                            isLoading = true
+
+                            val response = authenticationRemoteDataSource.getUserProfile()
+
+                            profileResult = "Welcome ${response.fullName}"
+
+                        } catch (e: Exception) {
+                            profileResult = "Error: ${e.message}"
+                            println("======= ${e.message}")
+                        } finally {
+                            isLoading = false
+                        }
+                    }
+                }
+            ) {
+                Text("get profile")
             }
 
             if (isLoading) {
                 Text("Loading...")
             }
 
-            Text(text = result)
+            Text(text = loginResult)
+            Text(text = profileResult)
         }
     }
 }

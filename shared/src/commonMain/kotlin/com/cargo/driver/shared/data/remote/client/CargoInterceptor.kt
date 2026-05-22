@@ -23,54 +23,70 @@ class CargoInterceptor(
 
     private val mutex = Mutex()
 
+    private val publicPaths = setOf(
+        "login",
+        "register",
+        "refresh-token",
+        "verify-email"
+    )
+
     fun install(client: HttpClient) {
 
         client.plugin(HttpSend).intercept { request ->
 
             val path = request.url.encodedPath
 
-            val isPublic = path.contains("login") ||
-                    path.contains("register") ||
-                    path.contains("refresh-token") ||
-                    path.contains("verify-email")
-
+            val isPublic = publicPaths.any { path.endsWith(it) }
             if (isPublic) return@intercept execute(request)
 
-            tokenStorage.getAccessToken()?.let { token ->
+            val tokenUsed = tokenStorage.getAccessToken()
+
+            if (tokenUsed != null) {
                 request.headers.remove(HttpHeaders.Authorization)
-                request.headers.append(HttpHeaders.Authorization, "Bearer $token")
+                request.headers.append(HttpHeaders.Authorization, "Bearer $tokenUsed")
             }
 
             val call = execute(request)
 
-            if (call.response.status == HttpStatusCode.Unauthorized) {
+            if (call.response.status != HttpStatusCode.Unauthorized) {
+                return@intercept call
+            }
 
-                val newAccessToken = mutex.withLock {
-                    val refreshToken = tokenStorage.getRefreshToken()
-                        ?: return@withLock null
+            val newAccessToken = mutex.withLock {
 
-                    val refreshResponse = client.post {
-                        url("refresh-token")
-                        contentType(ContentType.Application.Json)
-                        setBody(RefreshTokenRequest(refreshToken))
-                    }
+                val currentToken = tokenStorage.getAccessToken()
+                if (currentToken != null && currentToken != tokenUsed) {
+                    return@withLock currentToken
+                }
 
-                    if (refreshResponse.status == HttpStatusCode.OK) {
-                        val body = refreshResponse.body<RefreshTokenResponse>()
-                        tokenStorage.saveAccessToken(body.accessToken)
-                        body.refreshToken?.let { tokenStorage.saveRefreshToken(it) }
-                        body.accessToken
-                    } else {
+                val refreshToken = tokenStorage.getRefreshToken()
+                    ?: run {
                         tokenStorage.clearTokens()
-                        null
+                        return@withLock null
                     }
+
+                val refreshResponse = client.post {
+                    url("refresh-token")
+                    contentType(ContentType.Application.Json)
+                    setBody(RefreshTokenRequest(refreshToken))
                 }
 
-                if (!newAccessToken.isNullOrEmpty()) {
-                    request.headers.remove(HttpHeaders.Authorization)
-                    request.headers.append(HttpHeaders.Authorization, "Bearer $newAccessToken")
-                    return@intercept execute(request)
+                if (refreshResponse.status == HttpStatusCode.OK) {
+                    val body = refreshResponse.body<RefreshTokenResponse>()
+                    tokenStorage.saveAccessToken(body.accessToken)
+
+                    body.refreshToken?.let { tokenStorage.saveRefreshToken(it) }
+                    body.accessToken
+                } else {
+                    tokenStorage.clearTokens()
+                    null
                 }
+            }
+
+            if (!newAccessToken.isNullOrEmpty()) {
+                request.headers.remove(HttpHeaders.Authorization)
+                request.headers.append(HttpHeaders.Authorization, "Bearer $newAccessToken")
+                return@intercept execute(request)
             }
 
             call

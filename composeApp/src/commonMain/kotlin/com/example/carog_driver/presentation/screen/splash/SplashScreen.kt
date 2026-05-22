@@ -67,72 +67,79 @@ private fun SplashScreenContent() {
     var progress by remember { mutableStateOf(0f) }
     var dots by remember { mutableIntStateOf(0) }
 
+    val logoSlideMs = 700
+    val textSlideMs = 500
+    val fadeInMs = 400
+    val dotsFadeMs = 300
+    val dotStepMs = 300L
+    val progressFillMs = (dotStepMs * 6).toInt()
+
     LaunchedEffect(Unit) {
         logoOffsetX = 0f
-        delay(700)
+        delay(logoSlideMs.toLong())
 
         cargoOffset = 0f
         cargoAlpha = 1f
-        delay(300)
+        delay(textSlideMs.toLong())
 
         sloganOffset = 0f
         sloganAlpha = 1f
-        delay(300)
+        delay(textSlideMs.toLong())
 
         progressAlpha = 1f
         dotsAlpha = 1f
         progress = 1f
 
-        ++dots; delay(300)
-        ++dots; delay(300)
-        ++dots; delay(300)
-        ++dots; delay(300)
+        ++dots; delay(dotStepMs)
+        ++dots; delay(dotStepMs)
+        ++dots; delay(dotStepMs)
+        ++dots; delay(dotStepMs)
         ++dots
     }
 
     val animatedLogoOffsetX by animateFloatAsState(
         targetValue = logoOffsetX,
-        animationSpec = tween(700),
+        animationSpec = tween(logoSlideMs),
         label = "logo offset"
     )
 
     val cargoTextOffset by animateFloatAsState(
         targetValue = cargoOffset,
-        animationSpec = tween(500),
+        animationSpec = tween(textSlideMs),
         label = "cargo offset"
     )
     val cargoTextAlpha by animateFloatAsState(
         targetValue = cargoAlpha,
-        animationSpec = tween(500),
-        label = "slogan offset"
+        animationSpec = tween(textSlideMs),
+        label = "cargo alpha"
     )
 
     val sloganTextOffset by animateFloatAsState(
         targetValue = sloganOffset,
-        animationSpec = tween(500),
+        animationSpec = tween(textSlideMs),
         label = "slogan offset"
     )
     val sloganTextAlpha by animateFloatAsState(
         targetValue = sloganAlpha,
-        animationSpec = tween(500),
-        label = "slogan offset"
+        animationSpec = tween(textSlideMs),
+        label = "slogan alpha"
     )
 
     val progressAlphaAnim by animateFloatAsState(
         targetValue = progressAlpha,
-        animationSpec = tween(400),
+        animationSpec = tween(fadeInMs),
         label = "progress alpha"
     )
 
     val dotsAlphaAnim by animateFloatAsState(
         targetValue = dotsAlpha,
-        animationSpec = tween(300),
+        animationSpec = tween(dotsFadeMs),
         label = "dots alpha"
     )
 
     val animatedProgress by animateFloatAsState(
         targetValue = progress,
-        animationSpec = tween(300 * 6),
+        animationSpec = tween(progressFillMs),
         label = "progress fill"
     )
 

@@ -28,7 +28,7 @@ fun AnimatedProgressBar(
         Box(
             modifier = Modifier
                 .fillMaxWidth(progress)
-                .height(6.dp)
+                .height(AppTheme.dimens.xs + 2.dp)
                 .clip(RoundedCornerShape(AppTheme.dimens.md))
                 .background(progressColor)
         )

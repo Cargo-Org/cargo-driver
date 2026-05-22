@@ -173,7 +173,7 @@ private fun SplashScreenContent() {
                     contentAlignment = Alignment.Center,
                     modifier = Modifier
                         .border(
-                            width = 1.dp,
+                            width = 2.dp,
                             color = AppTheme.colors.outline,
                             shape = RoundedCornerShape(AppTheme.dimens.md)
                         )

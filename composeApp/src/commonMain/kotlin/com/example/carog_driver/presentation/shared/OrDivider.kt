@@ -1,0 +1,39 @@
+package com.example.carog_driver.presentation.shared
+
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import com.example.carog_driver.presentation.theme.AppTheme
+
+@Composable
+fun OrDivider(
+    label: String,
+    modifier: Modifier = Modifier,
+) {
+    val colors = AppTheme.colors
+
+    Row(
+        modifier = modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(AppTheme.dimens.gutter),
+    ) {
+        HorizontalDivider(
+            modifier = Modifier.weight(1f),
+            color = colors.outlineVariant,
+        )
+        Text(
+            text = label,
+            style = AppTheme.typography.labelSm,
+            color = colors.outline,
+        )
+        HorizontalDivider(
+            modifier = Modifier.weight(1f),
+            color = colors.outlineVariant,
+        )
+    }
+}

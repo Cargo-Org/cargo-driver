@@ -1,28 +1,29 @@
 package com.cargo.driver.shared.di
-import com.cargo.driver.shared.data.remote.datasource.AuthRemoteDataSource
-import com.cargo.driver.shared.data.remote.datasource.AuthRemoteDataSourceImp
-import com.cargo.driver.shared.data.repository.AuthRepositoryImp
+
+import com.cargo.driver.shared.data.remote.datasource.auth.AuthenticationRemoteDataSource
+import com.cargo.driver.shared.data.remote.datasource.auth.AuthenticationRemoteDataSourceImpl
 import com.cargo.driver.shared.data.repository.UserPreferencesRepositoryImpl
-import com.cargo.driver.shared.domain.repository.AuthRepository
+import com.cargo.driver.shared.data.repository.auth.AuthenticationRepositoryImpl
 import com.cargo.driver.shared.domain.repository.UserPreferencesRepository
+import com.cargo.driver.shared.domain.repository.auth.AuthenticationRepository
 import com.cargo.driver.shared.domain.usecase.onboarding.CompleteOnboardingUseCase
 import com.cargo.driver.shared.domain.usecase.onboarding.GetOnboardingCompletedUseCase
 import org.koin.dsl.module
 
-
 // Shared: repositories, use cases, shared ViewModels
 val sharedModule = module {
 
-    // provide repositories
-    single<UserPreferencesRepository> {
-        UserPreferencesRepositoryImpl(
-            dataStore = get()
+    //repository
+    single<AuthenticationRepository> {
+        AuthenticationRepositoryImpl(
+            tokenStorage = get(),
+            remote = get()
         )
     }
 
-    single <AuthRepository> {
-        AuthRepositoryImp(
-            remote = get()
+    single<UserPreferencesRepository> {
+        UserPreferencesRepositoryImpl(
+            dataStore = get()
         )
     }
 
@@ -41,9 +42,7 @@ val sharedModule = module {
 
 
     //datasource
-    single<AuthRemoteDataSource> {
-        AuthRemoteDataSourceImp()
+    single<AuthenticationRemoteDataSource> {
+        AuthenticationRemoteDataSourceImpl(get(), get())
     }
-
-
 }

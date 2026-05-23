@@ -1,11 +1,10 @@
 package com.example.carog_driver.presentation.shared
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -20,13 +19,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.example.carog_driver.presentation.theme.AppTheme
-import com.example.carog_driver.presentation.theme.CargoTheme
 
 @Composable
 fun InputField(
@@ -38,6 +35,8 @@ fun InputField(
     leadingIcon: Painter? = null,
     isPassword: Boolean = false,
     keyboardType: KeyboardType = KeyboardType.Text,
+    imeAction: ImeAction = ImeAction.Default,
+    keyboardActions: KeyboardActions = KeyboardActions.Default,
     visibilityOnPainter: Painter? = null,
     visibilityOffPainter: Painter? = null,
     iconTint: Color? = null
@@ -69,38 +68,42 @@ fun InputField(
                     color = colors.onSurfaceVariant.copy(alpha = 0.5f),
                 )
             },
-            leadingIcon = if (leadingIcon != null) {
+            leadingIcon = leadingIcon?.let { icon ->
                 {
                     Icon(
-                        painter = leadingIcon,
+                        painter = icon,
                         contentDescription = null,
                         tint = finalIconTint,
-                        modifier = Modifier.size(18.dp),
+                        modifier = Modifier.size(dimens.md),
                     )
                 }
-            } else null,
-            trailingIcon = if (isPassword && visibilityOnPainter != null && visibilityOffPainter != null) {
+            },
+            trailingIcon = takeIf { isPassword && visibilityOnPainter != null && visibilityOffPainter != null }?.let {
                 {
-                    val painter = if (passwordVisible) visibilityOnPainter else visibilityOffPainter
+                    val painter = if (passwordVisible) visibilityOnPainter!! else visibilityOffPainter!!
 
                     IconButton(onClick = { passwordVisible = !passwordVisible }) {
                         Icon(
                             painter = painter,
                             contentDescription = null,
                             tint = finalIconTint,
-                            modifier = Modifier.size(18.dp),
+                            modifier = Modifier.size(dimens.md),
                         )
                     }
                 }
-            } else null,
+            },
             visualTransformation = if (isPassword && !passwordVisible) {
                 PasswordVisualTransformation()
             } else {
                 VisualTransformation.None
             },
-            keyboardOptions = KeyboardOptions(keyboardType = keyboardType),
+            keyboardOptions = KeyboardOptions(
+                keyboardType = keyboardType,
+                imeAction = imeAction
+            ),
+            keyboardActions = keyboardActions,
             singleLine = true,
-            shape = RoundedCornerShape(12.dp),
+            shape = AppTheme.shapes.small,
             colors = OutlinedTextFieldDefaults.colors(
                 unfocusedContainerColor = colors.surfaceVariant.copy(alpha = 0.3f),
                 focusedContainerColor = colors.surfaceVariant.copy(alpha = 0.3f),
@@ -108,24 +111,8 @@ fun InputField(
                 focusedBorderColor = colors.primary,
             ),
             modifier = Modifier.fillMaxWidth(),
+
         )
     }
 }
 
-@Preview(showBackground = true, backgroundColor = 0xFF101419, name = "InputField — Dark")
-@Composable
-private fun InputFieldDarkPreview() {
-    CargoTheme(darkTheme = true) {
-        Column(
-            modifier = Modifier.padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp),
-        ) {
-            InputField(
-                label = "Email Address",
-                value = "",
-                onValueChange = {},
-                placeholder = "driver@cargo.com",
-            )
-        }
-    }
-}

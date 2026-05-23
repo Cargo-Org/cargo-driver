@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ButtonDefaults
@@ -50,19 +49,22 @@ fun SocialButton(
         ),
         modifier = modifier
             .fillMaxWidth()
-            .height(dimens.lg),
+            .height(dimens.lg + dimens.sm),
+
     ) {
+        Spacer(modifier = Modifier.height(dimens.md))
         Icon(
             painter = icon,
             contentDescription = null,
             tint = iconTint,
-            modifier = Modifier.size(20.dp),
         )
-        Spacer(modifier = Modifier.width(dimens.sm - dimens.xs))
+        Spacer(modifier = Modifier.width(dimens.sm))
         Text(
             text = text,
             style = typography.labelMd,
         )
+        Spacer(modifier = Modifier.height(dimens.md))
+
     }
 }
 

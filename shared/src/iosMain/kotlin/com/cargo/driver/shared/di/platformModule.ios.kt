@@ -7,7 +7,7 @@ import com.cargo.driver.shared.data.util.getHttpEngine
 import io.ktor.client.engine.HttpClientEngine
 import org.koin.dsl.module
 
-internal actual val platformModule = module {
+actual val platformModule = module {
 
     single<HttpClientEngine> { getHttpEngine() }
 

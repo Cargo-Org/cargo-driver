@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidKotlinMultiplatformLibrary)
     alias(libs.plugins.androidLint)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 kotlin {
@@ -64,23 +65,25 @@ kotlin {
         commonMain {
             dependencies {
                 implementation(libs.kotlin.stdlib)
+                // Add KMP dependencies here
+
                 //Logger
                 implementation(libs.kermit)
-                // Ktor
-                implementation(libs.ktor.client.core.v313)
-                implementation(libs.ktor.client.content.negotiation)
-                implementation(libs.ktor.serialization.kotlinx.json)
+
                 // IO
                 implementation(libs.kotlinx.io.core)
 
-                // datastore
-                implementation(libs.androidx.datastore)
-                implementation(libs.androidx.datastore.preferences)
-
-                // Add KMP dependencies here
+                // Ktor
+                implementation(libs.bundles.ktor)
 
                 // Koin Core
                 implementation(libs.koin.core)
+                implementation(libs.koin.compose)
+
+                // DataStore library
+                implementation(libs.androidx.datastore)
+                // The Preferences DataStore library
+                implementation(libs.androidx.datastore.preferences)
             }
         }
 
@@ -96,6 +99,7 @@ kotlin {
                 // commonMain by default and will correctly pull the Android artifacts of any KMP
                 // dependencies declared in commonMain.
                 implementation(libs.ktor.client.okhttp)
+                implementation(libs.ktor.client.cio)
             }
         }
 

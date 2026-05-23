@@ -8,6 +8,7 @@ import io.ktor.client.engine.HttpClientEngine
 import org.koin.dsl.module
 
 actual val platformModule = module {
+
     single<HttpClientEngine> { provideHttpEngine() }
 
     single<DataStore<Preferences>> {

@@ -10,6 +10,5 @@ data class DocumentModel(
     val title: String,
     val subTitle: String,
     val status: DocumentStatus,
-    val uploadedAt: String? = null,
     val fileName: String? = null
 )

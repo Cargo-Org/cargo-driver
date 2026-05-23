@@ -108,7 +108,6 @@ private fun DriverDocumentsContent() {
         if (index != -1) {
             documents[index] = document.copy(
                 status = DocumentStatus.Uploaded,
-                uploadedAt = "May 22, 2026"
             )
 
             isSubmitted = false

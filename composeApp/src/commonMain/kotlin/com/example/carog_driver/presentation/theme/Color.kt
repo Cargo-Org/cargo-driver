@@ -1,4 +1,5 @@
 package com.example.carog_driver.presentation.theme
+
 import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
@@ -181,13 +182,23 @@ val DarkColorScheme: ColorScheme = darkColorScheme(
 )
 
 @Immutable
+data class CargoLogoColors(
+    val truckChassisColor: Color,
+    val truckWheelsColor: Color,
+    val cargoSymbolColor: Color,
+    val speedTrailsColor: Color
+)
+
+
+@Immutable
 data class ThemeExtraColors(
     val brandBlue: Color,
     val cardShadow: Color,
     val glassOverlay: Color,
     val divider: Color,
     val canvasBackground: Color,
-    val canvasDot: Color
+    val canvasDot: Color,
+    val cargoLogoColors: CargoLogoColors
 )
 
 val LightExtraColors = ThemeExtraColors(
@@ -196,8 +207,13 @@ val LightExtraColors = ThemeExtraColors(
     glassOverlay = Color(0x80FFFFFF),
     divider = LightOutlineVariant,
     canvasBackground = Color(0xff191A2B),
-    canvasDot = Color(0xff2E2F41)
-
+    canvasDot = Color(0xff2E2F41),
+    CargoLogoColors(
+        truckChassisColor = LightColorScheme.onBackground,
+        truckWheelsColor = LightColorScheme.onBackground,
+        cargoSymbolColor = Color(0xFFFDB22E),
+        speedTrailsColor = Color(0xFFFDB22E)
+    )
 )
 
 val DarkExtraColors = ThemeExtraColors(
@@ -206,7 +222,13 @@ val DarkExtraColors = ThemeExtraColors(
     glassOverlay = Color(0x1AFFFFFF),
     divider = DarkOutlineVariant,
     canvasBackground = Color(0xFF191A2B),
-    canvasDot = Color(0xFF2E2F41)
+    canvasDot = Color(0xFF2E2F41),
+    CargoLogoColors(
+        truckChassisColor = DarkColorScheme.onBackground,
+        truckWheelsColor = DarkColorScheme.onBackground,
+        cargoSymbolColor = Color(0xFFFDB22E),
+        speedTrailsColor = Color(0xFFFDB22E)
+    )
 )
 
 val LocalThemeExtraColors = staticCompositionLocalOf { LightExtraColors }

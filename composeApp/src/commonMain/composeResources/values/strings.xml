@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="cargo">Cargo</string>
     <string name="app_name">Cargo Driver</string>
     <string name="welcome_back">Welcome Back</string>
     <string name="login_subtitle">Log in to manage your routes and\nearnings</string>
@@ -76,6 +77,9 @@
     <string name="resend_available_in">Resend available in %1$s</string>
     <string name="send_otp">Send OTP</string>
     <string name="complete_your_profile">Complete your profile</string>
+
+    <string name="splash_slogan">Logistics &amp; Transit</string>
+    <string name="splash_loading">Initializing...</string>
 
     <string name="hourSymbol">h</string>
     <string name="minuteSymbol">m</string>

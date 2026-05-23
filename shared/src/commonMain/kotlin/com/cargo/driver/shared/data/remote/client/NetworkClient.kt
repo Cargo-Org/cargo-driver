@@ -25,11 +25,10 @@ class NetworkClient(
     private val engine: HttpClientEngine,
     private val cargoInterceptor: CargoInterceptor
 ) {
-    @PublishedApi
-    internal val client: HttpClient by lazy { buildClient() }
+
+    private val client: HttpClient by lazy { buildClient() }
 
     // public http methods
-
     suspend fun get(
         path: String,
         block: HttpRequestBuilder.() -> Unit = {}

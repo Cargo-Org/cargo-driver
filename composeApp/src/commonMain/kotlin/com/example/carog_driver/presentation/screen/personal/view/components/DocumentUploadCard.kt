@@ -134,7 +134,7 @@ private fun DocumentStatusChip(
 ) {
     val backgroundColor = when (status) {
         DocumentStatus.Pending ->
-            AppTheme.colors.tertiaryContainer.copy(alpha = 0.18f)
+            AppTheme.extraColors.warningOrangeContainer
 
         DocumentStatus.Uploaded ->
             AppTheme.extraColors.brandBlue.copy(alpha = 0.16f)
@@ -143,12 +143,12 @@ private fun DocumentStatusChip(
             AppTheme.colors.surfaceContainerHigh
 
         DocumentStatus.Verified ->
-            Color(0xFF16A34A).copy(alpha = 0.16f)
+            AppTheme.extraColors.successGreenContainer
     }
 
     val textColor = when (status) {
         DocumentStatus.Pending ->
-            AppTheme.colors.tertiary
+            AppTheme.extraColors.warningOrange
 
         DocumentStatus.Uploaded ->
             AppTheme.extraColors.brandBlue
@@ -157,7 +157,7 @@ private fun DocumentStatusChip(
             AppTheme.colors.onSurfaceVariant
 
         DocumentStatus.Verified ->
-            Color(0xFF4ADE80)
+            AppTheme.extraColors.successGreen
     }
 
     val text = when (status) {

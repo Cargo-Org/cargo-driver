@@ -1,0 +1,15 @@
+package com.example.carog_driver.presentation.screen.personal.view.components
+enum class DocumentStatus{
+    Pending,
+    Uploaded,
+    InReview,
+    Verified
+}
+data class DocumentModel(
+    val number: Int,
+    val title: String,
+    val subTitle: String,
+    val status: DocumentStatus,
+    val uploadedAt: String? = null,
+    val fileName: String? = null
+)

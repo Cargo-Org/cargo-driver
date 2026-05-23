@@ -13,6 +13,7 @@ private val Inter = FontFamily.SansSerif
 
 @Immutable
 data class AppTextStyles(
+    val titleLg: TextStyle,
     val displayHero: TextStyle,
     val sectionTitle: TextStyle,
     val headlineXl: TextStyle,
@@ -28,6 +29,12 @@ data class AppTextStyles(
 )
 
 private fun lightStyles() = AppTextStyles(
+    titleLg = TextStyle(
+        fontFamily = PlusJakartaSans,
+        fontSize = 34.sp,
+        fontWeight = FontWeight.Bold,
+        lineHeight = 40.sp,
+    ),
     displayHero = TextStyle(
         fontFamily = PlusJakartaSans,
         fontSize = 32.sp,
@@ -109,6 +116,12 @@ private fun lightStyles() = AppTextStyles(
 )
 
 private fun darkStyles() = AppTextStyles(
+    titleLg = TextStyle(
+        fontFamily = PlusJakartaSans,
+        fontSize = 34.sp,
+        fontWeight = FontWeight.Bold,
+        lineHeight = 40.sp,
+    ),
     displayHero = TextStyle(
         fontFamily = PlusJakartaSans,
         fontSize = 32.sp,
@@ -193,6 +206,7 @@ val LightAppTypography = lightStyles()
 val DarkAppTypography = darkStyles()
 
 val LightMaterialTypography = Typography(
+    titleLarge = LightAppTypography.titleLg,
     displayLarge = LightAppTypography.headlineXl,
     headlineLarge = LightAppTypography.headlineLg,
     bodyLarge = LightAppTypography.bodyLg,
@@ -202,6 +216,7 @@ val LightMaterialTypography = Typography(
 )
 
 val DarkMaterialTypography = Typography(
+    titleLarge = DarkAppTypography.titleLg,
     displayLarge = DarkAppTypography.headlineXl,
     headlineLarge = DarkAppTypography.headlineLg,
     bodyLarge = DarkAppTypography.bodyLg,

@@ -1,4 +1,4 @@
-package com.example.carog_driver.presentation.screen.personal.view.components
+package com.example.carog_driver.presentation.screen.personal.uimodel
 enum class DocumentStatus{
     Pending,
     Uploaded,

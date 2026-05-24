@@ -31,6 +31,8 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import carog_driver.composeapp.generated.resources.Res
 import carog_driver.composeapp.generated.resources.*
+import com.example.carog_driver.presentation.screen.personal.uimodel.DocumentModel
+import com.example.carog_driver.presentation.screen.personal.uimodel.DocumentStatus
 import com.example.carog_driver.presentation.theme.AppTheme
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource

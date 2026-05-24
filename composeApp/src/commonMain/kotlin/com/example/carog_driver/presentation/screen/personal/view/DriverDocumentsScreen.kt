@@ -23,8 +23,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import carog_driver.composeapp.generated.resources.*
-import com.example.carog_driver.presentation.screen.personal.view.components.DocumentModel
-import com.example.carog_driver.presentation.screen.personal.view.components.DocumentStatus
+import com.example.carog_driver.presentation.screen.personal.uimodel.DocumentModel
+import com.example.carog_driver.presentation.screen.personal.uimodel.DocumentStatus
 import com.example.carog_driver.presentation.screen.personal.view.components.DocumentUploadCard
 import com.example.carog_driver.presentation.screen.personal.view.components.DocumentsProgressCard
 import com.example.carog_driver.presentation.screen.personal.view.components.SecureInfoCard

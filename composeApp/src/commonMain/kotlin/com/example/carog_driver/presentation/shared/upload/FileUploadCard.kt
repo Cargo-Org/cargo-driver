@@ -1,4 +1,4 @@
-package com.example.carog_driver.presentation.screen.personal.view.components
+package com.example.carog_driver.presentation.shared.upload
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -30,19 +30,26 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import carog_driver.composeapp.generated.resources.Res
-import carog_driver.composeapp.generated.resources.*
-import com.example.carog_driver.presentation.screen.personal.uimodel.DocumentModel
-import com.example.carog_driver.presentation.screen.personal.uimodel.DocumentStatus
+import carog_driver.composeapp.generated.resources.document_status_in_review
+import carog_driver.composeapp.generated.resources.document_status_pending
+import carog_driver.composeapp.generated.resources.document_status_uploaded
+import carog_driver.composeapp.generated.resources.document_status_verified
+import carog_driver.composeapp.generated.resources.document_upload_action
+import carog_driver.composeapp.generated.resources.document_upload_hint
+import carog_driver.composeapp.generated.resources.ic_camera
+import carog_driver.composeapp.generated.resources.ic_eye_on
+import carog_driver.composeapp.generated.resources.ic_file
+import carog_driver.composeapp.generated.resources.view_document
 import com.example.carog_driver.presentation.theme.AppTheme
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
-fun DocumentUploadCard(
-    document: DocumentModel,
+fun FileUploadCard(
+    file: UploadFileUiModel,
     modifier: Modifier = Modifier,
-    onUploadClick: (DocumentModel) -> Unit = {},
-    onViewClick: (DocumentModel) -> Unit = {},
+    onUploadClick: (UploadFileUiModel) -> Unit = {},
+    onViewClick: (UploadFileUiModel) -> Unit = {},
 ) {
     Card(
         modifier = modifier,
@@ -54,23 +61,23 @@ fun DocumentUploadCard(
         Column(
             modifier = Modifier.padding(AppTheme.dimens.gutter)
         ) {
-            DocumentCardHeader(document = document)
+            FileCardHeader(file = file)
 
             Spacer(modifier = Modifier.height(AppTheme.dimens.sm))
 
-            when (document.status) {
-                DocumentStatus.Pending -> {
+            when (file.status) {
+                UploadFileStatus.Pending -> {
                     UploadPlaceholder(
-                        onClick = { onUploadClick(document) }
+                        onClick = { onUploadClick(file) }
                     )
                 }
 
-                DocumentStatus.Uploaded,
-                DocumentStatus.InReview,
-                DocumentStatus.Verified -> {
-                    UploadedDocumentContent(
-                        fileName = document.fileName.orEmpty(),
-                        onViewClick = { onViewClick(document) }
+                UploadFileStatus.Uploaded,
+                UploadFileStatus.InReview,
+                UploadFileStatus.Verified -> {
+                    UploadedFileContent(
+                        fileName = file.fileName.orEmpty(),
+                        onViewClick = { onViewClick(file) }
                     )
                 }
             }
@@ -79,40 +86,42 @@ fun DocumentUploadCard(
 }
 
 @Composable
-private fun DocumentCardHeader(
-    document: DocumentModel
+private fun FileCardHeader(
+    file: UploadFileUiModel
 ) {
     Row(
         modifier = Modifier.fillMaxWidth(),
         verticalAlignment = Alignment.Top
     ) {
-        DocumentNumberBadge(number = document.number)
+        file.number?.let { number ->
+            FileNumberBadge(number = number)
 
-        Spacer(modifier = Modifier.width(AppTheme.dimens.sm))
+            Spacer(modifier = Modifier.width(AppTheme.dimens.sm))
+        }
 
         Column(
             modifier = Modifier.weight(1f)
         ) {
             Text(
-                text = document.title,
+                text = file.title,
                 color = AppTheme.colors.onSurface,
                 style = AppTheme.typography.labelMd
             )
 
             Text(
-                text = document.subTitle,
+                text = file.subTitle,
                 color = AppTheme.colors.onSurfaceVariant,
                 style = AppTheme.typography.bodySmall,
                 modifier = Modifier.padding(top = AppTheme.dimens.xs)
             )
         }
 
-        DocumentStatusChip(status = document.status)
+        UploadStatusChip(status = file.status)
     }
 }
 
 @Composable
-private fun DocumentNumberBadge(
+private fun FileNumberBadge(
     number: Int
 ) {
     Box(
@@ -131,42 +140,42 @@ private fun DocumentNumberBadge(
 }
 
 @Composable
-private fun DocumentStatusChip(
-    status: DocumentStatus
+private fun UploadStatusChip(
+    status: UploadFileStatus
 ) {
     val backgroundColor = when (status) {
-        DocumentStatus.Pending ->
+        UploadFileStatus.Pending ->
             AppTheme.extraColors.warningOrangeContainer
 
-        DocumentStatus.Uploaded ->
+        UploadFileStatus.Uploaded ->
             AppTheme.extraColors.brandBlue.copy(alpha = 0.16f)
 
-        DocumentStatus.InReview ->
+        UploadFileStatus.InReview ->
             AppTheme.colors.surfaceContainerHigh
 
-        DocumentStatus.Verified ->
+        UploadFileStatus.Verified ->
             AppTheme.extraColors.successGreenContainer
     }
 
     val textColor = when (status) {
-        DocumentStatus.Pending ->
+        UploadFileStatus.Pending ->
             AppTheme.extraColors.warningOrange
 
-        DocumentStatus.Uploaded ->
+        UploadFileStatus.Uploaded ->
             AppTheme.extraColors.brandBlue
 
-        DocumentStatus.InReview ->
+        UploadFileStatus.InReview ->
             AppTheme.colors.onSurfaceVariant
 
-        DocumentStatus.Verified ->
+        UploadFileStatus.Verified ->
             AppTheme.extraColors.successGreen
     }
 
     val text = when (status) {
-        DocumentStatus.Pending -> stringResource(Res.string.document_status_pending)
-        DocumentStatus.Uploaded -> stringResource(Res.string.document_status_uploaded)
-        DocumentStatus.InReview -> stringResource(Res.string.document_status_in_review)
-        DocumentStatus.Verified -> stringResource(Res.string.document_status_verified)
+        UploadFileStatus.Pending -> stringResource(Res.string.document_status_pending)
+        UploadFileStatus.Uploaded -> stringResource(Res.string.document_status_uploaded)
+        UploadFileStatus.InReview -> stringResource(Res.string.document_status_in_review)
+        UploadFileStatus.Verified -> stringResource(Res.string.document_status_verified)
     }
 
     Box(
@@ -231,7 +240,7 @@ private fun UploadPlaceholder(
 }
 
 @Composable
-private fun UploadedDocumentContent(
+private fun UploadedFileContent(
     fileName: String,
     onViewClick: () -> Unit
 ) {
@@ -241,12 +250,12 @@ private fun UploadedDocumentContent(
         horizontalArrangement = Arrangement.spacedBy(AppTheme.dimens.sm)
     ) {
         UploadedFileNameBox(
-            fileName = fileName.ifBlank { "license_front_v2.jpg" },
+            fileName = fileName.ifBlank { "uploaded_file.pdf" },
             onClick = onViewClick,
             modifier = Modifier.weight(1f)
         )
 
-        ViewDocumentButton(
+        ViewFileButton(
             onClick = onViewClick
         )
     }
@@ -286,7 +295,7 @@ private fun UploadedFileNameBox(
 }
 
 @Composable
-private fun ViewDocumentButton(
+private fun ViewFileButton(
     onClick: () -> Unit
 ) {
     Box(
@@ -311,7 +320,10 @@ private fun ViewDocumentButton(
     }
 }
 
-private fun Modifier.dashedBorder(color: Color, cornerRadius: Dp): Modifier {
+private fun Modifier.dashedBorder(
+    color: Color,
+    cornerRadius: Dp
+): Modifier {
     return drawBehind {
         drawRoundRect(
             color = color,
@@ -322,8 +334,10 @@ private fun Modifier.dashedBorder(color: Color, cornerRadius: Dp): Modifier {
                     phase = 0f
                 )
             ),
-            cornerRadius = CornerRadius(x = cornerRadius.toPx(), y = cornerRadius.toPx())
+            cornerRadius = CornerRadius(
+                x = cornerRadius.toPx(),
+                y = cornerRadius.toPx()
+            )
         )
     }
 }
-

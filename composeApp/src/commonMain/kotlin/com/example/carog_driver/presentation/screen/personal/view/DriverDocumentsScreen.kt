@@ -22,13 +22,26 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import carog_driver.composeapp.generated.resources.*
-import com.example.carog_driver.presentation.screen.personal.uimodel.DocumentModel
-import com.example.carog_driver.presentation.screen.personal.uimodel.DocumentStatus
-import com.example.carog_driver.presentation.screen.personal.view.components.DocumentUploadCard
+import carog_driver.composeapp.generated.resources.Res
+import carog_driver.composeapp.generated.resources.compliance_documents_subtitle
+import carog_driver.composeapp.generated.resources.compliance_documents_title
+import carog_driver.composeapp.generated.resources.document_criminal_record_subtitle
+import carog_driver.composeapp.generated.resources.document_criminal_record_title
+import carog_driver.composeapp.generated.resources.document_drug_test_subtitle
+import carog_driver.composeapp.generated.resources.document_drug_test_title
+import carog_driver.composeapp.generated.resources.document_id_back_subtitle
+import carog_driver.composeapp.generated.resources.document_id_back_title
+import carog_driver.composeapp.generated.resources.document_id_front_subtitle
+import carog_driver.composeapp.generated.resources.document_id_front_title
+import carog_driver.composeapp.generated.resources.documents_button_complete_required
+import carog_driver.composeapp.generated.resources.documents_button_submit
+import carog_driver.composeapp.generated.resources.documents_button_submitted
 import com.example.carog_driver.presentation.screen.personal.view.components.DocumentsProgressCard
 import com.example.carog_driver.presentation.screen.personal.view.components.SecureInfoCard
 import com.example.carog_driver.presentation.shared.PrimaryButton
+import com.example.carog_driver.presentation.shared.upload.FileUploadCard
+import com.example.carog_driver.presentation.shared.upload.UploadFileStatus
+import com.example.carog_driver.presentation.shared.upload.UploadFileUiModel
 import com.example.carog_driver.presentation.theme.AppTheme
 import com.example.carog_driver.presentation.theme.CargoTheme
 import org.jetbrains.compose.resources.stringResource
@@ -63,51 +76,62 @@ private fun DriverDocumentsContent() {
         drugTestSubtitle
     ) {
         mutableStateListOf(
-            DocumentModel(
+            UploadFileUiModel(
+                id = "id_card_front",
                 number = 1,
                 title = idFrontTitle,
                 subTitle = idFrontSubtitle,
-                status = DocumentStatus.Pending
+                status = UploadFileStatus.Pending
             ),
-            DocumentModel(
+            UploadFileUiModel(
+                id = "id_card_back",
                 number = 2,
                 title = idBackTitle,
                 subTitle = idBackSubtitle,
-                status = DocumentStatus.Pending
+                status = UploadFileStatus.Pending
             ),
-            DocumentModel(
+            UploadFileUiModel(
+                id = "criminal_record",
                 number = 3,
                 title = criminalRecordTitle,
                 subTitle = criminalRecordSubtitle,
-                status = DocumentStatus.Pending
+                status = UploadFileStatus.Pending
             ),
-            DocumentModel(
+            UploadFileUiModel(
+                id = "drug_test",
                 number = 4,
                 title = drugTestTitle,
                 subTitle = drugTestSubtitle,
-                status = DocumentStatus.Pending
+                status = UploadFileStatus.Pending
             )
         )
     }
 
     var isSubmitted by remember { mutableStateOf(false) }
 
-    val completedCount = documents.count { document ->
-        document.status == DocumentStatus.Uploaded ||
-                document.status == DocumentStatus.InReview ||
-                document.status == DocumentStatus.Verified
+    val completedCount = documents.count { file ->
+        file.status == UploadFileStatus.Uploaded ||
+                file.status == UploadFileStatus.InReview ||
+                file.status == UploadFileStatus.Verified
     }
 
     val totalCount = documents.size
     val allDocumentsUploaded = completedCount == totalCount
     val canSubmit = allDocumentsUploaded && !isSubmitted
 
-    fun markDocumentAsUploaded(document: DocumentModel) {
-        val index = documents.indexOfFirst { it.number == document.number }
+    fun markFileAsUploaded(file: UploadFileUiModel) {
+        val index = documents.indexOfFirst { it.id == file.id }
 
         if (index != -1) {
-            documents[index] = document.copy(
-                status = DocumentStatus.Uploaded,
+            documents[index] = file.copy(
+                status = UploadFileStatus.Uploaded,
+                fileName = when (file.id) {
+                    "id_card_front" -> "license_front_v2.jpg"
+                    "id_card_back" -> "license_back_v2.jpg"
+                    "criminal_record" -> "criminal_record.pdf"
+                    "drug_test" -> "drug_test.pdf"
+                    else -> "uploaded_file.pdf"
+                }
             )
 
             isSubmitted = false
@@ -129,8 +153,7 @@ private fun DriverDocumentsContent() {
                 .padding(
                     top = AppTheme.dimens.md,
                     bottom = AppTheme.dimens.md
-                )
-                .navigationBarsPadding(),
+                ),
             verticalArrangement = Arrangement.spacedBy(AppTheme.dimens.gutter)
         ) {
             DocumentsHeader()
@@ -144,15 +167,15 @@ private fun DriverDocumentsContent() {
                 )
             }
 
-            documents.forEach { document ->
-                DocumentUploadCard(
+            documents.forEach { file ->
+                FileUploadCard(
                     modifier = Modifier.fillMaxWidth(),
-                    document = document,
-                    onUploadClick = { selectedDocument ->
-                        markDocumentAsUploaded(selectedDocument)
+                    file = file,
+                    onUploadClick = { selectedFile ->
+                        markFileAsUploaded(selectedFile)
                     },
                     onViewClick = {
-
+                        // TODO:
                     }
                 )
             }
@@ -170,11 +193,11 @@ private fun DriverDocumentsContent() {
                 enabled = canSubmit,
                 onClick = {
                     documents.indices.forEach { index ->
-                        val document = documents[index]
+                        val file = documents[index]
 
-                        if (document.status == DocumentStatus.Uploaded) {
-                            documents[index] = document.copy(
-                                status = DocumentStatus.InReview
+                        if (file.status == UploadFileStatus.Uploaded) {
+                            documents[index] = file.copy(
+                                status = UploadFileStatus.InReview
                             )
                         }
                     }

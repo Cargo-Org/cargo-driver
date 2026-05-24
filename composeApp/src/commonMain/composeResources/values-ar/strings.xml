@@ -72,4 +72,39 @@
     <string name="hourSymbol">س</string>
     <string name="minuteSymbol">د</string>
     <string name="secondSymbol">ث</string>
+
+    <string name="documents_progress">تقدم المستندات</string>
+    <string name="documents_completed_count">تم إكمال %1$d من %2$d</string>
+
+    <string name="document_status_pending">قيد الانتظار</string>
+    <string name="document_status_uploaded">تم الرفع</string>
+    <string name="document_status_in_review">قيد المراجعة</string>
+    <string name="document_status_verified">تم التحقق</string>
+
+    <string name="document_upload_action">اضغط لالتقاط صورة أو رفع ملف</string>
+    <string name="document_upload_hint">صورة واضحة، وكل الأطراف ظاهرة</string>
+
+    <string name="secure_upload_title">رفع آمن</string>
+    <string name="secure_upload_description">يتم تشفير مستنداتك وحفظها بشكل آمن. يمكن فقط لفريق التحقق المصرح له مراجعتها.</string>
+
+    <string name="documents_button_submitted">تم الإرسال للمراجعة</string>
+    <string name="documents_button_submit">إرسال للمراجعة</string>
+    <string name="documents_button_complete_required">أكمل المستندات المطلوبة</string>
+
+    <string name="compliance_documents_title">مستندات التحقق</string>
+    <string name="compliance_documents_subtitle">ارفع كل المستندات المطلوبة لاستكمال التحقق من حساب السائق.</string>
+
+    <string name="view_document">عرض المستند</string>
+
+    <string name="document_id_front_title">صورة البطاقة - الأمام</string>
+    <string name="document_id_front_subtitle">ارفع صورة واضحة للوجه الأمامي من بطاقة الرقم القومي</string>
+
+    <string name="document_id_back_title">صورة البطاقة - الخلف</string>
+    <string name="document_id_back_subtitle">ارفع صورة واضحة للوجه الخلفي من بطاقة الرقم القومي</string>
+
+    <string name="document_criminal_record_title">الفيش الجنائي</string>
+    <string name="document_criminal_record_subtitle">ارفع فيش جنائي حديث وواضح</string>
+
+    <string name="document_drug_test_title">تحليل المخدرات</string>
+    <string name="document_drug_test_subtitle">ارفع نتيجة تحليل مخدرات حديثة</string>
 </resources>

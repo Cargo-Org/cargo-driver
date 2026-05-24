@@ -84,4 +84,39 @@
     <string name="hourSymbol">h</string>
     <string name="minuteSymbol">m</string>
     <string name="secondSymbol">s</string>
+
+    <string name="documents_progress">Documents Progress</string>
+    <string name="documents_completed_count">%1$d of %2$d completed</string>
+
+    <string name="document_status_pending">Pending</string>
+    <string name="document_status_uploaded">Uploaded</string>
+    <string name="document_status_in_review">In Review</string>
+    <string name="document_status_verified">Verified</string>
+
+    <string name="document_upload_action">Tap to capture or upload</string>
+    <string name="document_upload_hint">Clear photo, all corners visible</string>
+
+    <string name="secure_upload_title">Secure Upload</string>
+    <string name="secure_upload_description">Your documents are encrypted and securely stored. Only authorized verification teams can review them.</string>
+
+    <string name="documents_button_submitted">Submitted for Review</string>
+    <string name="documents_button_submit">Submit for Review</string>
+    <string name="documents_button_complete_required">Complete Required Documents</string>
+
+    <string name="compliance_documents_title">Compliance Documents</string>
+    <string name="compliance_documents_subtitle">Upload all required documents to continue your driver verification.</string>
+
+    <string name="view_document">View document</string>
+
+    <string name="document_id_front_title">ID Card — Front</string>
+    <string name="document_id_front_subtitle">Front side of your national ID</string>
+
+    <string name="document_id_back_title">ID Card — Back</string>
+    <string name="document_id_back_subtitle">Back side of your national ID</string>
+
+    <string name="document_criminal_record_title">Criminal Record</string>
+    <string name="document_criminal_record_subtitle">Recent police clearance document</string>
+
+    <string name="document_drug_test_title">Drug Test</string>
+    <string name="document_drug_test_subtitle">Recent drug test result</string>
 </resources>

@@ -198,7 +198,11 @@ data class ThemeExtraColors(
     val divider: Color,
     val canvasBackground: Color,
     val canvasDot: Color,
-    val cargoLogoColors: CargoLogoColors
+    val cargoLogoColors: CargoLogoColors,
+    val warningOrange: Color,
+    val warningOrangeContainer: Color,
+    val successGreen: Color,
+    val successGreenContainer: Color
 )
 
 val LightExtraColors = ThemeExtraColors(
@@ -213,7 +217,13 @@ val LightExtraColors = ThemeExtraColors(
         truckWheelsColor = LightColorScheme.onBackground,
         cargoSymbolColor = Color(0xFFFDB22E),
         speedTrailsColor = Color(0xFFFDB22E)
-    )
+    ),
+
+    warningOrange = Color(0xFFFDB22E),
+    warningOrangeContainer = Color(0xFFFFF1D2),
+
+    successGreen = Color(0xFF22C55E),
+    successGreenContainer = Color(0xFFE3F8ED)
 )
 
 val DarkExtraColors = ThemeExtraColors(
@@ -228,7 +238,13 @@ val DarkExtraColors = ThemeExtraColors(
         truckWheelsColor = DarkColorScheme.onBackground,
         cargoSymbolColor = Color(0xFFFDB22E),
         speedTrailsColor = Color(0xFFFDB22E)
-    )
+    ),
+
+    warningOrange = Color(0xFFFDB22E),
+    warningOrangeContainer = Color(0xFF3A2A12),
+
+    successGreen = Color(0xFF4ADE80),
+    successGreenContainer = Color(0xFF103822)
 )
 
 val LocalThemeExtraColors = staticCompositionLocalOf { LightExtraColors }

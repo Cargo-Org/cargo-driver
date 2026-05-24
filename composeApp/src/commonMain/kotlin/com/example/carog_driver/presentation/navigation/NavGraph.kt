@@ -9,6 +9,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.carog_driver.presentation.screen.login.view.LoginScreen
+import com.example.carog_driver.presentation.screen.vehicleregister.view.VehicleRegistrationScreen
 
 
 @Composable
@@ -27,9 +28,7 @@ fun NavGraph(
             modifier = modifier
         ) {
             composable<Route.LoginRoute> {
-                LoginScreen(
-
-                )
+                VehicleRegistrationScreen()
             }
         }
     }

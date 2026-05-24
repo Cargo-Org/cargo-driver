@@ -18,7 +18,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import carog_driver.composeapp.generated.resources.*
-import com.example.carog_driver.presentation.shared.FileUploadField
 import com.example.carog_driver.presentation.shared.PrimaryButton
 import com.example.carog_driver.presentation.theme.AppTheme
 import com.example.carog_driver.presentation.screen.vehicleregister.view.components.GeneralInfoSection
@@ -26,6 +25,9 @@ import com.example.carog_driver.presentation.screen.vehicleregister.view.compone
 import com.example.carog_driver.presentation.screen.vehicleregister.view.components.RegistrationSection
 import com.example.carog_driver.presentation.screen.vehicleregister.view.components.VehicleTypeOption
 import com.example.carog_driver.presentation.screen.vehicleregister.view.components.VehicleTypeSelector
+import com.example.carog_driver.presentation.shared.upload.FileUploadCard
+import com.example.carog_driver.presentation.shared.upload.UploadFileStatus
+import com.example.carog_driver.presentation.shared.upload.UploadFileUiModel
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
@@ -68,6 +70,14 @@ private fun VehicleRegistrationContent() {
             label = stringResource(Res.string.vehicle_type_heavy_duty),
             icon = painterResource(Res.drawable.ic_heavy_truck),
         ),
+    )
+
+    val documentFile = UploadFileUiModel(
+        id = "doc_1",
+        number = 1,
+        title = stringResource(Res.string.doc_label),
+        subTitle = stringResource(Res.string.doc_hint),
+        status = UploadFileStatus.Pending
     )
 
     Column(
@@ -115,13 +125,11 @@ private fun VehicleRegistrationContent() {
             title = stringResource(Res.string.section_documentation),
             modifier = Modifier.padding(horizontal = dimens.pageMargin),
         ) {
-            FileUploadField(
-                label = stringResource(Res.string.doc_label),
-                hint = stringResource(Res.string.doc_hint),
-                uploadedFiles = emptyList(),
-                onPickFile = {},
-                onRemoveFile = {},
-                allowMultiple = true,
+            FileUploadCard(
+                file = documentFile,
+                onUploadClick = { },
+                onViewClick = { },
+                modifier = Modifier.fillMaxWidth()
             )
         }
 

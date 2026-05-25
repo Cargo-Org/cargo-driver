@@ -74,7 +74,6 @@ private fun VehicleRegistrationContent() {
 
     val documentFile = UploadFileUiModel(
         id = "doc_1",
-        number = 1,
         title = stringResource(Res.string.doc_label),
         subTitle = stringResource(Res.string.doc_hint),
         status = UploadFileStatus.Pending
@@ -122,7 +121,6 @@ private fun VehicleRegistrationContent() {
         Spacer(modifier = Modifier.height(dimens.stackLg))
 
         RegistrationSection(
-            title = stringResource(Res.string.section_documentation),
             modifier = Modifier.padding(horizontal = dimens.pageMargin),
         ) {
             FileUploadCard(

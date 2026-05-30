@@ -21,105 +21,83 @@ import java.io.File
 actual fun rememberMediaPickerLauncher(
     onFilePicked: (MediaPickedFile?) -> Unit,
 ): MediaPickerLauncher {
+
     val context = LocalContext.current
     var pendingCameraFile by remember { mutableStateOf<File?>(null) }
-    var pendingCameraUri by remember { mutableStateOf<Uri?>(null) }
 
-    val cameraLauncher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.TakePicture()
-    ) { success ->
-        if (success) {
-            val file = pendingCameraFile
-            if (file != null && file.exists()) {
-                val bytes = file.readBytes()
-                val mimeType = "image/jpeg"
-                onFilePicked(
-                    MediaPickedFile(
-                        name = file.name,
-                        sizeBytes = file.length(),
-                        mimeType = mimeType,
-                        bytes = bytes,
-                    )
+    val cameraLauncher = rememberLauncherForActivityResult(ActivityResultContracts.TakePicture()) { success ->
+        val file = pendingCameraFile
+        if (success && file != null && file.exists()) {
+            onFilePicked(
+                MediaPickedFile(
+                    name = file.name,
+                    sizeBytes = file.length(),
+                    mimeType = "image/jpeg",
+                    bytes = file.readBytes(),
                 )
-            }
+            )
         } else {
             onFilePicked(null)
         }
-        pendingCameraFile?.delete()
+        file?.delete()
         pendingCameraFile = null
-        pendingCameraUri = null
     }
 
-    val permissionLauncher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.RequestPermission()
-    ) { granted ->
+    val permissionLauncher = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
         if (granted) {
             val (file, uri) = CameraFileProvider.createTempImageUri(context)
             pendingCameraFile = file
-            pendingCameraUri = uri
             cameraLauncher.launch(uri)
         } else {
             onFilePicked(null)
         }
     }
 
-    val fileLauncher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.GetContent()
-    ) { uri ->
-        if (uri != null) {
-            val result = uri.toMediaPickedFile(context.contentResolver)
-            onFilePicked(result)
-        } else {
-            onFilePicked(null)
-        }
+    val fileLauncher = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+        onFilePicked(uri?.toMediaPickedFile(context.contentResolver))
     }
 
-    return remember(cameraLauncher, fileLauncher, permissionLauncher, context) {
+    return remember(cameraLauncher, fileLauncher, permissionLauncher) {
         MediaPickerLauncher(
-            context = context,
-            cameraLauncher = cameraLauncher,
-            fileLauncher = fileLauncher,
-            permissionLauncher = permissionLauncher,
-            onPreLaunchCamera = {
+            onLaunchCamera = {
                 val permission = Manifest.permission.CAMERA
-                val granted = ContextCompat.checkSelfPermission(context, permission) == PackageManager.PERMISSION_GRANTED
-                if (granted) {
+                if (ContextCompat.checkSelfPermission(context, permission) == PackageManager.PERMISSION_GRANTED) {
                     val (file, uri) = CameraFileProvider.createTempImageUri(context)
                     pendingCameraFile = file
-                    pendingCameraUri = uri
                     cameraLauncher.launch(uri)
                 } else {
                     permissionLauncher.launch(permission)
                 }
-            }
+            },
+            onLaunchFilePicker = { fileLauncher.launch("*/*") },
         )
     }
 }
 
-private fun Uri.toMediaPickedFile(resolver: ContentResolver): MediaPickedFile? {
-    return try {
-        val mimeType = resolver.getType(this) ?: "application/octet-stream"
-        var name = "file_${System.currentTimeMillis()}"
-        var size = 0L
+private fun Uri.toMediaPickedFile(resolver: ContentResolver): MediaPickedFile? = try {
+    val mimeType = resolver.getType(this) ?: "application/octet-stream"
 
-        resolver.query(this, null, null, null, null)?.use { cursor ->
+
+    var name = "file_${System.currentTimeMillis()}"
+    var size = 0L
+
+    resolver.query(this, null, null, null, null)?.use { cursor ->
+        if (cursor.moveToFirst()) {
             val nameIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)
             val sizeIndex = cursor.getColumnIndex(OpenableColumns.SIZE)
-            if (cursor.moveToFirst()) {
-                if (nameIndex >= 0) name = cursor.getString(nameIndex)
-                if (sizeIndex >= 0) size = cursor.getLong(sizeIndex)
-            }
+            if (nameIndex >= 0) name = cursor.getString(nameIndex)
+            if (sizeIndex >= 0) size = cursor.getLong(sizeIndex)
         }
-
-        val bytes = resolver.openInputStream(this)?.use { it.readBytes() } ?: return null
-
-        MediaPickedFile(
-            name = name,
-            sizeBytes = size.takeIf { it > 0 } ?: bytes.size.toLong(),
-            mimeType = mimeType,
-            bytes = bytes,
-        )
-    } catch (e: Exception) {
-        null
     }
+
+    val bytes = resolver.openInputStream(this)?.use { it.readBytes() } ?: return null
+
+    MediaPickedFile(
+        name = name,
+        sizeBytes = size.takeIf { it > 0 } ?: bytes.size.toLong(),
+        mimeType = mimeType,
+        bytes = bytes,
+    )
+} catch (e: Exception) {
+    null
 }

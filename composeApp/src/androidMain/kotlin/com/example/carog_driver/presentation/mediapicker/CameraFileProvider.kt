@@ -7,17 +7,9 @@ import java.io.File
 
 object CameraFileProvider {
     fun createTempImageUri(context: Context): Pair<File, Uri> {
-        val cameraDir = File(context.cacheDir, "camera").also { it.mkdirs() }
-        val tempFile = File.createTempFile(
-            "camera_${System.currentTimeMillis()}",
-            ".jpg",
-            cameraDir
-        )
-        val uri = FileProvider.getUriForFile(
-            context,
-            "${context.packageName}.fileprovider",
-            tempFile
-        )
-        return Pair(tempFile, uri)
+        val cacheDir = File(context.cacheDir, "camera").also { it.mkdirs() }
+        val file = File.createTempFile("camera_${System.currentTimeMillis()}", ".jpg", cacheDir)
+        val uri = FileProvider.getUriForFile(context, "${context.packageName}.fileprovider", file)
+        return file to uri
     }
 }

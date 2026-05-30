@@ -4,10 +4,6 @@ sealed interface RegisterResponse
 
 object SuccessRegisterResponse: RegisterResponse
 
-data class AuthorizationErrorRegisterResponse(
-    val message: String
-): RegisterResponse
-
-data class ValidationErrorRegisterResponse(
+data class ErrorRegisterResponse(
     val message: String
 ): RegisterResponse

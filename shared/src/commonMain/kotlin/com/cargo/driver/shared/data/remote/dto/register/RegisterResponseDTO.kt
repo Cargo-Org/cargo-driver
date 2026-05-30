@@ -3,7 +3,7 @@ package com.cargo.driver.shared.data.remote.dto.register
 sealed interface RegisterResponseDTO
 
 
-object SuccessRegisterResponse: RegisterResponseDTO
+object SuccessRegisterResponseDTO: RegisterResponseDTO
 
 data class AuthorizationErrorRegisterResponseDTO(
     val status: Int,

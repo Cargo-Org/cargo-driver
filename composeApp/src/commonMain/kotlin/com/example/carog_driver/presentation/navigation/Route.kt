@@ -15,5 +15,8 @@ sealed interface Route {
     * */
 
     @Serializable
+    object RegisterRoute: Route
+
+    @Serializable
     object LoginRoute : Route
 }

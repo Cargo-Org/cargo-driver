@@ -7,7 +7,5 @@ sealed interface RegisterUiState{
         val message: String
     ): RegisterUiState
 
-    data class SuccessState(
-        val userId: String
-    ): RegisterUiState
+    object SuccessState: RegisterUiState
 }

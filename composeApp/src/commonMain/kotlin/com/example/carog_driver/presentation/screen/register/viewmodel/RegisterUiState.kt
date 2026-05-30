@@ -1,13 +1,13 @@
 package com.example.carog_driver.presentation.screen.register.viewmodel
 
-sealed interface RegisterUiState
+sealed interface RegisterUiState{
+    object LoadingState: RegisterUiState
 
-sealed class LoadingState: RegisterUiState
+    data class RegisterErrorState(
+        val message: String
+    ): RegisterUiState
 
-sealed class ErrorState(
-    val message: String
-): RegisterUiState
-
-sealed class SuccessState(
-    val userId: String
-): RegisterUiState
+    data class SuccessState(
+        val userId: String
+    ): RegisterUiState
+}

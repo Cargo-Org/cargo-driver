@@ -8,6 +8,7 @@ import platform.UIKit.UIImagePickerController
 import platform.UIKit.UIImagePickerControllerSourceType
 import platform.UIKit.UIViewController
 
+@Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
 actual class MediaPickerLauncher(
     private val viewController: UIViewController,
     private val onFilePicked: (MediaPickedFile?) -> Unit,
@@ -32,7 +33,7 @@ actual class MediaPickerLauncher(
             selectionLimit = 1
         }
         val picker = PHPickerViewController(configuration = config).apply {
-            delegate = PHPickerDelegate(viewController, onFilePicked)
+            delegate = PHPickerDelegate(onFilePicked)
         }
         viewController.presentViewController(picker, animated = true, completion = null)
     }

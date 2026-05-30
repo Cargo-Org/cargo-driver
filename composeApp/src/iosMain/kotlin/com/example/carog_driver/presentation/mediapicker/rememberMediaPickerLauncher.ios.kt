@@ -17,7 +17,9 @@ actual fun rememberMediaPickerLauncher(
     return remember {
         MediaPickerLauncher(
             viewController = uiViewController,
-            onFilePicked = { file -> currentOnFilePicked(file) },
+            onFilePicked = currentOnFilePicked,
         )
     }
 }
+
+

@@ -1,9 +1,7 @@
 package com.example.carog_driver.presentation.mediapicker
 
 import com.cargo.driver.shared.domain.model.MediaPickedFile
-import okio.ByteString.Companion.toByteString
 import platform.UIKit.*
-import platform.Foundation.*
 import platform.darwin.NSObject
 
 class ImagePickerDelegate(
@@ -19,28 +17,8 @@ class ImagePickerDelegate(
         val image = didFinishPickingMediaWithInfo[UIImagePickerControllerEditedImage] as? UIImage
             ?: didFinishPickingMediaWithInfo[UIImagePickerControllerOriginalImage] as? UIImage
 
-        if (image == null) {
-            onFilePicked(null)
-            return
-        }
-
-        val data = UIImageJPEGRepresentation(image, compressionQuality = 0.85)
-        if (data == null) {
-            onFilePicked(null)
-            return
-        }
-
-        val bytes = data.toByteString()
-        val name = "camera_${NSDate().timeIntervalSince1970.toLong()}.jpg"
-
-        onFilePicked(
-            MediaPickedFile(
-                name = name,
-                sizeBytes = bytes.size.toLong(),
-                mimeType = "image/jpeg",
-                bytes = bytes.toByteArray(),
-            )
-        )
+        val data = image?.let { UIImageJPEGRepresentation(it, compressionQuality = 0.85) }
+        onFilePicked(data?.toMediaPickedFile("camera"))
     }
 
     override fun imagePickerControllerDidCancel(picker: UIImagePickerController) {

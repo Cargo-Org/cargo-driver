@@ -25,6 +25,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import carog_driver.composeapp.generated.resources.*
 import com.example.carog_driver.presentation.screen.onboarding.view.components.*
 import com.example.carog_driver.presentation.screen.onboarding.viewmodel.*
@@ -38,18 +39,19 @@ import org.koin.compose.viewmodel.koinViewModel
 fun OnboardingScreen(
     viewModel: OnboardingViewModel = koinViewModel()
 ) {
+    val state by viewModel.state.collectAsStateWithLifecycle()
     OnboardingContent(
+        data = state.pages,
         interaction = viewModel,
     )
 }
 @Composable
 private fun OnboardingContent(
+    data : List<OnboardingPageModel>,
     interaction: OnboardingInteraction,
     modifier: Modifier = Modifier
 ) {
-    val pages = remember {
-        getOnboardingPages()
-    }
+    val pages = remember { data }
 
     val pagerState = rememberPagerState {
         pages.size
@@ -141,6 +143,13 @@ private fun OnboardingContent(
 private fun InputFieldDarkPreview() {
     CargoTheme(darkTheme = true) {
         OnboardingContent(
+            data = listOf(
+                OnboardingPageModel(
+                    image = Res.drawable.onboarding_1,
+                    title = Res.string.onboarding_title_1,
+                    subtitle = Res.string.onboarding_subtitle_1
+                ),
+            ),
             interaction = object :
                 OnboardingInteraction {
                 override fun onSkipClick() {}

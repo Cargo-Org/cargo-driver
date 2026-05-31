@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -24,6 +25,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.CornerRadius
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.drawscope.Stroke
@@ -204,7 +207,7 @@ private fun UploadPlaceholder(
         modifier = Modifier
             .fillMaxWidth()
             .height(130.dp)
-            .clip(AppTheme.shapes.medium)
+            .clip(RoundedCornerShape(AppTheme.dimens.sm))
             .clickable(onClick = onClick)
             .dashedBorder(
                 color = AppTheme.extraColors.divider,
@@ -325,15 +328,18 @@ private fun Modifier.dashedBorder(
     cornerRadius: Dp
 ): Modifier {
     return drawBehind {
+        val strokeWidthPx = 1.3.dp.toPx()
         drawRoundRect(
             color = color,
             style = Stroke(
-                width = 1.3.dp.toPx(),
+                width = strokeWidthPx,
                 pathEffect = PathEffect.dashPathEffect(
                     intervals = floatArrayOf(12f, 10f),
                     phase = 0f
                 )
             ),
+            topLeft = Offset(strokeWidthPx / 2, strokeWidthPx / 2),
+            size = Size(size.width - strokeWidthPx, size.height - strokeWidthPx),
             cornerRadius = CornerRadius(
                 x = cornerRadius.toPx(),
                 y = cornerRadius.toPx()

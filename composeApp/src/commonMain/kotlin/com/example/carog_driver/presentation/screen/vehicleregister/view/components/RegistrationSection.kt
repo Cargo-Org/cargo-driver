@@ -12,10 +12,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.carog_driver.presentation.theme.AppTheme
 
-
 @Composable
 fun RegistrationSection(
-    title: String,
+    title: String? = null,
     modifier: Modifier = Modifier,
     content: @Composable () -> Unit,
 ) {
@@ -41,11 +40,13 @@ fun RegistrationSection(
                 ),
             verticalArrangement = Arrangement.spacedBy(dimens.gutter),
         ) {
-            Text(
-                text  = title,
-                style = typography.sectionTitle,
-                color = colors.onSurface,
-            )
+            if (title != null) {
+                Text(
+                    text  = title,
+                    style = typography.sectionTitle,
+                    color = colors.onSurface,
+                )
+            }
 
             content()
         }

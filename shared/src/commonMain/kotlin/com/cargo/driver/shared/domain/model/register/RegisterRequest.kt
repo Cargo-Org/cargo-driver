@@ -6,9 +6,14 @@ data class RegisterRequest(
     val phoneNumber: String,
     val fullName: String
 ) {
-    val fistName: String get() = fullName.substring(0, fullName.indexOf(" "))
+
+    val fistName: String
+        get() = fullName
+            .trim()
+            .substringBefore(" ")
 
     val lastName: String
-        get() = fullName.substring(fullName.indexOf(" ") + 1)
-
+        get() = fullName
+            .trim()
+            .substringAfter(" ", "")
 }

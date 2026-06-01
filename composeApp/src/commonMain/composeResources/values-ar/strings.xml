@@ -107,4 +107,7 @@
 
     <string name="document_drug_test_title">تحليل المخدرات</string>
     <string name="document_drug_test_subtitle">ارفع نتيجة تحليل مخدرات حديثة</string>
+
+    <string name="cancel">إلغاء</string>
+    <string name="media_source_sheet_title">رفع مستند</string>
 </resources>

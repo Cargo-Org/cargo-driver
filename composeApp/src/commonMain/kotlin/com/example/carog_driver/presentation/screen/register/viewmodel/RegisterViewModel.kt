@@ -5,7 +5,8 @@ import com.example.carog_driver.presentation.base.BaseViewModel
 
 class RegisterViewModel(
 
-): BaseViewModel<RegisterUiState, RegisterEffect>(), RegisterInteraction {
+): BaseViewModel<RegisterUiState, RegisterEffect>(RegisterUiState.InitialState),
+    RegisterInteraction {
 
     override fun register(registerRequest: RegisterRequest) {
         TODO("Not yet implemented")

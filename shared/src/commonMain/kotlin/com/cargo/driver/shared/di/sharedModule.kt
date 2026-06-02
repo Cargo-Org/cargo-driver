@@ -8,6 +8,7 @@ import com.cargo.driver.shared.domain.repository.UserPreferencesRepository
 import com.cargo.driver.shared.domain.repository.auth.AuthenticationRepository
 import com.cargo.driver.shared.domain.usecase.onboarding.CompleteOnboardingUseCase
 import com.cargo.driver.shared.domain.usecase.onboarding.GetOnboardingCompletedUseCase
+import com.cargo.driver.shared.domain.usecase.register.RegisterUseCase
 import org.koin.dsl.module
 
 // Shared: repositories, use cases, shared ViewModels
@@ -40,6 +41,11 @@ val sharedModule = module {
         )
     }
 
+    factory {
+        RegisterUseCase(
+            repository = get()
+        )
+    }
 
     //datasource
     single<AuthenticationRemoteDataSource> {

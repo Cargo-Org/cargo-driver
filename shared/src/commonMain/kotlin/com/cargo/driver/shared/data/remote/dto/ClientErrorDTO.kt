@@ -15,5 +15,5 @@ data class ValidationClientErrorDTO(
 data class GeneralClientErrorDTO(
     val status: Int,
     val title: String,
-    val details: String
+    val detail: String
 ): ClientErrorDTO

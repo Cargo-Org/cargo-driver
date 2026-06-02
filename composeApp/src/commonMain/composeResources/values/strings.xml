@@ -124,4 +124,23 @@
     <string name="media_source_sheet_title">Upload document</string>
 
 
+
+    <string name="empty_full_name">Full name is required</string>
+    <string name="invalid_full_name">Please enter your first and last name</string>
+
+    <string name="empty_email">Email is required</string>
+    <string name="invalid_email">Please enter a valid email address</string>
+    <string name="email_already_exists">This email is already registered</string>
+
+    <string name="empty_phone">Phone number is required</string>
+    <string name="invalid_phone">Please enter a valid phone number</string>
+
+    <string name="empty_password">Password is required</string>
+    <string name="weak_password">Password must contain at least 8 characters, one uppercase letter and one number</string>
+
+    <string name="empty_confirm_password">Please confirm your password</string>
+    <string name="passwords_do_not_match">Passwords do not match</string>
+
+    <string name="no_internet">No internet connection</string>
+    <string name="unknown_error">Something went wrong, please try again later</string>
 </resources>

@@ -110,4 +110,23 @@
 
     <string name="cancel">إلغاء</string>
     <string name="media_source_sheet_title">رفع مستند</string>
+
+    <string name="empty_full_name">الاسم الكامل مطلوب</string>
+    <string name="invalid_full_name">يرجى إدخال الاسم الأول واسم العائلة</string>
+
+    <string name="empty_email">البريد الإلكتروني مطلوب</string>
+    <string name="invalid_email">يرجى إدخال بريد إلكتروني صحيح</string>
+    <string name="email_already_exists">هذا البريد الإلكتروني مستخدم بالفعل</string>
+
+    <string name="empty_phone">رقم الهاتف مطلوب</string>
+    <string name="invalid_phone">يرجى إدخال رقم هاتف صحيح</string>
+
+    <string name="empty_password">كلمة المرور مطلوبة</string>
+    <string name="weak_password">يجب أن تحتوي كلمة المرور على 8 أحرف على الأقل وحرف كبير ورقم</string>
+
+    <string name="empty_confirm_password">يرجى تأكيد كلمة المرور</string>
+    <string name="passwords_do_not_match">كلمتا المرور غير متطابقتين</string>
+
+    <string name="no_internet">لا يوجد اتصال بالإنترنت</string>
+    <string name="unknown_error">حدث خطأ غير متوقع، الرجاء المحاولة في وقت آخر</string>
 </resources>

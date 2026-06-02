@@ -4,3 +4,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 sealed interface RegisterResponseDTO
+
+@Serializable
+object SuccessRegisterResponseDTO: RegisterResponseDTO

@@ -1,9 +1,16 @@
 package com.example.carog_driver.presentation.screen.register.viewmodel
 
-import com.cargo.driver.shared.domain.model.register.RegisterRequest
 
-interface RegisterInteraction {
-    fun register(registerRequest: RegisterRequest)
+interface RegisterFormInteraction {
+    fun emailChanged(newEmail: String)
+    fun nameChanged(newName: String)
+    fun passwordChanged(newPassword: String)
+    fun confirmPasswordChanged(confirmPassword: String)
+    fun phoneChanged(newPhone: String)
+}
+
+interface RegisterInteraction: RegisterFormInteraction{
+    fun register()
     fun registerWithGoogle()
     fun navigateToLoginScreen()
 }

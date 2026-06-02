@@ -6,7 +6,8 @@ import com.cargo.driver.shared.domain.repository.auth.AuthenticationRepository
 
 
 class RegisterUseCase(
-    private val authRepo: AuthenticationRepository
+    private val repository: AuthenticationRepository
 ) {
-     suspend fun invoke(registerRequest: RegisterRequest): RegisterResponse = authRepo.register(registerRequest)
+    suspend operator fun invoke(registerRequest: RegisterRequest): RegisterResponse =
+        repository.register(registerRequest)
 }

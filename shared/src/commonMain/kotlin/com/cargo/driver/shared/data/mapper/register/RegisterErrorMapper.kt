@@ -8,6 +8,12 @@ import com.cargo.driver.shared.domain.model.register.RegisterError
 internal fun ValidationClientErrorDTO.toRegisterError(): RegisterError {
     return when {
         errors.keys.any {
+            it.contains("firstname", ignoreCase = true)
+        } -> RegisterError.FirstNameValidation
+        errors.keys.any {
+            it.contains("lastname", ignoreCase = true)
+        } -> RegisterError.LastNameValidation
+        errors.keys.any {
             it.contains("email", ignoreCase = true)
         } -> RegisterError.EmailValidation
         errors.keys.any {
@@ -22,11 +28,8 @@ internal fun ValidationClientErrorDTO.toRegisterError(): RegisterError {
 
 internal fun GeneralClientErrorDTO.toRegisterError(): RegisterError {
     return when {
-        details.contains("email", ignoreCase = true) ->
-            RegisterError.EmailAlreadyExists
         title.contains("email", ignoreCase = true) ->
             RegisterError.EmailAlreadyExists
-        else ->
-            RegisterError.Unknown
+        else -> RegisterError.Unknown
     }
 }

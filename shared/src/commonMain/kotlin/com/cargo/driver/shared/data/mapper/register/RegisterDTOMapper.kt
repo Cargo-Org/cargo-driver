@@ -9,7 +9,7 @@ fun RegisterRequest.toDTO(): RegisterRequestDTO {
         email = email,
         password = password,
         phoneNumber = phoneNumber,
-        fistName = fistName,
+        firstName = fistName,
         lastName = lastName
     )
 }

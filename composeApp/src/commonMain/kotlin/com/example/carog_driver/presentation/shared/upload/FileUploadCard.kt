@@ -30,6 +30,7 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import carog_driver.composeapp.generated.resources.Res
@@ -53,6 +54,7 @@ fun FileUploadCard(
     modifier: Modifier = Modifier,
     onUploadClick: (UploadFileUiModel) -> Unit = {},
     onViewClick: (UploadFileUiModel) -> Unit = {},
+    onDeleteClick: (UploadFileUiModel) -> Unit = {},
 ) {
     Card(
         modifier = modifier,
@@ -80,7 +82,8 @@ fun FileUploadCard(
                 UploadFileStatus.Verified -> {
                     UploadedFileContent(
                         fileName = file.fileName.orEmpty(),
-                        onViewClick = { onViewClick(file) }
+                        onViewClick = { onViewClick(file) },
+                        onDeleteClick = { onDeleteClick(file) }
                     )
                 }
             }
@@ -111,12 +114,14 @@ private fun FileCardHeader(
                 style = AppTheme.typography.labelMd
             )
 
-            Text(
-                text = file.subTitle,
-                color = AppTheme.colors.onSurfaceVariant,
-                style = AppTheme.typography.bodySmall,
-                modifier = Modifier.padding(top = AppTheme.dimens.xs)
-            )
+            if (file.subTitle.isNotEmpty()) {
+                Text(
+                    text = file.subTitle,
+                    color = AppTheme.colors.onSurfaceVariant,
+                    style = AppTheme.typography.bodySmall,
+                    modifier = Modifier.padding(top = AppTheme.dimens.xs)
+                )
+            }
         }
 
         UploadStatusChip(status = file.status)
@@ -147,31 +152,17 @@ private fun UploadStatusChip(
     status: UploadFileStatus
 ) {
     val backgroundColor = when (status) {
-        UploadFileStatus.Pending ->
-            AppTheme.extraColors.warningOrangeContainer
-
-        UploadFileStatus.Uploaded ->
-            AppTheme.extraColors.brandBlue.copy(alpha = 0.16f)
-
-        UploadFileStatus.InReview ->
-            AppTheme.colors.surfaceContainerHigh
-
-        UploadFileStatus.Verified ->
-            AppTheme.extraColors.successGreenContainer
+        UploadFileStatus.Pending -> AppTheme.extraColors.warningOrangeContainer
+        UploadFileStatus.Uploaded -> AppTheme.extraColors.brandBlue.copy(alpha = 0.16f)
+        UploadFileStatus.InReview -> AppTheme.colors.surfaceContainerHigh
+        UploadFileStatus.Verified -> AppTheme.extraColors.successGreenContainer
     }
 
     val textColor = when (status) {
-        UploadFileStatus.Pending ->
-            AppTheme.extraColors.warningOrange
-
-        UploadFileStatus.Uploaded ->
-            AppTheme.extraColors.brandBlue
-
-        UploadFileStatus.InReview ->
-            AppTheme.colors.onSurfaceVariant
-
-        UploadFileStatus.Verified ->
-            AppTheme.extraColors.successGreen
+        UploadFileStatus.Pending -> AppTheme.extraColors.warningOrange
+        UploadFileStatus.Uploaded -> AppTheme.extraColors.brandBlue
+        UploadFileStatus.InReview -> AppTheme.colors.onSurfaceVariant
+        UploadFileStatus.Verified -> AppTheme.extraColors.successGreen
     }
 
     val text = when (status) {
@@ -245,7 +236,8 @@ private fun UploadPlaceholder(
 @Composable
 private fun UploadedFileContent(
     fileName: String,
-    onViewClick: () -> Unit
+    onViewClick: () -> Unit,
+    onDeleteClick: () -> Unit
 ) {
     Row(
         modifier = Modifier.fillMaxWidth(),
@@ -260,6 +252,10 @@ private fun UploadedFileContent(
 
         ViewFileButton(
             onClick = onViewClick
+        )
+
+        DeleteFileButton(
+            onClick = onDeleteClick
         )
     }
 }
@@ -319,6 +315,32 @@ private fun ViewFileButton(
             contentDescription = stringResource(Res.string.view_document),
             tint = AppTheme.colors.onSurfaceVariant,
             modifier = Modifier.size(AppTheme.dimens.md)
+        )
+    }
+}
+
+@Composable
+private fun DeleteFileButton(
+    onClick: () -> Unit
+) {
+    Box(
+        modifier = Modifier
+            .size(AppTheme.dimens.lg + AppTheme.dimens.sm + AppTheme.dimens.xs)
+            .clip(AppTheme.shapes.small)
+            .background(AppTheme.colors.surfaceContainerLow)
+            .border(
+                width = 1.dp,
+                color = AppTheme.colors.outlineVariant,
+                shape = AppTheme.shapes.small
+            )
+            .clickable(onClick = onClick),
+        contentAlignment = Alignment.Center
+    ) {
+        Text(
+            text = "✕",
+            color = AppTheme.colors.error,
+            style = AppTheme.typography.labelMd,
+            fontWeight = FontWeight.Bold
         )
     }
 }

@@ -119,4 +119,9 @@
 
     <string name="document_drug_test_title">Drug Test</string>
     <string name="document_drug_test_subtitle">Recent drug test result</string>
+
+    <string name="cancel">Cancel</string>
+    <string name="media_source_sheet_title">Upload document</string>
+
+
 </resources>

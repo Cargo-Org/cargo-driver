@@ -23,6 +23,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.unit.dp
 import com.example.carog_driver.presentation.theme.AppTheme
 
 @Composable
@@ -32,6 +33,7 @@ fun InputField(
     onValueChange: (String) -> Unit,
     placeholder: String,
     modifier: Modifier = Modifier,
+    errorMessage: String? = null,
     leadingIcon: Painter? = null,
     isPassword: Boolean = false,
     keyboardType: KeyboardType = KeyboardType.Text,
@@ -47,6 +49,7 @@ fun InputField(
     val typography = AppTheme.typography
     val dimens = AppTheme.dimens
     val finalIconTint = iconTint ?: colors.onSurfaceVariant
+    val isError = errorMessage != null
 
     Column(modifier = modifier.fillMaxWidth()) {
         if (label.isNotEmpty()) {
@@ -67,6 +70,16 @@ fun InputField(
                     style = typography.bodyMd,
                     color = colors.onSurfaceVariant.copy(alpha = 0.5f),
                 )
+            },
+            isError = isError,
+            supportingText = errorMessage?.let { errorText ->
+                {
+                    Text(
+                        text = errorText,
+                        color = colors.error,
+                        modifier = Modifier.padding(top = dimens.xs)
+                    )
+                }
             },
             leadingIcon = leadingIcon?.let { icon ->
                 {
@@ -109,10 +122,10 @@ fun InputField(
                 focusedContainerColor = colors.surfaceVariant.copy(alpha = 0.3f),
                 unfocusedBorderColor = colors.outline.copy(alpha = 0.4f),
                 focusedBorderColor = colors.primary,
+                errorBorderColor = colors.errorContainer,
+                errorCursorColor = colors.onError,
             ),
             modifier = Modifier.fillMaxWidth(),
-
         )
     }
 }
-

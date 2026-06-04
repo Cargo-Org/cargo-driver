@@ -16,8 +16,9 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import carog_driver.composeapp.generated.resources.Dismiss
 import carog_driver.composeapp.generated.resources.Res
+import carog_driver.composeapp.generated.resources.close_icon_content_description
+import carog_driver.composeapp.generated.resources.dismiss
 import carog_driver.composeapp.generated.resources.ic_close
 import com.example.carog_driver.presentation.theme.AppTheme
 import org.jetbrains.compose.resources.painterResource
@@ -71,7 +72,7 @@ fun CargoSnackbar(
                             )
                     ) {
                         Text(
-                            text = stringResource(Res.string.Dismiss),
+                            text = stringResource(Res.string.dismiss),
                             color = textColor,
                             style = AppTheme.typography.labelMd,
                         )
@@ -80,7 +81,7 @@ fun CargoSnackbar(
 
                         Icon(
                             painter = painterResource(Res.drawable.ic_close),
-                            contentDescription = "Close",
+                            contentDescription = stringResource(Res.string.close_icon_content_description),
                             tint = textColor,
                         )
                     }
@@ -95,4 +96,3 @@ fun CargoSnackbar(
         )
     }
 }
-

@@ -1,13 +1,13 @@
 package com.example.carog_driver.presentation.snackbar
 
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.receiveAsFlow
 
 object SnackbarManager {
-    private val _events = MutableSharedFlow<CargoSnackbarConfig>()
-    val events = _events.asSharedFlow()
+    private val _events = Channel<CargoSnackbarConfig>()
+    val events = _events.receiveAsFlow()
 
     suspend fun show(config: CargoSnackbarConfig) {
-        _events.emit(config)
+        _events.send(config)
     }
 }

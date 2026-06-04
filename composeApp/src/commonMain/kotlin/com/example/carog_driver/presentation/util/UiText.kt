@@ -4,7 +4,6 @@ import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.getString
 
 sealed interface UiText {
-    data class DynamicString(val value: String) : UiText
     data class Resource(val resource: StringResource) : UiText
     data class ResourceWithArgs(val resource: StringResource,
                                 val args: List<Any>) : UiText
@@ -13,7 +12,6 @@ sealed interface UiText {
 
 suspend fun UiText.asString(): String {
     return when (this) {
-        is UiText.DynamicString -> value
         is UiText.Resource -> getString(resource)
         is UiText.ResourceWithArgs -> getString(
             resource,

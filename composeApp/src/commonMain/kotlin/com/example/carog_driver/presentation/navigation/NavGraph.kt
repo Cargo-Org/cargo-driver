@@ -14,15 +14,19 @@ import com.example.carog_driver.presentation.screen.splash.SplashScreen
 
 @Composable
 fun NavGraph(
-    modifier: Modifier = Modifier, startDestinationRoute: Route
+    modifier: Modifier = Modifier,
+    startDestinationRoute: Route
 ) {
     val navController = rememberNavController()
 
     NavHost(
-        navController = navController, startDestination = startDestinationRoute, modifier = modifier
+        navController = navController,
+        startDestination = startDestinationRoute,
+        modifier = modifier
     ) {
         composable<Route.SplashRoute> {
-            SplashScreen(navigationCallbacks = SplashNavigationCallbacks(onNavigateToOnboarding = {
+            SplashScreen(navigationCallbacks = SplashNavigationCallbacks(
+                onNavigateToOnboarding = {
                 navController.navigate(Route.OnboardingRoute)
             }, onNavigateToLogin = {
                 navController.navigate(Route.LoginRoute)

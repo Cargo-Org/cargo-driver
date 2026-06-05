@@ -85,16 +85,23 @@ private fun OnboardingContent(
     )
 
     Box(
-        modifier = modifier.fillMaxSize().background(AppTheme.colors.background)
+        modifier = modifier
+            .fillMaxSize()
+            .background(AppTheme.colors.background)
             .safeContentPadding()
     ) {
         Column(
-            modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(
-                    horizontal = AppTheme.dimens.pageMargin, vertical = AppTheme.dimens.md
+            modifier = Modifier
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState())
+                .padding(
+                    horizontal = AppTheme.dimens.pageMargin,
+                    vertical = AppTheme.dimens.md
                 ), horizontalAlignment = Alignment.CenterHorizontally
         ) {
             TextButton(
-                onClick = interaction::onSkipClick, modifier = Modifier.align(Alignment.End)
+                onClick = interaction::onSkipClick,
+                modifier = Modifier.align(Alignment.End)
             ) {
                 Text(
                     text = stringResource(Res.string.skip),
@@ -107,7 +114,9 @@ private fun OnboardingContent(
                 pagerState = pagerState,
                 pages = pages,
                 currentPage = pagerState.currentPage,
-                modifier = Modifier.fillMaxWidth().height(560.dp)
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(560.dp)
             )
 
             Spacer(modifier = Modifier.height(AppTheme.dimens.stackMd))
@@ -122,8 +131,10 @@ private fun OnboardingContent(
                     } else {
                         scope.launch {
                             pagerState.animateScrollToPage(
-                                page = pagerState.currentPage + 1, animationSpec = tween(
-                                    durationMillis = 600, easing = FastOutSlowInEasing
+                                page = pagerState.currentPage + 1,
+                                animationSpec = tween(
+                                    durationMillis = 600,
+                                    easing = FastOutSlowInEasing
                                 )
                             )
                         }
@@ -148,10 +159,12 @@ private fun InputFieldDarkPreview() {
                     title = Res.string.onboarding_title_1,
                     subtitle = Res.string.onboarding_subtitle_1
                 ),
-            ), interaction = object : OnboardingInteraction {
+            ), interaction = object :
+                OnboardingInteraction {
                 override fun onSkipClick() {}
 
                 override fun onFinishClick() {}
-            })
+            }
+        )
     }
 }

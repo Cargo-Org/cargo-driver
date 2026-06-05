@@ -1,98 +1,118 @@
 package com.example.carog_driver.presentation.snackbar
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Snackbar
 import androidx.compose.material3.SnackbarData
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextOverflow
 import carog_driver.composeapp.generated.resources.Res
-import carog_driver.composeapp.generated.resources.close_icon_content_description
-import carog_driver.composeapp.generated.resources.dismiss
-import carog_driver.composeapp.generated.resources.ic_close
+import carog_driver.composeapp.generated.resources.undo
+import com.example.carog_driver.presentation.theme.AppDimensions
 import com.example.carog_driver.presentation.theme.AppTheme
-import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
+
+
+private data class SnackbarColors(
+    val container: Color,
+    val text: Color
+)
+
+@Composable
+private fun rememberSnackbarColors(type: SnackbarType): SnackbarColors {
+    val colors = AppTheme.colors
+    val extraColors = AppTheme.extraColors
+    return remember(type) {
+        when (type) {
+            SnackbarType.SUCCESS -> SnackbarColors(
+                container = extraColors.successGreenContainer,
+                text = extraColors.successGreen
+            )
+            SnackbarType.ERROR -> SnackbarColors(
+                container = colors.error,
+                text = colors.onError
+            )
+            SnackbarType.WARNING -> SnackbarColors(
+                container = extraColors.warningOrangeContainer,
+                text = extraColors.warningOrange
+            )
+            SnackbarType.INFO -> SnackbarColors(
+                container = colors.primary,
+                text = colors.onPrimary
+            )
+        }
+    }
+}
+
 
 @Composable
 fun CargoSnackbar(
     snackbarData: SnackbarData
 ) {
     val config = snackbarData.visuals as CargoSnackbarConfig
-    val colors = AppTheme.colors
     val dimensions = AppTheme.dimens
-
-    val containerColor = when (config.type) {
-        SnackbarType.SUCCESS -> AppTheme.extraColors.successGreenContainer
-        SnackbarType.ERROR -> colors.error
-        SnackbarType.WARNING -> AppTheme.extraColors.warningOrangeContainer
-        SnackbarType.INFO -> colors.primary
-    }
-
-    val textColor = when (config.type) {
-        SnackbarType.SUCCESS -> AppTheme.extraColors.successGreen
-        SnackbarType.ERROR -> colors.onError
-        SnackbarType.WARNING -> AppTheme.extraColors.warningOrange
-        SnackbarType.INFO -> colors.onPrimary
-    }
-
-    val buttonBackgroundColor = textColor.copy(alpha = 0.12f)
+    val snackbarColors = rememberSnackbarColors(config.type)
 
     Snackbar(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = dimensions.sm + dimensions.xs, vertical = dimensions.sm),
-        containerColor = containerColor,
-        dismissAction = if (config.withDismissAction) {
-            {
-                Row(
-                    modifier = Modifier.fillMaxWidth().padding(horizontal = dimensions.base, vertical = dimensions.base),
-                    horizontalArrangement = Arrangement.End
-                ) {
-                    TextButton(
-                        onClick = {
-                            snackbarData.dismiss()
-                            config.onDismiss()
-                        },
-                        contentPadding = PaddingValues(horizontal = dimensions.base, vertical = dimensions.xs),
-                        modifier = Modifier
-                            .background(
-                                color = buttonBackgroundColor,
-                                shape = RoundedCornerShape(dimensions.base)
-                            )
-                    ) {
-                        Text(
-                            text = stringResource(Res.string.dismiss),
-                            color = textColor,
-                            style = AppTheme.typography.labelMd,
-                        )
-
-                        Spacer(modifier = Modifier.width(dimensions.base))
-
-                        Icon(
-                            painter = painterResource(Res.drawable.ic_close),
-                            contentDescription = stringResource(Res.string.close_icon_content_description),
-                            tint = textColor,
-                        )
-                    }
-                }
+            .padding(horizontal = dimensions.sm, vertical = dimensions.sm),
+        containerColor = snackbarColors.container,
+    ) {
+        CargoSnackbarContent(
+            config = config,
+            textColor = snackbarColors.text,
+            dimensions = dimensions,
+            onUndo = {
+                snackbarData.dismiss()
+                config.onUndo()
             }
-        } else null,
+        )
+    }
+}
+
+
+@Composable
+private fun CargoSnackbarContent(
+    config: CargoSnackbarConfig,
+    textColor: Color,
+    dimensions: AppDimensions,
+    onUndo: () -> Unit
+) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Text(
+            modifier = Modifier.weight(1f),
             text = config.message,
             color = textColor,
-            style = AppTheme.typography.bodyMd
+            style = AppTheme.typography.bodyMd,
+            maxLines = 2,
+            overflow = TextOverflow.Ellipsis
         )
+
+        if (config.withUndoAction) {
+            Spacer(modifier = Modifier.width(dimensions.xs))
+
+            TextButton(onClick = onUndo) {
+                Text(
+                    text = stringResource(Res.string.undo).uppercase(),
+                    color = textColor,
+                    style = AppTheme.typography.labelMd,
+                )
+            }
+        }
     }
 }

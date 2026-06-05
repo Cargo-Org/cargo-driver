@@ -123,5 +123,6 @@
     <string name="cancel">Cancel</string>
     <string name="media_source_sheet_title">Upload document</string>
 
-
+    <string name="undo">undo</string>
+    <string name="close_icon_content_description">Close Icon</string>
 </resources>

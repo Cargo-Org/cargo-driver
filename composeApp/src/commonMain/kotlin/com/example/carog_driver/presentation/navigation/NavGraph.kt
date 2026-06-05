@@ -19,25 +19,35 @@ fun NavGraph(
     val navController = rememberNavController()
 
     NavHost(
-        navController = navController,
-        startDestination = Route.SplashRoute,
-        modifier = modifier
+        navController = navController, startDestination = Route.SplashRoute, modifier = modifier
     ) {
         composable<Route.SplashRoute> {
-            SplashScreen(navigationCallbacks = SplashNavigationCallbacks(
-                onNavigateToOnboarding = {
-                navController.navigate(Route.OnboardingRoute)
+            SplashScreen(navigationCallbacks = SplashNavigationCallbacks(onNavigateToOnboarding = {
+                navController.navigate(Route.OnboardingRoute) {
+                    popUpTo(Route.SplashRoute) {
+                        inclusive = true
+                    }
+                }
             }, onNavigateToLogin = {
-                navController.navigate(Route.LoginRoute)
-            }, onNavigateToHome = {/*TODO navigate to home */ }))
+                navController.navigate(Route.LoginRoute) {
+                    popUpTo(Route.SplashRoute) {
+                        inclusive = true
+                    }
+                }
+            }, onNavigateToHome = { /*TODO navigate to home*/ }))
         }
 
         composable<Route.OnboardingRoute> {
             OnboardingScreen(
                 navigationCallbacks = OnboardingNavigationCallbacks(
-                onNavigateToLogin = {
-                    navController.navigate(Route.LoginRoute)
-                }))
+                    onNavigateToLogin = {
+                        navController.navigate(Route.LoginRoute) {
+                            popUpTo(Route.OnboardingRoute) {
+                                inclusive = true
+                            }
+                        }
+                    })
+            )
         }
 
         composable<Route.LoginRoute> {

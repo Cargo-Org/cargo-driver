@@ -10,8 +10,6 @@ import com.example.carog_driver.presentation.theme.CargoTheme
 @Preview
 fun App() {
     CargoTheme {
-        NavGraph(
-            startDestinationRoute = Route.LoginRoute //this will change according to start screen
-        )
+        NavGraph()
     }
 }

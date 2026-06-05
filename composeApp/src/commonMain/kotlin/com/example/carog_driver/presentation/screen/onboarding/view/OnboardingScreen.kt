@@ -58,7 +58,7 @@ fun OnboardingScreen(
 
 @Composable
 private fun OnboardingContent(
-    data: List<OnboardingPageModel>,
+    data : List<OnboardingPageModel>,
     interaction: OnboardingInteraction,
     modifier: Modifier = Modifier
 ) {

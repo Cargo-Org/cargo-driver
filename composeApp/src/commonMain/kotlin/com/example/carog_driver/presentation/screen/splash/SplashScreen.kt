@@ -53,7 +53,8 @@ const val SPLASH_DURATION_MS = 3700L
 @Composable
 @Preview(showSystemUi = true, showBackground = true, uiMode = UI_MODE_NIGHT_YES)
 fun SplashScreen(
-    navigationCallbacks: SplashNavigationCallbacks, viewModel: SplashViewModel = koinViewModel()
+    navigationCallbacks: SplashNavigationCallbacks,
+    viewModel: SplashViewModel = koinViewModel()
 ) {
     LaunchedEffect(Unit) {
         delay(SPLASH_DURATION_MS)
@@ -166,8 +167,8 @@ private fun SplashScreenContent() {
 
     Box(
         modifier = Modifier
-            .fillMaxSize().
-            background(
+            .fillMaxSize()
+            .background(
                 brush = Brush.radialGradient(
                     colors = listOf(
                         AppTheme.colors.background.copy(alpha = 0.95f),

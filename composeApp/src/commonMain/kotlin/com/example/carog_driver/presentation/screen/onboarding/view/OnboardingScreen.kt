@@ -97,7 +97,8 @@ private fun OnboardingContent(
                 .padding(
                     horizontal = AppTheme.dimens.pageMargin,
                     vertical = AppTheme.dimens.md
-                ), horizontalAlignment = Alignment.CenterHorizontally
+                ),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             TextButton(
                 onClick = interaction::onSkipClick,
@@ -159,7 +160,8 @@ private fun InputFieldDarkPreview() {
                     title = Res.string.onboarding_title_1,
                     subtitle = Res.string.onboarding_subtitle_1
                 ),
-            ), interaction = object :
+            ),
+            interaction = object :
                 OnboardingInteraction {
                 override fun onSkipClick() {}
 

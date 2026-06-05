@@ -8,8 +8,9 @@ data class CargoSnackbarConfig(
     override val message: String,
     val type: SnackbarType,
     override val duration: SnackbarDuration = SnackbarDuration.Short,
-    override val withDismissAction: Boolean = false,
-    val onDismiss: () -> Unit = {},
+    val withUndoAction: Boolean = false,
+    val onUndo: () -> Unit = {},
 ) : SnackbarVisuals {
     override val actionLabel = null
+    override val withDismissAction: Boolean = false
 }

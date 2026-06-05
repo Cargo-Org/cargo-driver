@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.carog_driver.presentation.navigation.callbacks.OnboardingNavigationCallbacks
+import com.example.carog_driver.presentation.navigation.callbacks.SplashNavigationCallbacks
 import com.example.carog_driver.presentation.screen.login.view.LoginScreen
 import com.example.carog_driver.presentation.screen.onboarding.view.OnboardingScreen
 import com.example.carog_driver.presentation.screen.splash.SplashScreen
@@ -21,17 +22,19 @@ fun NavGraph(
         navController = navController, startDestination = startDestinationRoute, modifier = modifier
     ) {
         composable<Route.SplashRoute> {
-            SplashScreen()
+            SplashScreen(navigationCallbacks = SplashNavigationCallbacks(onNavigateToOnboarding = {
+                navController.navigate(Route.OnboardingRoute)
+            }, onNavigateToLogin = {
+                navController.navigate(Route.LoginRoute)
+            }, onNavigateToHome = {/*TODO navigate to home */ }))
         }
 
         composable<Route.OnboardingRoute> {
             OnboardingScreen(
                 navigationCallbacks = OnboardingNavigationCallbacks(
-                    onNavigateToLogin = {
-                        navController.navigate(Route.LoginRoute)
-                    }
-                )
-            )
+                onNavigateToLogin = {
+                    navController.navigate(Route.LoginRoute)
+                }))
         }
 
         composable<Route.LoginRoute> {

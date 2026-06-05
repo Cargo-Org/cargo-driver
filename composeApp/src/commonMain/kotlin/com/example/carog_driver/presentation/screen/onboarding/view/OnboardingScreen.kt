@@ -27,6 +27,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import carog_driver.composeapp.generated.resources.*
+import com.example.carog_driver.presentation.base.ObserveAsEffect
+import com.example.carog_driver.presentation.navigation.callbacks.OnboardingNavigationCallbacks
 import com.example.carog_driver.presentation.screen.onboarding.view.components.*
 import com.example.carog_driver.presentation.screen.onboarding.viewmodel.*
 import com.example.carog_driver.presentation.theme.AppTheme
@@ -37,17 +39,26 @@ import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun OnboardingScreen(
+    navigationCallbacks: OnboardingNavigationCallbacks,
     viewModel: OnboardingViewModel = koinViewModel()
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
+
+    ObserveAsEffect(viewModel.effect) {
+        when (it) {
+            OnboardingEffect.NavigateNext -> navigationCallbacks.onNavigateToLogin()
+        }
+    }
+
     OnboardingContent(
         data = state.pages,
         interaction = viewModel,
     )
 }
+
 @Composable
 private fun OnboardingContent(
-    data : List<OnboardingPageModel>,
+    data: List<OnboardingPageModel>,
     interaction: OnboardingInteraction,
     modifier: Modifier = Modifier
 ) {
@@ -74,24 +85,16 @@ private fun OnboardingContent(
     )
 
     Box(
-        modifier = modifier
-            .fillMaxSize()
-            .background(AppTheme.colors.background)
+        modifier = modifier.fillMaxSize().background(AppTheme.colors.background)
             .safeContentPadding()
     ) {
         Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .verticalScroll(rememberScrollState())
-                .padding(
-                    horizontal = AppTheme.dimens.pageMargin,
-                    vertical = AppTheme.dimens.md
-                ),
-            horizontalAlignment = Alignment.CenterHorizontally
+            modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(
+                    horizontal = AppTheme.dimens.pageMargin, vertical = AppTheme.dimens.md
+                ), horizontalAlignment = Alignment.CenterHorizontally
         ) {
             TextButton(
-                onClick = interaction::onSkipClick,
-                modifier = Modifier.align(Alignment.End)
+                onClick = interaction::onSkipClick, modifier = Modifier.align(Alignment.End)
             ) {
                 Text(
                     text = stringResource(Res.string.skip),
@@ -104,9 +107,7 @@ private fun OnboardingContent(
                 pagerState = pagerState,
                 pages = pages,
                 currentPage = pagerState.currentPage,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(560.dp)
+                modifier = Modifier.fillMaxWidth().height(560.dp)
             )
 
             Spacer(modifier = Modifier.height(AppTheme.dimens.stackMd))
@@ -121,10 +122,8 @@ private fun OnboardingContent(
                     } else {
                         scope.launch {
                             pagerState.animateScrollToPage(
-                                page = pagerState.currentPage + 1,
-                                animationSpec = tween(
-                                    durationMillis = 600,
-                                    easing = FastOutSlowInEasing
+                                page = pagerState.currentPage + 1, animationSpec = tween(
+                                    durationMillis = 600, easing = FastOutSlowInEasing
                                 )
                             )
                         }
@@ -149,13 +148,10 @@ private fun InputFieldDarkPreview() {
                     title = Res.string.onboarding_title_1,
                     subtitle = Res.string.onboarding_subtitle_1
                 ),
-            ),
-            interaction = object :
-                OnboardingInteraction {
+            ), interaction = object : OnboardingInteraction {
                 override fun onSkipClick() {}
 
                 override fun onFinishClick() {}
-            }
-        )
+            })
     }
 }

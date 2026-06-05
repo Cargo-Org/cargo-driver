@@ -36,17 +36,39 @@ import androidx.compose.ui.unit.sp
 import carog_driver.composeapp.generated.resources.Res
 import carog_driver.composeapp.generated.resources.cargo
 import carog_driver.composeapp.generated.resources.splash_slogan
+import com.example.carog_driver.presentation.base.ObserveAsEffect
+import com.example.carog_driver.presentation.navigation.callbacks.SplashNavigationCallbacks
+import com.example.carog_driver.presentation.screen.splash.viewmodel.SplashEffect
+import com.example.carog_driver.presentation.screen.splash.viewmodel.SplashViewModel
 import com.example.carog_driver.presentation.shared.AnimatedCargoLogo
 import com.example.carog_driver.presentation.shared.AnimatedProgressBar
 import com.example.carog_driver.presentation.shared.AnimatedThreeDotsBar
 import com.example.carog_driver.presentation.theme.AppTheme
 import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.stringResource
+import org.koin.compose.viewmodel.koinViewModel
 
+const val SPLASH_DURATION_MS = 3700L
 
 @Composable
 @Preview(showSystemUi = true, showBackground = true, uiMode = UI_MODE_NIGHT_YES)
-fun SplashScreen() {
+fun SplashScreen(
+    navigationCallbacks: SplashNavigationCallbacks,
+    viewModel: SplashViewModel = koinViewModel()
+) {
+    LaunchedEffect(Unit) {
+        delay(SPLASH_DURATION_MS)
+        viewModel.determineNextDestination()
+    }
+
+    ObserveAsEffect(viewModel.effect) { effects ->
+        when (effects) {
+            SplashEffect.NavigateToOnboarding -> navigationCallbacks.onNavigateToOnboarding()
+            SplashEffect.NavigateToLogin -> navigationCallbacks.onNavigateToLogin()
+            SplashEffect.NavigateToHome -> navigationCallbacks.onNavigateToHome()
+        }
+    }
+
     SplashScreenContent()
 }
 

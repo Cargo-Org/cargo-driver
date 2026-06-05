@@ -27,6 +27,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import carog_driver.composeapp.generated.resources.*
+import com.example.carog_driver.presentation.base.ObserveAsEffect
+import com.example.carog_driver.presentation.navigation.callbacks.OnboardingNavigationCallbacks
 import com.example.carog_driver.presentation.screen.onboarding.view.components.*
 import com.example.carog_driver.presentation.screen.onboarding.viewmodel.*
 import com.example.carog_driver.presentation.theme.AppTheme
@@ -37,14 +39,23 @@ import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun OnboardingScreen(
+    navigationCallbacks: OnboardingNavigationCallbacks,
     viewModel: OnboardingViewModel = koinViewModel()
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
+
+    ObserveAsEffect(viewModel.effect) {
+        when (it) {
+            OnboardingEffect.NavigateNext -> navigationCallbacks.onNavigateToLogin()
+        }
+    }
+
     OnboardingContent(
         data = state.pages,
         interaction = viewModel,
     )
 }
+
 @Composable
 private fun OnboardingContent(
     data : List<OnboardingPageModel>,

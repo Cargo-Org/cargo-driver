@@ -39,9 +39,7 @@ fun App() {
                 )
             }
         ) { _ ->
-            NavGraph(
-                startDestinationRoute = Route.LoginRoute //this will change according to start screen
-            )
+            NavGraph()
         }
     }
 }

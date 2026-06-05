@@ -111,6 +111,6 @@
     <string name="cancel">إلغاء</string>
     <string name="media_source_sheet_title">رفع مستند</string>
 
-    <string name="dismiss">إلغاء</string>
+    <string name="undo">تراجع</string>
     <string name="close_icon_content_description">علامة إلغاء</string>
 </resources>

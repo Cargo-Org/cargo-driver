@@ -8,6 +8,11 @@ import com.cargo.driver.shared.domain.repository.UserPreferencesRepository
 import com.cargo.driver.shared.domain.repository.auth.AuthenticationRepository
 import com.cargo.driver.shared.domain.usecase.onboarding.CompleteOnboardingUseCase
 import com.cargo.driver.shared.domain.usecase.onboarding.GetOnboardingCompletedUseCase
+import com.cargo.driver.shared.domain.usecase.validation.ConfirmPasswordValidationUseCase
+import com.cargo.driver.shared.domain.usecase.validation.EmailValidationUseCase
+import com.cargo.driver.shared.domain.usecase.validation.FullNameValidationUseCase
+import com.cargo.driver.shared.domain.usecase.validation.PasswordValidationUseCase
+import com.cargo.driver.shared.domain.usecase.validation.PhoneValidationUseCase
 import org.koin.dsl.module
 
 // Shared: repositories, use cases, shared ViewModels
@@ -44,5 +49,27 @@ val sharedModule = module {
     //datasource
     single<AuthenticationRemoteDataSource> {
         AuthenticationRemoteDataSourceImpl(get(), get())
+    }
+
+
+    // Validation UseCases
+    factory {
+        FullNameValidationUseCase()
+    }
+
+    factory {
+        PhoneValidationUseCase()
+    }
+
+    factory {
+        PasswordValidationUseCase()
+    }
+
+    factory {
+        ConfirmPasswordValidationUseCase()
+    }
+
+    factory {
+        EmailValidationUseCase()
     }
 }

@@ -10,7 +10,7 @@ class PhoneValidationUseCase {
     operator fun invoke(phone: String): PhoneValidationResult =
         when {
             phone.isBlank() -> PhoneValidationResult.EmptyPhone
-            regex.matches(phone.trim()) -> PhoneValidationResult.InvalidPhone
+            !regex.matches(phone.trim()) -> PhoneValidationResult.InvalidPhone
             else -> PhoneValidationResult.Valid
         }
 }

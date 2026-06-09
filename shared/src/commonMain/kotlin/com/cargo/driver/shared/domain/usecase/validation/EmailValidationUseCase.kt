@@ -8,6 +8,6 @@ class EmailValidationUseCase {
 
     operator fun invoke(email: String): EmailValidationResult =
         if (email.isBlank()) EmailValidationResult.EmptyEmail
-        else if (regex.matches(email.trim())) EmailValidationResult.InvalidEmail
+        else if (!regex.matches(email.trim())) EmailValidationResult.InvalidEmail
         else EmailValidationResult.Valid
 }

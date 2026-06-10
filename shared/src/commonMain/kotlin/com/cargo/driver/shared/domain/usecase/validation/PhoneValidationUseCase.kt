@@ -1,6 +1,6 @@
 package com.cargo.driver.shared.domain.usecase.validation
 
-import com.cargo.driver.shared.domain.model.validation.PhoneValidationResult
+import com.cargo.driver.shared.domain.model.validation.ValidationResult
 
 
 class PhoneValidationUseCase {
@@ -8,10 +8,10 @@ class PhoneValidationUseCase {
         private val regex = Regex("^01[0125][0-9]{8}$")
     }
 
-    operator fun invoke(phone: String): PhoneValidationResult =
+    operator fun invoke(phone: String): ValidationResult =
         when {
-            phone.isBlank() -> PhoneValidationResult.EmptyPhone
-            !regex.matches(phone.trim()) -> PhoneValidationResult.InvalidPhone
-            else -> PhoneValidationResult.Valid
+            phone.isBlank() -> ValidationResult.Empty
+            !regex.matches(phone.trim()) -> ValidationResult.Invalid
+            else -> ValidationResult.Valid
         }
 }

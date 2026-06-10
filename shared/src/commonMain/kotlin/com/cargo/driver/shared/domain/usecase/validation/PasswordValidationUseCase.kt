@@ -1,13 +1,13 @@
 package com.cargo.driver.shared.domain.usecase.validation
 
-import com.cargo.driver.shared.domain.model.validation.PasswordValidationResult
+import com.cargo.driver.shared.domain.model.validation.ValidationResult
 
 
 class PasswordValidationUseCase {
 
-    operator fun invoke(password: String): PasswordValidationResult {
-        val weakPassword = PasswordValidationResult.WeakPassword
-        val emptyPassword = PasswordValidationResult.EmptyPassword
+    operator fun invoke(password: String): ValidationResult {
+        val weakPassword = ValidationResult.Invalid
+        val emptyPassword = ValidationResult.Empty
 
         if (password.isBlank()) return emptyPassword
         else if (password.length < 8) return weakPassword
@@ -15,6 +15,6 @@ class PasswordValidationUseCase {
         else if (!password.any { it.isLowerCase() }) return weakPassword
         else if (!password.any { it.isDigit() }) return weakPassword
 
-        return PasswordValidationResult.Valid
+        return ValidationResult.Valid
     }
 }
